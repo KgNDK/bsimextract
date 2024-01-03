@@ -2,55 +2,57 @@
 Widget for choosing the dayprofile for the parameter
 """
 
-# TODO: Fix the dropdown list
+# TODO: Needs to be implemented into pages\setup.py
 
+import os
 import tkinter as tk
 from tkinter import ttk
-import os
-
-def retrieve_data(startswith_text, format=".txt"):    
-    data = [f for f in os.listdir() if f.startswith(startswith_text) and f.endswith(format)]
-    return data
 
 class choose_dayprofile(ttk.Frame):
     def __init__(self, parent, label_text):
+        """
+        Initializes the class instance with a parent widget and a label text.
+
+        Args:
+            parent: The parent widget.
+            label_text: The text to display as the label.
+
+        Returns:
+            None.
+        """
         super().__init__(master = parent)
 
         # grid layout
-        self.rowconfigure(0, weight=1)
-        self.columnconfigure((0,1), weight=1, uniform="a")
+        self.rowconfigure(0, weight = 1)
+        self.columnconfigure((0, 1), weight = 1, uniform = "a")
+
+        # widgets
+        ttk.Label(self, text = label_text).grid(row = 0, column = 0, sticky = "nsew")
+        self.combobox = ttk.Combobox(self, state="readonly")
+        self.combobox.grid(row = 0, column = 1, sticky = "nsew")
+
+        self.populate_combobox()
+
+    def populate_combobox(self):
+        """
+        Populates a combobox with a list of files from the "dayprofiles" directory.
         
-        # label
-        ttk.Label(self, text=label_text).grid(column=0, row=0, sticky='nsew')
+        This function retrieves the current working directory and then appends the "dayprofiles" directory
+        to it. It then retrieves a list of all files in that directory that starts with "dayprofile" and have a '.txt' extension.
+        Finally, it sets the 'values' attribute of the combobox to the list of retrieved files.
+        """
+        current_dir = os.getcwd()
+        directory = os.path.join(current_dir, "dayprofiles")
+        files = [f for f in os.listdir(directory) if f.endswith('.txt') and f.startswith("dayprofile")]
 
-        # dropdown of dayprofiles
-        dropdown_str = tk.StringVar()
-        dayprofile_combobox =ttk.Combobox(self, state="readonly", textvariable=dropdown_str).grid(column=1, row=0, sticky='nsew')
+        self.combobox['values'] = files
 
-        # Call retrieve_data to get the list of files
-        data = retrieve_data("dayprofile")
-        dayprofile_combobox["values"] = data
+if __name__ == "__main__":  
+    root = tk.Tk()
 
-        # placement method
-        self.pack(expand=True, fill = 'both', padx=10, pady=10)
+    root.title("TEST: choose_dayprofile")
+    root.geometry("500x50")
 
-
-
-
-
-
-# Test
-if __name__ == "__main__":
-    data = []
-
-    print("Retrieved dayprofiles:", data)
-
-    window = tk.Tk()
-    window.title("Test: choose_dayprofile")
-    window.geometry("500x100")
-
-    # widgets
-    choose_dayprofile(window, "label")
+    choose_dayprofile(root, "test").pack(expand = True, fill = "both", padx = 10, pady = 10)
     
-    # run   
-    window.mainloop()
+    root.mainloop()
