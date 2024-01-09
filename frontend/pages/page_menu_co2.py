@@ -32,7 +32,7 @@ class page_menu_co2(ctk.CTkFrame):
         self.pack(expand = True, fill = "both")
 
         # widgets for Co2 under this
-        dayprofile_single(self, "Co2").pack(fill = "x", expand = True)
+        dayprofile_single(self, "Co2").pack(expand = True, fill = "x")
 
 if __name__ == "__main__":
     root = ctk.CTk()

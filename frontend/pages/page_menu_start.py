@@ -23,6 +23,7 @@ sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 
 from settings.settings import *
+from frontend.widgets.dayprofile_all import dayprofile_all
 
 class page_menu_start(ctk.CTkFrame):
     def __init__(self, parent):
@@ -30,3 +31,16 @@ class page_menu_start(ctk.CTkFrame):
         self.pack(expand = True, fill = "both")
 
         # widgets for start under this
+        dayprofile_all(self).pack(expand = True, fill = "x")
+
+if __name__ == "__main__":
+    root = ctk.CTk()
+
+    ctk.set_appearance_mode(COLOR_MODE)
+
+    root.title("TEST: dayprofile_single")
+    root.geometry("400x400")
+
+    page_menu_start(root).pack()
+
+    root.mainloop()

@@ -31,6 +31,9 @@ COLOR_3 = "#ced9dd"
 COLOR_4 = "#979fa5"
 COLOR_5 = "#2f3d4c"
 
+FG_COLOR = "transparent"
+# FG_COLOR = COLOR_5
+
 #! Appearance
 COLOR_MODE = "dark"
 

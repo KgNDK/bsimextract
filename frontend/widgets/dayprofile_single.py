@@ -24,32 +24,17 @@ sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 
 from settings.settings import *
+from frontend.widgets.dayprofile import dayprofile
 
 class dayprofile_single(ctk.CTkFrame):
     def __init__(self, parent, label_text, title_text = "Choose a dayprofile:"):
-        super().__init__(master = parent)
-
-        # grid layout
-        self.rowconfigure((0, 1), weight=1)
-        self.columnconfigure((0), weight=1)
-        self.columnconfigure((1), weight=2)
+        super().__init__(master = parent, fg_color = FG_COLOR)
         
         # text widgets
-        ctk.CTkLabel(self, text = label_text).grid(row = 1, column = 0, sticky = "nsew", padx = 10, pady = 5)
-        ctk.CTkLabel(self, text = title_text).grid(row = 0, column = 1, sticky = "nsew", padx = 10, pady = 5)
+        ctk.CTkLabel(self, text = title_text).pack(fill = "x", expand = True)
 
         # combobox widget
-        self.combobox = ctk.CTkComboBox(self, state="readonly")
-        self.combobox.grid(row = 1, column = 1, sticky = "nsew", padx = 5, pady = 5)
-        self.populate_combobox()
-
-    def populate_combobox(self):
-        current_dir = os.getcwd()
-        directory = os.path.join(current_dir, "dayprofiles")
-        files = [f for f in os.listdir(directory) if f.endswith('.txt') and f.startswith("dayprofile")]
-        
-        self.combobox.configure(values = files)
-
+        dayprofile(self, label_text).pack(fill = "x", expand = True)
 
 
 

@@ -5,8 +5,6 @@ Main file
 """
 # TODO LIST
 
-# TODO: Save path in parquet file and get the path from there in the other scripts
-
 """
 
 """
