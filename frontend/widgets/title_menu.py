@@ -9,9 +9,13 @@ import tkinter as tk
 import customtkinter as ctk
 from CTkMenuBar import *
 
+# from .settings.settings import COLOR_MODE
+
 class title_menu(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
+
+        TITLE_MENU_FONT= ctk.CTkFont(family="montserrat", size=12)
 
         # title menu
         self.menu = CTkTitleMenu(parent)
@@ -34,16 +38,16 @@ class title_menu(ctk.CTkFrame):
 if __name__ == "__main__":  
     root = ctk.CTk()
 
-    #! TO BE REMOVED - TEMPORARY SETTINGS
-    TITLE_FONT = ctk.CTkFont(family="montserrat", size=20, weight="bold")
-    TEXT_FONT= ctk.CTkFont(family="montserrat", size=12)
-    TITLE_MENU_FONT= ctk.CTkFont(family="montserrat", size=12)
-    PAGE_MENU_FONT = ctk.CTkFont(family="montserrat", size=14, weight="bold")
-    COLOR_1 = "#f6f6f4"
-    COLOR_2 = "#edeae5"
-    COLOR_3 = "#ced9dd"
-    COLOR_4 = "#979fa5"
-    COLOR_5 = "#2f3d4c"
+    # #! TO BE REMOVED - TEMPORARY SETTINGS
+    # TITLE_FONT = ctk.CTkFont(family="montserrat", size=20, weight="bold")
+    # TEXT_FONT= ctk.CTkFont(family="montserrat", size=12)
+    # TITLE_MENU_FONT= ctk.CTkFont(family="montserrat", size=12)
+    # PAGE_MENU_FONT = ctk.CTkFont(family="montserrat", size=14, weight="bold")
+    # COLOR_1 = "#f6f6f4"
+    # COLOR_2 = "#edeae5"
+    # COLOR_3 = "#ced9dd"
+    # COLOR_4 = "#979fa5"
+    # COLOR_5 = "#2f3d4c"
     COLOR_MODE = "dark"
 
     ctk.set_appearance_mode(COLOR_MODE)

@@ -2,15 +2,10 @@
 Settings for bsimextract
 """
 
+#! This can not include font settings
+
 import tkinter as tk
 import customtkinter as ctk
-
-#! Fonts
-
-title_font = ctk.CTkFont(family="montserrat", size=20, weight="bold")
-text_font = ctk.CTkFont(family="montserrat", size=12)
-title_menu_font = ctk.CTkFont(family="montserrat", size=12)
-page_menu_font = ctk.CTkFont(family="montserrat", size=14, weight="bold")
 
 #! Colors
 """
@@ -23,3 +18,9 @@ color_2 = "#edeae5"
 color_3 = "#ced9dd"
 color_4 = "#979fa5"
 color_5 = "#2f3d4c"
+
+#! Appearance
+COLOR_MODE = "dark"
+
+#! Version
+VERSION_NUMBER = "0.0.1"
