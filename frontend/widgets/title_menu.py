@@ -45,6 +45,7 @@ class title_menu(ctk.CTkFrame):
         self.menu_dropdown_1 = CustomDropdownMenu(widget=self.button_file)
         self.menu_dropdown_1.add_option(option="Import Data", command=lambda: print("Importing data"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
         self.menu_dropdown_1.add_option(option="Open", command=lambda: print("Opening file"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
+        self.menu_dropdown_1.add_option(option="Save", command=lambda: print("Save"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
         self.menu_dropdown_1.add_option(option="Save As", command=lambda: print("Save As"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
         self.menu_dropdown_1.add_option(option="Save Report", command=lambda: print("Save Report"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
 

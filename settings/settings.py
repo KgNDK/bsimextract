@@ -57,4 +57,8 @@ TEXT_WEIGHT = "normal"
 TITLE_MENU_WEIGHT = "normal"
 PAGE_MENU_WEIGHT = "bold"
 
-
+#! Start dayprofile
+DAYPROFILE_CO2 = ""
+DAYPROFILE_TEMP = ""
+DAYPROFILE_RH = ""
+DAYPROFILE_AIRCH = "" 

@@ -52,7 +52,7 @@ class page_menu(ctk.CTkTabview):
         page_menu_rh(self.tab("RelHumid"))
         page_menu_temp(self.tab("Temperature"))
         page_menu_airch(self.tab("AirChange"))
-        
+    
 if __name__ == "__main__":  
     root = ctk.CTk()
 
