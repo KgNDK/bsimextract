@@ -16,9 +16,15 @@ import customtkinter as ctk
 """
 Importing internal modules
 """
+#* IMPORTANT: DO NOT CHANGE THESE LINES
+import os
 import sys
-sys.path.append("c:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract")
+sys.path = os.getcwd()
+#* IMPORTANT: DO NOT CHANGE THESE LINES
+
 from settings.settings import *
+from frontend.widgets.dayprofile_single import dayprofile_single
+
 
 class page_menu_co2(ctk.CTkFrame):
     def __init__(self, parent):
@@ -26,3 +32,16 @@ class page_menu_co2(ctk.CTkFrame):
         self.pack(expand = True, fill = "both")
 
         # widgets for Co2 under this
+        dayprofile_single(self, "Co2").pack(fill = "x", expand = True)
+
+if __name__ == "__main__":
+    root = ctk.CTk()
+
+    ctk.set_appearance_mode(COLOR_MODE)
+
+    root.title("TEST: Page menu Co2 page")
+    root.geometry("400x300")
+
+    page_menu_co2(root).pack()
+
+    root.mainloop()

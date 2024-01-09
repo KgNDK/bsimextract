@@ -5,24 +5,22 @@ Main file
 """
 # TODO LIST
 
+# TODO: Save path in parquet file and get the path from there in the other scripts
+
 """
 
 """
 Importing extern modules
 """
-import tkinter as tk
 import customtkinter as ctk
+
 
 """
 Importing internal modules
 """
-# import sys
-# sys.path.append("c:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract")
 from settings.settings import *
 from frontend.widgets.title_menu import title_menu
 from frontend.widgets.page_menu import page_menu
-
-
 
 class app(ctk.CTk):
     def __init__(self):

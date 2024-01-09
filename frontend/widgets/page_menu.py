@@ -19,9 +19,14 @@ from CTkMenuBar import *
 """
 Importing internal modules
 """
+#* IMPORTANT: DO NOT CHANGE THESE LINES
+import os
 import sys
-sys.path.append("c:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract")
+sys.path = os.getcwd()
+#* IMPORTANT: DO NOT CHANGE THESE LINES
+
 from settings.settings import *
+
 #* page menus
 from frontend.pages.page_menu_start import page_menu_start
 from frontend.pages.page_menu_co2 import page_menu_co2

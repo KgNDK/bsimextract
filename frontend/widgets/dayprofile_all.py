@@ -1,5 +1,5 @@
 """
-TITLE
+Dayprofile_all widget
 """
 
 """

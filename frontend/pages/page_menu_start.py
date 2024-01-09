@@ -16,8 +16,12 @@ import customtkinter as ctk
 """
 Importing internal modules
 """
+#* IMPORTANT: DO NOT CHANGE THESE LINES
+import os
 import sys
-sys.path.append("c:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract")
+sys.path = os.getcwd()
+#* IMPORTANT: DO NOT CHANGE THESE LINES
+
 from settings.settings import *
 
 class page_menu_start(ctk.CTkFrame):
