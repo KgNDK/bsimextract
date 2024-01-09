@@ -22,6 +22,12 @@ Importing internal modules
 import sys
 sys.path.append("c:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract")
 from settings.settings import *
+#* page menus
+from frontend.pages.page_menu_start import page_menu_start
+from frontend.pages.page_menu_co2 import page_menu_co2
+from frontend.pages.page_menu_rh import page_menu_rh
+from frontend.pages.page_menu_temp import page_menu_temp
+from frontend.pages.page_menu_airch import page_menu_airch
 
 
 class page_menu(ctk.CTkTabview):
@@ -42,44 +48,6 @@ class page_menu(ctk.CTkTabview):
         page_menu_temp(self.tab("Temperature"))
         page_menu_airch(self.tab("AirChange"))
         
-class page_menu_start(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(master = parent, fg_color="transparent")
-        self.pack(expand = True, fill = "both")
-
-        # widgets for start under this
-
-class page_menu_co2(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(master = parent, fg_color="transparent")
-        self.pack(expand = True, fill = "both")
-
-        # widgets for Co2 under this
-
-class page_menu_rh(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(master = parent, fg_color="transparent")
-        self.pack(expand = True, fill = "both")
-
-        # widgets for RelHumid under this
-
-class page_menu_temp(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(master = parent, fg_color="transparent")
-        self.pack(expand = True, fill = "both")
-
-        # widgets for Temperature under this
-
-class page_menu_airch(ctk.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(master = parent, fg_color="transparent")
-        self.pack(expand = True, fill = "both")
-
-        # widgets for AirChange under this
-
-
-
-
 if __name__ == "__main__":  
     root = ctk.CTk()
 
