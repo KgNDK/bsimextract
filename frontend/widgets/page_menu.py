@@ -2,11 +2,27 @@
 Let side menu for choosing setting for current page
 """
 
+"""
+# TODO LIST
+
+# TODO: Make page_menu_start give values to other page_menu frames
+# TODO: Finish page_menu frames
+"""
+
+"""
+Importing extern modules
+"""
 import tkinter as tk
 import customtkinter as ctk
 from CTkMenuBar import *
 
-# TODO: Make settings.py in this file
+"""
+Importing internal modules
+"""
+import sys
+sys.path.append("c:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract")
+from settings.settings import *
+
 
 class page_menu(ctk.CTkTabview):
     def __init__(self, parent):
@@ -66,18 +82,6 @@ class page_menu_airch(ctk.CTkFrame):
 
 if __name__ == "__main__":  
     root = ctk.CTk()
-
-    #! TO BE REMOVED - TEMPORARY SETTINGS
-    TITLE_FONT = ctk.CTkFont(family="montserrat", size=20, weight="bold")
-    TEXT_FONT= ctk.CTkFont(family="montserrat", size=12)
-    TITLE_MENU_FONT= ctk.CTkFont(family="montserrat", size=12)
-    PAGE_MENU_FONT = ctk.CTkFont(family="montserrat", size=14, weight="bold")
-    COLOR_1 = "#f6f6f4"
-    COLOR_2 = "#edeae5"
-    COLOR_3 = "#ced9dd"
-    COLOR_4 = "#979fa5"
-    COLOR_5 = "#2f3d4c"
-    COLOR_MODE = "dark"
 
     ctk.set_appearance_mode(COLOR_MODE)
 

@@ -10,6 +10,9 @@
             "request": "launch",
             "module": "main",
             "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"},
+            "cwd": "${workspaceFolder}",
             }
     ]
 }

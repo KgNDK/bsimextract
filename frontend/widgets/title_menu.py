@@ -2,54 +2,53 @@
 title menu for file, edit, help, report bug and so on
 """
 
+"""
+# TODO LIST
+
 # TODO: Redo the lambda functions so they work properly
 # TODO: Make settings.py in this file
+"""
 
+"""
+Importing extern modules
+"""
 import tkinter as tk
 import customtkinter as ctk
 from CTkMenuBar import *
 
-# from .settings.settings import COLOR_MODE
+"""
+Importing internal modules
+"""
+import sys
+sys.path.append("c:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract")
+from settings.settings import *
+
 
 class title_menu(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
-
-        TITLE_MENU_FONT= ctk.CTkFont(family="montserrat", size=12)
 
         # title menu
         self.menu = CTkTitleMenu(parent)
 
         # main title menu buttons
         self.button_file = self.menu.add_cascade("File")
-        self.button_edit = self.menu.add_cascade("Settings", command=lambda: print("Opening Settings"), font=TITLE_MENU_FONT)
-        self.button_help = self.menu.add_cascade("Help", command=lambda: print("Opening Github Wiki"), font=TITLE_MENU_FONT)
-        self.button_report = self.menu.add_cascade("Report Bug", command=lambda: print("Opening Github"), font=TITLE_MENU_FONT)
+        self.button_edit = self.menu.add_cascade("Settings", command=lambda: print("Opening Settings"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
+        self.button_help = self.menu.add_cascade("Help", command=lambda: print("Opening Github Wiki"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
+        self.button_report = self.menu.add_cascade("Report Bug", command=lambda: print("Opening Github"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
 
         # file dropdown menu
         self.menu_dropdown_1 = CustomDropdownMenu(widget=self.button_file)
-        self.menu_dropdown_1.add_option(option="Import Data", command=lambda: print("Importing data"), font=TITLE_MENU_FONT)
-        self.menu_dropdown_1.add_option(option="Open", command=lambda: print("Opening file"), font=TITLE_MENU_FONT)
-        self.menu_dropdown_1.add_option(option="Save As", command=lambda: print("Save As"), font=TITLE_MENU_FONT)
-        self.menu_dropdown_1.add_option(option="Save Report", command=lambda: print("Save Report"), font=TITLE_MENU_FONT)
+        self.menu_dropdown_1.add_option(option="Import Data", command=lambda: print("Importing data"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
+        self.menu_dropdown_1.add_option(option="Open", command=lambda: print("Opening file"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
+        self.menu_dropdown_1.add_option(option="Save As", command=lambda: print("Save As"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
+        self.menu_dropdown_1.add_option(option="Save Report", command=lambda: print("Save Report"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
 
 
 
 if __name__ == "__main__":  
     root = ctk.CTk()
-
-    # #! TO BE REMOVED - TEMPORARY SETTINGS
-    # TITLE_FONT = ctk.CTkFont(family="montserrat", size=20, weight="bold")
-    # TEXT_FONT= ctk.CTkFont(family="montserrat", size=12)
-    # TITLE_MENU_FONT= ctk.CTkFont(family="montserrat", size=12)
-    # PAGE_MENU_FONT = ctk.CTkFont(family="montserrat", size=14, weight="bold")
-    # COLOR_1 = "#f6f6f4"
-    # COLOR_2 = "#edeae5"
-    # COLOR_3 = "#ced9dd"
-    # COLOR_4 = "#979fa5"
-    # COLOR_5 = "#2f3d4c"
-    COLOR_MODE = "dark"
-
+    
     ctk.set_appearance_mode(COLOR_MODE)
 
     root.title("TEST: tile_menu")
