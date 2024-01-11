@@ -24,6 +24,7 @@ sys.path = os.getcwd()
 
 from settings.settings import *
 from frontend.widgets.dayprofile_single import dayprofile_single
+from frontend.widgets.co2_format_widget import co2_format_widget
 
 class page_menu_airch(ctk.CTkFrame):
     def __init__(self, parent):
@@ -32,6 +33,9 @@ class page_menu_airch(ctk.CTkFrame):
 
         # widgets for AirChange under this
         dayprofile_single(self, "AirChange").pack(fill = "x", expand = True)
+
+        # widgets for formatting AirChange data under this
+        co2_format_widget(self, "AirChange hours above", "Apply", "Max AirChange:", "Formatting color:", "2", "3", "4").pack(expand = True, fill = "x")
 
 if __name__ == "__main__":
     root = ctk.CTk()

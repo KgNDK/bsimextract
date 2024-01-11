@@ -1,5 +1,6 @@
 """
 Co2 formatting of data widget where the user can choose max values and color formatting
+Used for AirChange as well
 """
 
 """
@@ -29,8 +30,15 @@ class co2_format_widget(ctk.CTkFrame):
     def __init__(self, parent,
                  text_title = "CO2 hours above:",
                  text_button = "Apply",
-                 text_max = "Max CO2 value:",
-                 text_color = "Formatting color:"):
+                 text_max = "Max CO2:",
+                 text_color = "Formatting color:",
+                 value_1 = "1000",
+                 value_2 = "1250",
+                 value_3 = "1500",
+                 color_1 = "Yellow",
+                 color_2 = "Orange",
+                 color_3 = "Red",):
+        
         super().__init__(master = parent, fg_color = FG_COLOR, width = 200)
 
         # grid layout
@@ -48,28 +56,28 @@ class co2_format_widget(ctk.CTkFrame):
         # max value entry widget
         self.entry_1 = ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4)
         self.entry_1.grid(row = 1, column = 1, sticky = "nsew", padx = 5, pady = 5)
-        self.entry_1.insert(0, "1000")
+        self.entry_1.insert(0, value_1)
         
         self.entry_2 = ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4)
         self.entry_2.grid(row = 1, column = 2, sticky = "nsew", padx = 5, pady = 5)
-        self.entry_2.insert(0, "1250")
+        self.entry_2.insert(0, value_2)
 
         self.entry_3 = ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4)
         self.entry_3.grid(row = 1, column = 3, sticky = "nsew", padx = 5, pady = 5)
-        self.entry_3.insert(0, "1500")
+        self.entry_3.insert(0, value_3)
 
         # formatting color dropdown widget
         self.dropdown_1 = ctk.CTkComboBox(self, values = list(zip(*COLORS))[0], width = STANDARD_COLUMN_WIDTH_4)
         self.dropdown_1.grid(row = 2, column = 1, sticky = "nsew", padx = 5, pady = 5)
-        self.dropdown_1.set("Yellow")
+        self.dropdown_1.set(color_1)
         
         self.dropdown_2 = ctk.CTkComboBox(self, values = list(zip(*COLORS))[0], width = STANDARD_COLUMN_WIDTH_4)
         self.dropdown_2.grid(row = 2, column = 2, sticky = "nsew", padx = 5, pady = 5)
-        self.dropdown_2.set("Orange")
+        self.dropdown_2.set(color_2)
         
         self.dropdown_3 = ctk.CTkComboBox(self, values = list(zip(*COLORS))[0], width = STANDARD_COLUMN_WIDTH_4)
         self.dropdown_3.grid(row = 2, column = 3, sticky = "nsew", padx = 5, pady = 5)
-        self.dropdown_3.set("Red")
+        self.dropdown_3.set(color_3)
 
 
     def apply_formatting(self):
