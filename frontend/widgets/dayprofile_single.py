@@ -31,7 +31,7 @@ class dayprofile_single(ctk.CTkFrame):
         super().__init__(master = parent, fg_color = FG_COLOR)
         
         # text widgets
-        ctk.CTkLabel(self, text = title_text).pack(fill = "x", expand = True)
+        ctk.CTkLabel(self, text = title_text, width = STANDARD_COLUMN_WIDTH_TOTAL).pack(fill = "x", expand = True)
 
         # combobox widget
         dayprofile(self, label_text).pack(fill = "x", expand = True)

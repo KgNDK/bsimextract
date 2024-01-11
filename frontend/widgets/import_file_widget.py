@@ -30,7 +30,7 @@ class import_file_widget(ctk.CTkFrame):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # title label
-        ctk.CTkLabel(self, text = text_title).pack(fill = "x", expand = True)
+        ctk.CTkLabel(self, text = text_title, width = STANDARD_COLUMN_WIDTH_TOTAL).pack(fill = "x", expand = True)
 
         # Import file widget
         import_file(self, text_button).pack(fill = "x", expand = True)

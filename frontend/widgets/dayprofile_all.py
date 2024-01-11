@@ -27,11 +27,11 @@ from settings.settings import *
 from frontend.widgets.dayprofile import dayprofile
 
 class dayprofile_all(ctk.CTkFrame):
-    def __init__(self, parent, label_co2 = "Co2", label_temp = "Temperature", label_rh = "RelHumid", label_airch = "AirChange", title_text = "Choose a dayprofile:"):
+    def __init__(self, parent, label_co2 = "CO2", label_temp = "Temperature", label_rh = "RelHumid", label_airch = "AirChange", title_text = "Choose a dayprofile:"):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # text widgets
-        ctk.CTkLabel(self, text = title_text).pack(fill = "x", expand = True)
+        ctk.CTkLabel(self, text = title_text, width = STANDARD_COLUMN_WIDTH_TOTAL).pack(fill = "x", expand = True)
 
         # combobox widget
         dayprofile(self, label_co2).pack(fill = "x", expand = True)

@@ -29,7 +29,7 @@ from frontend.widgets.co2_format_widget import co2_format_widget
 
 class page_menu_co2(ctk.CTkFrame):
     def __init__(self, parent):
-        super().__init__(master = parent, fg_color="transparent")
+        super().__init__(master = parent, fg_color="transparent", width = 200)
         self.pack(expand = True, fill = "both")
 
         # widgets for CO2 under this
@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
     ctk.set_appearance_mode(COLOR_MODE)
 
-    root.title("TEST: Page menu Co2 page")
+    root.title("TEST: Page menu CO2 page")
     root.geometry("400x300")
 
     page_menu_co2(root).pack()
