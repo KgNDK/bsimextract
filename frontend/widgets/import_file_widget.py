@@ -26,7 +26,7 @@ from settings.settings import *
 from frontend.widgets.import_file import import_file
 
 class import_file_widget(ctk.CTkFrame):
-    def __init__(self, parent, text_button = "Import file", text_title = "Choose BSim data file:"):
+    def __init__(self, parent, text_button = "Import Data", text_title = "Choose BSim data file:"):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # title label
@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     ctk.set_appearance_mode(COLOR_MODE)
 
-    root.title("TEST: dayprofile_single")
+    root.title("TEST: import_file_widget")
     root.geometry("400x100")
 
     import_file_widget(root, "test_button", "test_title").pack()

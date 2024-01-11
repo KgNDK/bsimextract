@@ -28,7 +28,7 @@ sys.path = os.getcwd()
 from settings.settings import *
 
 class import_file(ctk.CTkFrame):
-    def __init__(self, parent, text_button = "Import file"):
+    def __init__(self, parent, text_button = "Import Data"):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # grid layout
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     ctk.set_appearance_mode(COLOR_MODE)
 
-    root.title("TEST: page_menu")
+    root.title("TEST: import_file")
     root.geometry("400x50")
 
     import_file(root).pack()

@@ -27,7 +27,6 @@ sys.path = os.getcwd()
 
 from settings.settings import *
 
-
 class title_menu(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -36,20 +35,55 @@ class title_menu(ctk.CTkFrame):
         self.menu = CTkTitleMenu(parent)
 
         # main title menu buttons
-        self.button_file = self.menu.add_cascade("File")
-        self.button_edit = self.menu.add_cascade("Settings", command=lambda: print("Opening Settings"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
-        self.button_help = self.menu.add_cascade("Help", command=lambda: print("Opening Github Wiki"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
-        self.button_report = self.menu.add_cascade("Report Bug", command=lambda: print("Opening Github"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
+        self.button_file = self.menu.add_cascade("File",
+                                                 font=ctk.CTkFont(family=TITLE_MENU_FONT,
+                                                         size=TITLE_MENU_SIZE,
+                                                         weight=TITLE_MENU_WEIGHT))
+        self.button_edit = self.menu.add_cascade("Settings",
+                                                 command=lambda: print("Opening Settings"),
+                                                 font=ctk.CTkFont(family=TITLE_MENU_FONT,
+                                                                  size=TITLE_MENU_SIZE,
+                                                                  weight=TITLE_MENU_WEIGHT))
+        self.button_help = self.menu.add_cascade("Help",
+                                                 command=lambda: print("Opening Github Wiki"),
+                                                 font=ctk.CTkFont(family=TITLE_MENU_FONT,
+                                                                  size=TITLE_MENU_SIZE,
+                                                                  weight=TITLE_MENU_WEIGHT))
+        self.button_report = self.menu.add_cascade("Report Bug",
+                                                   command=lambda: print("Opening Github"),
+                                                   font=ctk.CTkFont(family=TITLE_MENU_FONT,
+                                                                    size=TITLE_MENU_SIZE,
+                                                                    weight=TITLE_MENU_WEIGHT))
 
         # file dropdown menu
         self.menu_dropdown_1 = CustomDropdownMenu(widget=self.button_file)
-        self.menu_dropdown_1.add_option(option="Import Data", command=lambda: print("Importing data"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
-        self.menu_dropdown_1.add_option(option="Open", command=lambda: print("Opening file"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
-        self.menu_dropdown_1.add_option(option="Save", command=lambda: print("Save"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
-        self.menu_dropdown_1.add_option(option="Save As", command=lambda: print("Save As"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
-        self.menu_dropdown_1.add_option(option="Save Report", command=lambda: print("Save Report"), font=ctk.CTkFont(family=TITLE_MENU_FONT, size=TITLE_MENU_SIZE, weight=TITLE_MENU_WEIGHT))
+        # self.menu_dropdown_1.add_option(option="Import Data",
+        #                                 command=lambda: print("Import Data"),
+        #                                 font=ctk.CTkFont(family=TITLE_MENU_FONT,
+        #                                                  size=TITLE_MENU_SIZE,
+        #                                                  weight=TITLE_MENU_WEIGHT))
+        self.menu_dropdown_1.add_option(option="Open",
+                                        command=lambda: print("Opening file"),
+                                        font=ctk.CTkFont(family=TITLE_MENU_FONT,
+                                                         size=TITLE_MENU_SIZE,
+                                                         weight=TITLE_MENU_WEIGHT))
+        self.menu_dropdown_1.add_option(option="Save",
+                                        command=lambda: print("Save"),
+                                        font=ctk.CTkFont(family=TITLE_MENU_FONT,
+                                                         size=TITLE_MENU_SIZE,
+                                                         weight=TITLE_MENU_WEIGHT))
+        self.menu_dropdown_1.add_option(option="Save As",
+                                        command=lambda: print("Save As"),
+                                        font=ctk.CTkFont(family=TITLE_MENU_FONT,
+                                                         size=TITLE_MENU_SIZE,
+                                                         weight=TITLE_MENU_WEIGHT))
+        self.menu_dropdown_1.add_option(option="Save Report",
+                                        command=lambda: print("Save Report"),
+                                        font=ctk.CTkFont(family=TITLE_MENU_FONT,
+                                                         size=TITLE_MENU_SIZE,
+                                                         weight=TITLE_MENU_WEIGHT))
 
-
+        
 
 if __name__ == "__main__":  
     root = ctk.CTk()

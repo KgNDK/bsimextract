@@ -12,6 +12,7 @@ Importing extern modules
 """
 import tkinter as tk
 import customtkinter as ctk
+import CTkMessagebox as CTkMessagebox
 
 """
 Importing internal modules
@@ -24,15 +25,18 @@ sys.path = os.getcwd()
 
 from settings.settings import *
 from frontend.widgets.dayprofile_single import dayprofile_single
-
+from frontend.widgets.co2_format_widget import co2_format_widget
 
 class page_menu_co2(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(master = parent, fg_color="transparent")
         self.pack(expand = True, fill = "both")
 
-        # widgets for Co2 under this
-        dayprofile_single(self, "Co2").pack(expand = True, fill = "x")
+        # widgets for CO2 under this
+        dayprofile_single(self, "CO2").pack(expand = True, fill = "x")
+
+        # widgets for formatting CO2 data under this
+        co2_format_widget(self).pack(expand = True, fill = "x")
 
 if __name__ == "__main__":
     root = ctk.CTk()

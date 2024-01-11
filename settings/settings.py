@@ -24,15 +24,27 @@ Importing internal modules
 
 #! Colors
 # Source: https://www.color-hex.com/color-palette/78917
-
+#* Main program colors
 COLOR_1 = "#f6f6f4"
 COLOR_2 = "#edeae5"
 COLOR_3 = "#ced9dd"
 COLOR_4 = "#979fa5"
 COLOR_5 = "#2f3d4c"
-
+#* Widget fg color
 FG_COLOR = "transparent"
-# FG_COLOR = COLOR_5
+#* Table formatting colors
+COLORS = [
+    ("Red", "#ff0000"),
+    ("Lime", "#00ff00"),
+    ("Blue", "#0000ff"),
+    ("Purple", "#800080"),
+    ("Orange", "#ffa500"),
+    ("Yellow", "#ffff00"),
+    ("Green", "#008000"),
+    ("Teal", "#008080"),
+    ("Aqua", "#00ffff"),
+    ("Fuchsia", "#ff00ff")
+]
 
 #! Appearance
 COLOR_MODE = "dark"
