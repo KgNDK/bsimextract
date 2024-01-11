@@ -11,7 +11,7 @@ Main file
 Importing extern modules
 """
 import customtkinter as ctk
-
+import CTkMessagebox as CTkMessagebox
 
 """
 Importing internal modules

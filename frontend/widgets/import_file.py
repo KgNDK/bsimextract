@@ -5,6 +5,7 @@ Importing file widget
 """
 # TODO LIST
 
+# TODO: Change the warning toplevel widget to a modular one from function. This needs to be created first
 """
 
 """
@@ -28,7 +29,7 @@ from settings.settings import *
 
 class import_file(ctk.CTkFrame):
     def __init__(self, parent, text_button = "Import file"):
-        super().__init__(master = parent)
+        super().__init__(master = parent, fg_color = FG_COLOR)
 
         # grid layout
         self.rowconfigure((0), weight = 1)
@@ -38,12 +39,10 @@ class import_file(ctk.CTkFrame):
 
         self.entry_var = tk.StringVar(self)
 
-        ctk.CTkButton(self, text = text_button, command = self.browse_file).grid(row = 0, column = 0, sticky = "nsew", padx = 10, pady = 5)
-        ctk.CTkEntry(self, textvariable = self.entry_var, state = "readonly").grid(row = 0, column = 1, sticky = "nsew", padx = 10, pady = 5)
+        ctk.CTkButton(self, text = text_button, command = self.browse_file).grid(row = 0, column = 0, sticky = "nsew", padx = 5, pady = 5)
+        ctk.CTkEntry(self, textvariable = self.entry_var, state = "readonly").grid(row = 0, column = 1, sticky = "nsew", padx = 5, pady = 5)
 
     def browse_file(self):
-        entry_var = tk.StringVar()
-
         file_path = filedialog.askopenfilename(filetypes=[("Tekstfiler", "*.txt"), ("Alle filer", "*.*")])
         if file_path and not os.path.basename(file_path).startswith("dayprofile"):
             self.entry_var.set(os.path.basename(file_path))
@@ -52,7 +51,7 @@ class import_file(ctk.CTkFrame):
     
     def show_warning(self):
         msg = CTkMessagebox(title = "Warning Message!",
-                            message = "You have tried to import a dayprofile. Please try importing BSim Data instead.",
+                            message = "You have tried to import a dayprofile. Please try importing BSim Data in a .txt format instead.",
                             icon = "warning",
                             option_1 = "Cancel",
                             option_2 = "Retry")

@@ -28,8 +28,8 @@ class dayprofile(ctk.CTkFrame):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # grid layout
-        self.columnconfigure((0), weight=1)
-        self.columnconfigure((1), weight=2)
+        self.columnconfigure((0), weight=1, uniform = "a")
+        self.columnconfigure((1), weight=2, uniform = "a")
 
         # text widget
         ctk.CTkLabel(self, text = label_text).grid(row = 0, column = 0, sticky = "nsew", padx = 10, pady = 5)

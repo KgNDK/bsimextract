@@ -10,7 +10,7 @@ TITLE
 """
 Importing extern modules
 """
-
+import CTkMessagebox as CTkMessagebox
 
 """
 Importing internal modules
