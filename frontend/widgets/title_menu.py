@@ -15,6 +15,7 @@ Importing extern modules
 import tkinter as tk
 import customtkinter as ctk
 from CTkMenuBar import *
+import webbrowser
 
 """
 Importing internal modules
@@ -45,12 +46,12 @@ class title_menu(ctk.CTkFrame):
                                                                   size=TITLE_MENU_SIZE,
                                                                   weight=TITLE_MENU_WEIGHT))
         self.button_help = self.menu.add_cascade("Help",
-                                                 command=lambda: print("Opening Github Wiki"),
+                                                 command=lambda: webbrowser.open("https://github.com/KgNDK/bsimextract/wiki"),
                                                  font=ctk.CTkFont(family=TITLE_MENU_FONT,
                                                                   size=TITLE_MENU_SIZE,
                                                                   weight=TITLE_MENU_WEIGHT))
         self.button_report = self.menu.add_cascade("Report Bug",
-                                                   command=lambda: print("Opening Github"),
+                                                   command=lambda: webbrowser.open("https://github.com/KgNDK/bsimextract/issues"),
                                                    font=ctk.CTkFont(family=TITLE_MENU_FONT,
                                                                     size=TITLE_MENU_SIZE,
                                                                     weight=TITLE_MENU_WEIGHT))
@@ -84,6 +85,7 @@ class title_menu(ctk.CTkFrame):
                                                          weight=TITLE_MENU_WEIGHT))
 
         
+
 
 if __name__ == "__main__":  
     root = ctk.CTk()
