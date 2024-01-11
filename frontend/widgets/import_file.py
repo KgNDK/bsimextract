@@ -36,7 +36,6 @@ class import_file(ctk.CTkFrame):
         self.columnconfigure((0), weight = 1, uniform = "a")
         self.columnconfigure((1), weight = 2, uniform = "a")
 
-
         self.entry_var = tk.StringVar(self)
 
         ctk.CTkButton(self, text = text_button, command = self.browse_file, width = STANDARD_COLUMN_WIDTH_3).grid(row = 0, column = 0, sticky = "nsew", padx = 5, pady = 5)
@@ -47,11 +46,13 @@ class import_file(ctk.CTkFrame):
         if file_path and not os.path.basename(file_path).startswith("dayprofile"):
             self.entry_var.set(os.path.basename(file_path))
         if file_path and os.path.basename(file_path).startswith("dayprofile"):
-            self.show_warning()
+            self.show_warning("You have tried to import a dayprofile file. Please try importing BSim Data in a .txt format instead.")
+        if file_path and os.path.basename(file_path).startswith("requirement"):
+            self.show_warning("You have tried to import the requirements file. Please try importing BSim Data in a .txt format instead.")
     
-    def show_warning(self):
-        msg = CTkMessagebox(title = "Warning Message!",
-                            message = "You have tried to import a dayprofile. Please try importing BSim Data in a .txt format instead.",
+    def show_warning(self, text_msg = "You have tried to import a dayprofile. Please try importing BSim Data in a .txt format instead."):
+        msg = CTkMessagebox(message = text_msg,
+                            title = "Warning Message!",
                             icon = "warning",
                             option_1 = "Cancel",
                             option_2 = "Retry")

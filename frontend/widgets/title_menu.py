@@ -16,6 +16,7 @@ import tkinter as tk
 import customtkinter as ctk
 from CTkMenuBar import *
 import webbrowser
+import CTkMessagebox as CTkMessagebox
 
 """
 Importing internal modules
@@ -41,7 +42,7 @@ class title_menu(ctk.CTkFrame):
                                                          size=TITLE_MENU_SIZE,
                                                          weight=TITLE_MENU_WEIGHT))
         self.button_edit = self.menu.add_cascade("Settings",
-                                                 command=lambda: print("Opening Settings"),
+                                                 command=self.open_settings,
                                                  font=ctk.CTkFont(family=TITLE_MENU_FONT,
                                                                   size=TITLE_MENU_SIZE,
                                                                   weight=TITLE_MENU_WEIGHT))
@@ -64,25 +65,40 @@ class title_menu(ctk.CTkFrame):
         #                                                  size=TITLE_MENU_SIZE,
         #                                                  weight=TITLE_MENU_WEIGHT))
         self.menu_dropdown_1.add_option(option="Open",
-                                        command=lambda: print("Opening file"),
+                                        command=self.open,
                                         font=ctk.CTkFont(family=TITLE_MENU_FONT,
                                                          size=TITLE_MENU_SIZE,
                                                          weight=TITLE_MENU_WEIGHT))
         self.menu_dropdown_1.add_option(option="Save",
-                                        command=lambda: print("Save"),
+                                        command=self.save,
                                         font=ctk.CTkFont(family=TITLE_MENU_FONT,
                                                          size=TITLE_MENU_SIZE,
                                                          weight=TITLE_MENU_WEIGHT))
         self.menu_dropdown_1.add_option(option="Save As",
-                                        command=lambda: print("Save As"),
+                                        command=self.save_as,
                                         font=ctk.CTkFont(family=TITLE_MENU_FONT,
                                                          size=TITLE_MENU_SIZE,
                                                          weight=TITLE_MENU_WEIGHT))
         self.menu_dropdown_1.add_option(option="Save Report",
-                                        command=lambda: print("Save Report"),
+                                        command=self.save_report,
                                         font=ctk.CTkFont(family=TITLE_MENU_FONT,
                                                          size=TITLE_MENU_SIZE,
                                                          weight=TITLE_MENU_WEIGHT))
+        
+    def open_settings(self):
+        CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Manual adjustment of settings is not yet implemented. Please go to source code settings.py to change settings.", icon = "warning")
+
+    def open(self):
+        CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Opening of existing files is not yet implemented", icon = "warning")
+
+    def save(self):
+        CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Saving of the current file is not yet implemented", icon = "warning")
+
+    def save_as(self):
+        CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Saving of the current file in specified location is not yet implemented", icon = "warning")
+
+    def save_report(self):
+        CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Saving finalized report is not yet implemented", icon = "warning")
 
         
 

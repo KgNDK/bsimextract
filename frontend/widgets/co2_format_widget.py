@@ -45,10 +45,14 @@ class co2_format_widget(ctk.CTkFrame):
         self.rowconfigure((0, 1, 2), weight = 1)
         self.columnconfigure((0, 1, 2, 3), weight = 1)
 
+        # font
+        title_font = ctk.CTkFont(family=TITLE_FONT, size=TITLE_SIZE, weight=TITLE_WEIGHT)
+        text_font = ctk.CTkFont(family=TEXT_FONT, size=TEXT_SIZE, weight=TEXT_WEIGHT)
+
         # text widget
-        ctk.CTkLabel(self, text = text_title, width = STANDARD_COLUMN_WIDTH_4).grid(row = 0, column = 0, columnspan = 3, sticky = "nsew", padx = 5, pady = 5)
-        ctk.CTkLabel(self, text = text_max, width = STANDARD_COLUMN_WIDTH_4).grid(row = 1, column = 0, sticky = "nsew", padx = 5, pady = 5)
-        ctk.CTkLabel(self, text = text_color, width = STANDARD_COLUMN_WIDTH_4).grid(row = 2, column = 0, sticky = "nsew", padx = 5, pady = 5)
+        ctk.CTkLabel(self, text = text_title, width = STANDARD_COLUMN_WIDTH_4, font = title_font).grid(row = 0, column = 0, columnspan = 3, sticky = "nsew", padx = 5, pady = 5)
+        ctk.CTkLabel(self, text = text_max, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 1, column = 0, sticky = "nsew", padx = 5, pady = 5)
+        ctk.CTkLabel(self, text = text_color, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 2, column = 0, sticky = "nsew", padx = 5, pady = 5)
 
         # button
         ctk.CTkButton(self, text = text_button, command = self.apply_formatting, width = STANDARD_COLUMN_WIDTH_4).grid(row = 0, column = 3, sticky = "nsew", padx = 5, pady = 5)

@@ -13,6 +13,7 @@ Importing extern modules
 import tkinter as tk
 from tkinter import ttk
 import customtkinter as ctk
+import CTkMessagebox as CTkMessagebox
 
 """
 Importing internal modules
@@ -25,13 +26,18 @@ sys.path = os.getcwd()
 
 from settings.settings import *
 from frontend.widgets.dayprofile import dayprofile
+from frontend.widgets.dayprofile_title import dayprofile_title
 
 class dayprofile_single(ctk.CTkFrame):
     def __init__(self, parent, label_text, title_text = "Choose a dayprofile:"):
         super().__init__(master = parent, fg_color = FG_COLOR)
         
+        # font
+        title_font = ctk.CTkFont(family=TITLE_FONT, size=TITLE_SIZE, weight=TITLE_WEIGHT)
+        text_font = ctk.CTkFont(family=TEXT_FONT, size=TEXT_SIZE, weight=TEXT_WEIGHT)
+
         # text widgets
-        ctk.CTkLabel(self, text = title_text, width = STANDARD_COLUMN_WIDTH_TOTAL).pack(fill = "x", expand = True)
+        dayprofile_title(self, title_text).pack(fill = "x", expand = True)
 
         # combobox widget
         dayprofile(self, label_text).pack(fill = "x", expand = True)
