@@ -29,6 +29,7 @@ class app(ctk.CTk):
         self.title(f"BSimExtract {VERSION_NUMBER}")
         self.minsize(800, 500)
 
+        
         # layout
         self.rowconfigure((0), weight = 1)
         self.columnconfigure((0), weight = 1)

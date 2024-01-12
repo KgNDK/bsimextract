@@ -10,8 +10,6 @@ Dayprofile_single widget
 """
 Importing extern modules
 """
-import tkinter as tk
-from tkinter import ttk
 import customtkinter as ctk
 import CTkMessagebox as CTkMessagebox
 
@@ -27,6 +25,7 @@ sys.path = os.getcwd()
 from settings.settings import *
 from frontend.widgets.dayprofile import dayprofile
 from frontend.widgets.dayprofile_title import dayprofile_title
+
 
 class dayprofile_single(ctk.CTkFrame):
     def __init__(self, parent, label_text, title_text = "Choose a dayprofile:"):

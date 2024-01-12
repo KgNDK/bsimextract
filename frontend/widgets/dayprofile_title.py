@@ -12,6 +12,8 @@ Importing extern modules
 """
 import CTkMessagebox as CTkMessagebox
 import customtkinter as ctk
+import CTkMenuBar
+import webbrowser
 
 """
 Importing internal modules
@@ -22,6 +24,7 @@ import sys
 sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 from settings.settings import *
+from frontend.pages.create_dayprofile import create_dayprofile
 
 
 class dayprofile_title(ctk.CTkFrame):
@@ -40,10 +43,11 @@ class dayprofile_title(ctk.CTkFrame):
         ctk.CTkLabel(self, text = title_text, width = STANDARD_COLUMN_WIDTH_2_3, font = title_font).grid(row = 0, column = 0, columnspan = 2, sticky = "nsew", padx = 5, pady = 5)
 
         # button widget
-        ctk.CTkButton(self, text = "Create dayprofile", command = self.create_dayprofile, width = STANDARD_COLUMN_WIDTH_3).grid(row = 0, column = 3, sticky = "nsew", padx = 5, pady = 5)
+        ctk.CTkButton(self, text = "Create dayprofile", command = self.create_dayprofile, width = STANDARD_COLUMN_WIDTH_3, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = 5, pady = 5)
 
     def create_dayprofile(self):
-        CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Creation of dayprofiles is not yet implemented", icon = "warning")
+        create_dayprofile(self)
+        # CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Creation of dayprofiles is not yet implemented", icon = "warning")
 
 
 if __name__ == "__main__":  

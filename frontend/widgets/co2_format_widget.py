@@ -55,7 +55,7 @@ class co2_format_widget(ctk.CTkFrame):
         ctk.CTkLabel(self, text = text_color, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 2, column = 0, sticky = "nsew", padx = 5, pady = 5)
 
         # button
-        ctk.CTkButton(self, text = text_button, command = self.apply_formatting, width = STANDARD_COLUMN_WIDTH_4).grid(row = 0, column = 3, sticky = "nsew", padx = 5, pady = 5)
+        ctk.CTkButton(self, text = text_button, command = self.apply_formatting, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = 5, pady = 5)
 
         # max value entry widget
         self.entry_1 = ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4)
