@@ -27,6 +27,14 @@ sys.path = os.getcwd()
 from settings.settings import *
 from frontend.widgets.create_dayprofile_widgets.create_dayprofile_checkbox import *
 
+"""
+Variables
+"""
+toggle_months = False
+toggle_weeks = False
+toggle_days = False
+toggle_hours = False
+
 class create_dayprofile(ctk.CTkToplevel):
     def __init__(self, parent, text_top_title = "Create a new dayprofile:"):
         super().__init__(master = parent)
@@ -61,86 +69,94 @@ class create_dayprofile(ctk.CTkToplevel):
 
 
         # button
-        ctk.CTkButton(self, text = "Save", command = lambda: self.save(name_var.get()), font = text_font).grid(row = 2, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
-
-        ctk.CTkButton(self, text = "Open", command = self.open, font = text_font).grid(row = 3, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "Save", command = lambda: save(name_var.get()), font = text_font).grid(row = 2, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "Open", command = lambda: open(), font = text_font).grid(row = 3, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
         ctk.CTkButton(self, text = "Exit", command = lambda: create_dayprofile.destroy(self), font = text_font).grid(row = 4, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        
+        ctk.CTkButton(self, text = "All hours", command = lambda: toggle_hours(), font = text_font).grid(row = 6, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "All days", command = lambda: toggle_days(), font = text_font).grid(row = 7, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "All weeks", command = lambda: toggle_week(), font = text_font).grid(row = 8, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "All months", command = lambda: toggle_month(), font = text_font).grid(row = 9, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
 
-        ctk.CTkButton(self, text = "All hours", command = self.all_hours, font = text_font).grid(row = 6, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
-        ctk.CTkButton(self, text = "All days", command = self.all_days, font = text_font).grid(row = 7, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
-        ctk.CTkButton(self, text = "All weeks", command = self.all_weeks, font = text_font).grid(row = 8, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
-        ctk.CTkButton(self, text = "All months", command = self.all_months, font = text_font).grid(row = 9, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+
+        ctk.CTkButton(self, text = "Invert hours", command = lambda: CTkMessagebox.CTkMessagebox(title = "Not implemented yet", icon = "warning"), font = text_font).grid(row = 11, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "Invert days", command = lambda: CTkMessagebox.CTkMessagebox(title = "Not implemented yet", icon = "warning"), font = text_font).grid(row = 12, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "Invert weeks", command = lambda: CTkMessagebox.CTkMessagebox(title = "Not implemented yet", icon = "warning"), font = text_font).grid(row = 13, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "Invert months", command = lambda: CTkMessagebox.CTkMessagebox(title = "Not implemented yet", icon = "warning"), font = text_font).grid(row = 14, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+
+        # toggle buttons logic
+        def toggle_all(variables, current_var):
+            toggle_value = current_var
+            for var in variables:
+                var.set(toggle_value)
+                
+        def toggle_month():
+            global toggle_months
+            toggle_months = not toggle_months  
+            toggle_all(month_var, toggle_months)
+
+        def toggle_week():
+            global toggle_weeks
+            toggle_weeks = not toggle_weeks
+            toggle_all(week_var_first_half, toggle_weeks)
+            toggle_all(week_var_second_half, toggle_weeks)
+
+        def toggle_days():
+            global toggle_days
+            toggle_days = not toggle_days
+            toggle_all(day_var, toggle_days)
+
+        def toggle_hours():
+            global toggle_hours
+            toggle_hours = not toggle_hours
+            toggle_all(hour_var, toggle_hours)
 
         # textbox
-        #! Add an entry widget which name gets saved as a variable used as suffixation when saving the dayprofile
         name_var = ctk.StringVar(self)
         ctk.CTkEntry(self, textvariable = name_var, font = text_font).grid(row = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
-        
-        #* TESTES may be deleted later!
-        # ctk.CTkButton(self, text = "test", command = lambda: print(name_var.get()), font = text_font).grid(row = 10, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
-        # all_var_months = ctk.BooleanVar(root)
-        # ctk.CTkButton(self, text = "All months", variable = all_var_months, command = lambda: toggle_all(month_var, all_var_months), font = text_font).grid(row = 8, rowspan = 1, column = 5, sticky = "ew", padx = 5, pady = 5)
-        #* TESTES may be deleted later!
 
         # checkboxes
         months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
         month_var = [ctk.BooleanVar(self) for _ in range(len(months))]
         month_checkboxes = [ctk.CTkCheckBox(self, text=month, variable=month_var[i]) for i, month in enumerate(months)]
         for i, month_checkboxes in enumerate(month_checkboxes):
-            month_checkboxes.grid(row=i+2, column=0, sticky="s", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+            month_checkboxes.grid(row=i+2, column=0, sticky="ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
 
         weeks_first_half = [str(i) for i in range(0, 27)]
         week_var_first_half = [ctk.BooleanVar(self) for _ in range(len(weeks_first_half))]
         weeks_checkboxes_first_half = [ctk.CTkCheckBox(self, text=week, variable=week_var_first_half[i]) for i, week in enumerate(weeks_first_half)]
         for i, week_checkboxes in enumerate(weeks_checkboxes_first_half):
-            week_checkboxes.grid(row=i+2, column=1, sticky="s", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+            week_checkboxes.grid(row=i+2, column=1, sticky="ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
 
         weeks_second_half = [str(i) for i in range(27, 53)]
         week_var_second_half = [ctk.BooleanVar(self) for _ in range(len(weeks_second_half))]
         weeks_checkboxes_second_half = [ctk.CTkCheckBox(self, text=week, variable=week_var_second_half[i]) for i, week in enumerate(weeks_second_half)]
         for i, week_checkboxes in enumerate(weeks_checkboxes_second_half):
-            week_checkboxes.grid(row=i+2, column=2, sticky="s", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+            week_checkboxes.grid(row=i+2, column=2, sticky="ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
 
         days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         day_var = [ctk.BooleanVar(self) for _ in range(len(days))]
         day_checkboxes = [ctk.CTkCheckBox(self, text=day, variable=day_var[i]) for i, day in enumerate(days)]
         for i, day_checkboxes in enumerate(day_checkboxes):
-            day_checkboxes.grid(row=i+2, column=3, sticky="s", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+            day_checkboxes.grid(row=i+2, column=3, sticky="ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
 
         hours = [str(i) for i in range(0, 24)]
         hour_var = [ctk.BooleanVar(self) for _ in range(len(hours))]
         hour_checkboxes = [ctk.CTkCheckBox(self, text=hour, variable=hour_var[i]) for i, hour in enumerate(hours)]
         for i, hour_checkboxes in enumerate(hour_checkboxes):
-            hour_checkboxes.grid(row=i+2, column=4, sticky="s", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+            hour_checkboxes.grid(row=i+2, column=4, sticky="ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
 
-        # def toggle_all(variables, current_var):
-        #     toggle_value = current_var.get()
-        #     for var in variables:
-        #         var.set(toggle_value)
-    
-
-    def open(self):
-            CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Opening of an existing dayprofile_XXX.txt file is not yet implemented", icon = "warning")
-    
-    def save(self, name_text = None):
-        if len(name_text) == 0:
-            CTkMessagebox.CTkMessagebox(title = "Error!", message = "You need to give you have a suffixation for your dayprofile to be able to save!", icon = "cancel")
-        else:
-            # Getting the values from the checkboxes
-            CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Saving of the current file is not yet implemented", icon = "warning")
-
-
-    def all_hours(self):
-        CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Toggling all hours is not yet implemented", icon = "warning")
-    
-    def all_days(self):
-        CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Togging all days is not yet implemented", icon = "warning")
-
-    def all_weeks(self):
-        CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Togging all weeks is not yet implemented", icon = "warning")
-
-    def all_months(self):
-        CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Togging all months is not yet implemented", icon = "warning")
+        
+        
+        def open():
+                CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Opening of an existing dayprofile_XXX.txt file is not yet implemented", icon = "warning")
+        
+        def save(name_text = None):
+            if len(name_text) == 0:
+                CTkMessagebox.CTkMessagebox(title = "Error!", message = "You need to give a suffixation for your dayprofile to be able to save!. An example can be 'AlwaysOn", icon = "cancel")
+            else:
+                # Getting the values from the checkboxes
+                CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Saving of the current file is not yet implemented", icon = "warning")
 
 
 
