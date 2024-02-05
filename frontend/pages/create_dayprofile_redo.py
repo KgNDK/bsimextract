@@ -59,14 +59,12 @@ class create_dayprofile(ctk.CTkToplevel):
         text_font = ctk.CTkFont(family=TEXT_FONT, size=TEXT_SIZE, weight=TEXT_WEIGHT)
 
         # text
-        ctk.CTkLabel(self, text = "Please mark all the boxes that the dayprofile should be active for", font = title_font).grid(row = 0, column = 0, columnspan = 5, sticky = "nsew", padx = 5, pady = 5)
-        # ctk.CTkLabel(self, text = "!This will be changed to a 'select name widget'!", font = text_font).grid(row = 0, column = 5, columnspan = 1, rowspan = 2, sticky = "nsew", padx = 5, pady = 5)
+        ctk.CTkLabel(self, text = "Please mark all the boxes that the dayprofile should be active for", font = title_font).grid(row = 0, column = 0, columnspan = 5, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         ctk.CTkLabel(self, text = "Hours:", font = text_font).grid(row = 1, rowspan = 1, column = 4, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         ctk.CTkLabel(self, text = "Days:", font = text_font).grid(row = 1, rowspan = 1, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         ctk.CTkLabel(self, text = "Weeks:", font = text_font).grid(row = 1, columnspan = 2, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         ctk.CTkLabel(self, text = "Months:", font = text_font).grid(row = 1, rowspan = 1, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         ctk.CTkLabel(self, text = "Please write suffixation here:", font = text_font).grid(row = 0, column = 5, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-
 
         # button
         ctk.CTkButton(self, text = "Save", command = lambda: save(name_var.get()), font = text_font).grid(row = 2, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
@@ -78,14 +76,13 @@ class create_dayprofile(ctk.CTkToplevel):
         ctk.CTkButton(self, text = "All weeks", command = lambda: toggle_week(), font = text_font).grid(row = 8, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
         ctk.CTkButton(self, text = "All months", command = lambda: toggle_month(), font = text_font).grid(row = 9, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
 
-
-        ctk.CTkButton(self, text = "Invert hours", command = lambda: CTkMessagebox.CTkMessagebox(title = "Not implemented yet", icon = "warning"), font = text_font).grid(row = 11, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
-        ctk.CTkButton(self, text = "Invert days", command = lambda: CTkMessagebox.CTkMessagebox(title = "Not implemented yet", icon = "warning"), font = text_font).grid(row = 12, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
-        ctk.CTkButton(self, text = "Invert weeks", command = lambda: CTkMessagebox.CTkMessagebox(title = "Not implemented yet", icon = "warning"), font = text_font).grid(row = 13, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
-        ctk.CTkButton(self, text = "Invert months", command = lambda: CTkMessagebox.CTkMessagebox(title = "Not implemented yet", icon = "warning"), font = text_font).grid(row = 14, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "Invert hours", command = lambda: invert_all(hour_var), font = text_font).grid(row = 11, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "Invert days", command = lambda: invert_all(day_var), font = text_font).grid(row = 12, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "Invert weeks", command = lambda: invert_week(week_var_first_half, week_var_second_half), font = text_font).grid(row = 13, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "Invert months", command = lambda: invert_all(month_var), font = text_font).grid(row = 14, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
 
         # toggle buttons logic
-        def toggle_all(variables, current_var):
+        def toggle_all(variables: list, current_var: str):
             toggle_value = current_var
             for var in variables:
                 var.set(toggle_value)
@@ -110,6 +107,15 @@ class create_dayprofile(ctk.CTkToplevel):
             global toggle_hours
             toggle_hours = not toggle_hours
             toggle_all(hour_var, toggle_hours)
+
+        # invert button logic
+        def invert_all(variables: list) -> None:
+            for var in variables:
+                var.set(not var.get())
+
+        def invert_week(week_var_first_half: list, week_var_second_half: list) -> None:
+            invert_all(week_var_first_half)
+            invert_all(week_var_second_half)
 
         # textbox
         name_var = ctk.StringVar(self)
