@@ -34,7 +34,9 @@ class create_dayprofile(ctk.CTkToplevel):
         # setup
         self.title(text_top_title)
         self.geometry("700x875")
-        # self.minsize(400, 340)
+        #* Looking the size of the top level window because of performance hit when resizing
+        self.minsize(700, 875)
+        self.maxsize(700, 875)
 
         # grid layout
         self.columnconfigure((1, 2, 4), weight = 1)
@@ -59,7 +61,7 @@ class create_dayprofile(ctk.CTkToplevel):
 
 
         # button
-        ctk.CTkButton(self, text = "Save", command = self.save, font = text_font).grid(row = 2, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "Save", command = lambda: self.save(name_var.get()), font = text_font).grid(row = 2, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
 
         ctk.CTkButton(self, text = "Open", command = self.open, font = text_font).grid(row = 3, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
         ctk.CTkButton(self, text = "Exit", command = lambda: create_dayprofile.destroy(self), font = text_font).grid(row = 4, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
@@ -71,10 +73,14 @@ class create_dayprofile(ctk.CTkToplevel):
 
         # textbox
         #! Add an entry widget which name gets saved as a variable used as suffixation when saving the dayprofile
-
+        name_var = ctk.StringVar(self)
+        ctk.CTkEntry(self, textvariable = name_var, font = text_font).grid(row = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        
+        #* TESTES may be deleted later!
+        # ctk.CTkButton(self, text = "test", command = lambda: print(name_var.get()), font = text_font).grid(row = 10, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
         # all_var_months = ctk.BooleanVar(root)
         # ctk.CTkButton(self, text = "All months", variable = all_var_months, command = lambda: toggle_all(month_var, all_var_months), font = text_font).grid(row = 8, rowspan = 1, column = 5, sticky = "ew", padx = 5, pady = 5)
-        
+        #* TESTES may be deleted later!
 
         # checkboxes
         months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -114,10 +120,14 @@ class create_dayprofile(ctk.CTkToplevel):
     
 
     def open(self):
-        CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Opening of an existing dayprofile_XXX.txt file is not yet implemented", icon = "warning")
+            CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Opening of an existing dayprofile_XXX.txt file is not yet implemented", icon = "warning")
     
-    def save(self):
-        CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Saving is not yet implemented", icon = "warning")
+    def save(self, name_text = None):
+        if len(name_text) == 0:
+            CTkMessagebox.CTkMessagebox(title = "Error!", message = "You need to give you have a suffixation for your dayprofile to be able to save!", icon = "cancel")
+        else:
+            # Getting the values from the checkboxes
+            CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Saving of the current file is not yet implemented", icon = "warning")
 
 
     def all_hours(self):
