@@ -40,10 +40,10 @@ class dayprofile_title(ctk.CTkFrame):
         self.columnconfigure((0, 1, 2), weight = 1, uniform="a")
 
         # text widgets
-        ctk.CTkLabel(self, text = title_text, width = STANDARD_COLUMN_WIDTH_2_3, font = title_font).grid(row = 0, column = 0, columnspan = 2, sticky = "nsew", padx = 5, pady = 5)
+        ctk.CTkLabel(self, text = title_text, width = STANDARD_COLUMN_WIDTH_2_3, font = title_font).grid(row = 0, column = 0, columnspan = 2, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         # button widget
-        ctk.CTkButton(self, text = "Create dayprofile", command = self.create_dayprofile, width = STANDARD_COLUMN_WIDTH_3, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = 5, pady = 5)
+        ctk.CTkButton(self, text = "Create dayprofile", command = self.create_dayprofile, width = STANDARD_COLUMN_WIDTH_3, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
     def create_dayprofile(self):
         create_dayprofile(self)

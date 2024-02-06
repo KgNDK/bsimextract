@@ -36,7 +36,7 @@ class dayprofile(ctk.CTkFrame):
         self.columnconfigure((1), weight=2, uniform = "a")
 
         # text widget
-        ctk.CTkLabel(self, text = label_text, width = STANDARD_COLUMN_WIDTH_3, font = text_font).grid(row = 0, column = 0, sticky = "nsew", padx = 10, pady = 5)
+        ctk.CTkLabel(self, text = label_text, width = STANDARD_COLUMN_WIDTH_3, font = text_font).grid(row = 0, column = 0, sticky = "nsew", padx = 10, pady = STANDARD_PADY)
 
         # combobox widget
         self.combobox = ctk.CTkComboBox(self, state="readonly", width = STANDARD_COLUMN_WIDTH_2_3)

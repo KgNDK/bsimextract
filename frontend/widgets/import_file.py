@@ -42,8 +42,8 @@ class import_file(ctk.CTkFrame):
 
         self.entry_var = tk.StringVar(self)
 
-        ctk.CTkButton(self, text = text_button, command = self.browse_file, width = STANDARD_COLUMN_WIDTH_3, font = text_font).grid(row = 0, column = 0, sticky = "nsew", padx = 5, pady = 5)
-        ctk.CTkEntry(self, textvariable = self.entry_var, state = "readonly", width = STANDARD_COLUMN_WIDTH_2_3).grid(row = 0, column = 1, sticky = "nsew", padx = 5, pady = 5)
+        ctk.CTkButton(self, text = text_button, command = self.browse_file, width = STANDARD_COLUMN_WIDTH_3, font = text_font).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkEntry(self, textvariable = self.entry_var, state = "readonly", width = STANDARD_COLUMN_WIDTH_2_3).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
     def browse_file(self):
         file_path = filedialog.askopenfilename(filetypes=[("Tekstfiler", "*.txt"), ("Alle filer", "*.*")])

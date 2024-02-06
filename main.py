@@ -12,6 +12,7 @@ Importing extern modules
 """
 import customtkinter as ctk
 import CTkMessagebox as CTkMessagebox
+import pandas as pd
 
 """
 Importing internal modules
@@ -19,6 +20,15 @@ Importing internal modules
 from settings.settings import *
 from frontend.widgets.title_menu import title_menu
 from frontend.widgets.page_menu import page_menu
+
+# """
+# Global variables
+# """
+# co2_dayprofile = None
+# rf_dayprofile = None
+# temp_dayprofile = None
+# airchange_dayprofile = None
+
 
 class app(ctk.CTk):
     def __init__(self):
@@ -39,7 +49,7 @@ class app(ctk.CTk):
         title_menu(self)
 
         # widgets
-        page_menu(self).grid(row = 0, column = 0, sticky = "nsew", padx = 5, pady = 5)
+        page_menu(self).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
 
 

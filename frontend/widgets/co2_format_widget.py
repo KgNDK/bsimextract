@@ -50,37 +50,37 @@ class co2_format_widget(ctk.CTkFrame):
         text_font = ctk.CTkFont(family=TEXT_FONT, size=TEXT_SIZE, weight=TEXT_WEIGHT)
 
         # text widget
-        ctk.CTkLabel(self, text = text_title, width = STANDARD_COLUMN_WIDTH_4, font = title_font).grid(row = 0, column = 0, columnspan = 3, sticky = "nsew", padx = 5, pady = 5)
-        ctk.CTkLabel(self, text = text_max, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 1, column = 0, sticky = "nsew", padx = 5, pady = 5)
-        ctk.CTkLabel(self, text = text_color, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 2, column = 0, sticky = "nsew", padx = 5, pady = 5)
+        ctk.CTkLabel(self, text = text_title, width = STANDARD_COLUMN_WIDTH_4, font = title_font).grid(row = 0, column = 0, columnspan = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkLabel(self, text = text_max, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 1, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkLabel(self, text = text_color, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 2, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         # button
-        ctk.CTkButton(self, text = text_button, command = self.apply_formatting, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = 5, pady = 5)
+        ctk.CTkButton(self, text = text_button, command = self.apply_formatting, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         # max value entry widget
         self.entry_1 = ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4)
-        self.entry_1.grid(row = 1, column = 1, sticky = "nsew", padx = 5, pady = 5)
+        self.entry_1.grid(row = 1, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         self.entry_1.insert(0, value_1)
         
         self.entry_2 = ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4)
-        self.entry_2.grid(row = 1, column = 2, sticky = "nsew", padx = 5, pady = 5)
+        self.entry_2.grid(row = 1, column = 2, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         self.entry_2.insert(0, value_2)
 
         self.entry_3 = ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4)
-        self.entry_3.grid(row = 1, column = 3, sticky = "nsew", padx = 5, pady = 5)
+        self.entry_3.grid(row = 1, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         self.entry_3.insert(0, value_3)
 
         # formatting color dropdown widget
         self.dropdown_1 = ctk.CTkComboBox(self, values = list(zip(*COLORS))[0], width = STANDARD_COLUMN_WIDTH_4)
-        self.dropdown_1.grid(row = 2, column = 1, sticky = "nsew", padx = 5, pady = 5)
+        self.dropdown_1.grid(row = 2, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         self.dropdown_1.set(color_1)
         
         self.dropdown_2 = ctk.CTkComboBox(self, values = list(zip(*COLORS))[0], width = STANDARD_COLUMN_WIDTH_4)
-        self.dropdown_2.grid(row = 2, column = 2, sticky = "nsew", padx = 5, pady = 5)
+        self.dropdown_2.grid(row = 2, column = 2, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         self.dropdown_2.set(color_2)
         
         self.dropdown_3 = ctk.CTkComboBox(self, values = list(zip(*COLORS))[0], width = STANDARD_COLUMN_WIDTH_4)
-        self.dropdown_3.grid(row = 2, column = 3, sticky = "nsew", padx = 5, pady = 5)
+        self.dropdown_3.grid(row = 2, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         self.dropdown_3.set(color_3)
 
 
