@@ -14,6 +14,9 @@ import customtkinter as ctk
 import CTkMessagebox as CTkMessagebox
 from CTkMenuBar import *
 import webbrowser
+import tkinter as tk
+from tkinter import filedialog
+import pandas as pd
 
 """
 Importing internal modules
@@ -50,9 +53,6 @@ class create_dayprofile(ctk.CTkToplevel):
         self.columnconfigure((1, 2, 4), weight = 1)
         self.columnconfigure((0, 3), weight = 2)
         self.columnconfigure((5), weight = 3)
-        # self.rowconfigure((2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25), weight=1)
-        # self.columnconfigure((1), weight = 3)
-        # total_width = 1000
         
         # font
         title_font = ctk.CTkFont(family=TITLE_FONT, size=TITLE_SIZE, weight=TITLE_WEIGHT)
@@ -68,7 +68,7 @@ class create_dayprofile(ctk.CTkToplevel):
 
         # button
         ctk.CTkButton(self, text = "Save", command = lambda: save(name_var.get()), font = text_font).grid(row = 2, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
-        ctk.CTkButton(self, text = "Open", command = lambda: open(), font = text_font).grid(row = 3, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
+        ctk.CTkButton(self, text = "Open", command = lambda: open_dayprofile(), font = text_font).grid(row = 3, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
         ctk.CTkButton(self, text = "Exit", command = lambda: create_dayprofile.destroy(self), font = text_font).grid(row = 4, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
         
         ctk.CTkButton(self, text = "All hours", command = lambda: toggle_hours(), font = text_font).grid(row = 6, rowspan = 1, column = 5, sticky = "ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
@@ -151,18 +151,48 @@ class create_dayprofile(ctk.CTkToplevel):
         hour_checkboxes = [ctk.CTkCheckBox(self, text=hour, variable=hour_var[i]) for i, hour in enumerate(hours)]
         for i, hour_checkboxes in enumerate(hour_checkboxes):
             hour_checkboxes.grid(row=i+2, column=4, sticky="ew", padx = STANDARD_PADX_CHECKBOX, pady = STANDARD_PADY_CHECKBOX)
-
         
-        
-        def open():
+        def open_dayprofile():
                 CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Opening of an existing dayprofile_XXX.txt file is not yet implemented", icon = "warning")
         
         def save(name_text = None):
             if len(name_text) == 0:
-                CTkMessagebox.CTkMessagebox(title = "Error!", message = "You need to give a suffixation for your dayprofile to be able to save!. An example can be 'AlwaysOn", icon = "cancel")
-            else:
-                # Getting the values from the checkboxes
-                CTkMessagebox.CTkMessagebox(title = "Not implemented yet", message = "Saving of the current file is not yet implemented", icon = "warning")
+                CTkMessagebox.CTkMessagebox(title = "Error!", message = "You need to give a suffixation for your dayprofile to be able to save!. An example can be 'AlwaysOn'.", icon = "cancel")
+                return
+            
+            selected_months_tuple = tuple(month_var[i].get() for i in range(len(months)))
+            selected_weeks_first_tuple = tuple(week_var_first_half[i].get() for i in range(len(weeks_first_half)))
+            selected_weeks_second_tuple = tuple(week_var_second_half[i].get() for i in range(len(weeks_second_half)))
+            selected_days_tuple = tuple(day_var[i].get() for i in range(len(days)))
+            selected_hours_tuple = tuple(hour_var[i].get() for i in range(len(hours)))
+
+            selected_months_str = str(selected_months_tuple).replace("(", "").replace(")", "").replace(",", "").replace("True", "1").replace("False", "0")
+            selected_weeks_str = str(selected_weeks_first_tuple + selected_weeks_second_tuple).replace("(", "").replace(")", "").replace(",", "").replace("True", "1").replace("False", "0")
+            selected_days_str = str(selected_days_tuple).replace("(", "").replace(")", "").replace(",", "").replace("True", "1").replace("False", "0")
+            selected_hours_str = str(selected_hours_tuple).replace("(", "").replace(")", "").replace(",", "").replace("True", "1").replace("False", "0")
+
+            months_df = pd.DataFrame({'Months': selected_months_str.split()})
+            weeks_df = pd.DataFrame({'Weeks': selected_weeks_str.split()})
+            days_df = pd.DataFrame({'Days': selected_days_str.split()})
+            hours_df = pd.DataFrame({'Hours': selected_hours_str.split()})
+
+            dayprofile_df = pd.concat([months_df, weeks_df, days_df, hours_df], axis=1)
+
+            dayprofile_df = dayprofile_df.transpose()
+
+            suggested_filename = f"dayprofile_{name_text}.txt"
+
+            script_directory = os.path.join(os.getcwd(), "dayprofiles")
+
+            file_path = filedialog.asksaveasfilename(defaultextension=".txt", initialfile=suggested_filename, initialdir=script_directory, filetypes=[("Text files", "*.txt")])
+
+            if file_path:
+                with open(file_path, "w") as file:
+                    dayprofile_df.to_csv(file, sep=' ', index=False)
+
+                print(f'Dayprofile saved too: {file_path}')
+            
+                create_dayprofile.destroy(self)
 
 
 
