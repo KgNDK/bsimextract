@@ -26,12 +26,12 @@ from settings.settings import *
 from frontend.widgets.dayprofile_single import dayprofile_single
 
 class page_menu_rh(ctk.CTkFrame):
-    def __init__(self, parent):
+    def __init__(self, parent, rh_dayprofile):
         super().__init__(master = parent, fg_color="transparent")
         self.pack(expand = True, fill = "both")
 
         # widgets for RelHumid under this
-        dayprofile_single(self, "RelHumid").pack(fill = "x", expand = True)
+        dayprofile_single(self, "RelHumid", rh_dayprofile).pack(fill = "x", expand = True)
 
 if __name__ == "__main__":
     root = ctk.CTk()

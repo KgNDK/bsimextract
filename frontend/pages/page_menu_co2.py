@@ -13,6 +13,9 @@ Importing extern modules
 import tkinter as tk
 import customtkinter as ctk
 import CTkMessagebox as CTkMessagebox
+import CTkMenuBar
+import webbrowser
+import pandas as pd
 
 """
 Importing internal modules
@@ -28,12 +31,12 @@ from frontend.widgets.dayprofile_single import dayprofile_single
 from frontend.widgets.co2_format_widget import co2_format_widget
 
 class page_menu_co2(ctk.CTkFrame):
-    def __init__(self, parent):
+    def __init__(self, parent, co2_dayprofile):
         super().__init__(master = parent, fg_color="transparent", width = 200)
         self.pack(expand = True, fill = "both")
 
         # widgets for CO2 under this
-        dayprofile_single(self, "CO2").pack(expand = True, fill = "x")
+        dayprofile_single(self, "CO2", co2_dayprofile).pack(expand = True, fill = "x")
 
         # widgets for formatting CO2 data under this
         co2_format_widget(self).pack(expand = True, fill = "x")

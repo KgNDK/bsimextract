@@ -10,7 +10,7 @@ Settings for bsimextract
 """
 Importing extern modules
 """
-
+import customtkinter as ctk
 
 """
 Importing internal modules
@@ -91,4 +91,5 @@ DAYPROFILE_CO2 = ""
 DAYPROFILE_TEMP = ""
 DAYPROFILE_RH = ""
 DAYPROFILE_AIRCH = "" 
+
 

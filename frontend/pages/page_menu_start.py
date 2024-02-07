@@ -28,7 +28,7 @@ from frontend.widgets.import_file_widget import import_file_widget
 from frontend.widgets.dayprofile_all import dayprofile_all
 
 class page_menu_start(ctk.CTkFrame):
-    def __init__(self, parent):
+    def __init__(self, parent, co2_dayprofile, rh_dayprofile, temp_dayprofile, airch_dayprofile):
         super().__init__(master = parent, fg_color="transparent")
         self.pack(expand = True, fill = "both")
 
@@ -37,7 +37,7 @@ class page_menu_start(ctk.CTkFrame):
         import_file_widget(self).pack(expand = True, fill = "x")
 
         # widgets for start under this
-        dayprofile_all(self).pack(expand = True, fill = "x")
+        dayprofile_all(self, co2_dayprofile, rh_dayprofile, temp_dayprofile, airch_dayprofile).pack(expand = True, fill = "x")
 
 
 

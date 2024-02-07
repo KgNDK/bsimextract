@@ -23,8 +23,9 @@ sys.path = os.getcwd()
 
 from settings.settings import *
 
+
 class dayprofile(ctk.CTkFrame):
-    def __init__(self, parent, label_text):
+    def __init__(self, parent, label_text, dayprofile_var):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # font
@@ -39,8 +40,9 @@ class dayprofile(ctk.CTkFrame):
         ctk.CTkLabel(self, text = label_text, width = STANDARD_COLUMN_WIDTH_3, font = text_font).grid(row = 0, column = 0, sticky = "nsew", padx = 10, pady = STANDARD_PADY)
 
         # combobox widget
-        self.combobox = ctk.CTkComboBox(self, state="readonly", width = STANDARD_COLUMN_WIDTH_2_3)
-        self.combobox.grid(row = 0, column = 1, sticky = "nsew", padx = 5, pady = 5)
+        self.combobox = ctk.CTkComboBox(self, state="readonly", width = STANDARD_COLUMN_WIDTH_2_3, variable = dayprofile_var)
+        self.combobox.set(dayprofile_var.get())
+        self.combobox.grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         self.populate_combobox()
 
     def populate_combobox(self):
@@ -50,6 +52,9 @@ class dayprofile(ctk.CTkFrame):
         
         self.combobox.configure(values = files)
 
+    # def update_combobox(self, text):
+    #     dayprofile = self.combobox.set(text)
+
 if __name__ == "__main__":
     root = ctk.CTk()
 
@@ -58,6 +63,8 @@ if __name__ == "__main__":
     root.title("TEST: dayprofile_single")
     root.geometry("400x100")
 
-    dayprofile(root, "test_label").pack(fill = "x", expand = True, padx = 10, pady = 5)
+    dayprofile_value = ctk.StringVar()
+
+    dayprofile(root, "test_label", dayprofile_value).pack(fill = "x", expand = True, padx = 10, pady = 5)
 
     root.mainloop()

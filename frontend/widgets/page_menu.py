@@ -16,6 +16,8 @@ import tkinter as tk
 import customtkinter as ctk
 from CTkMenuBar import *
 import CTkMessagebox as CTkMessagebox
+import webbrowser
+import pandas as pd
 
 """
 Importing internal modules
@@ -37,7 +39,7 @@ from frontend.pages.page_menu_airch import page_menu_airch
 
 
 class page_menu(ctk.CTkTabview):
-    def __init__(self, parent):
+    def __init__(self, parent, co2_dayprofile, rh_dayprofile, temp_dayprofile, airch_dayprofile):
         super().__init__(master = parent, width = 200)
 
         # tabs
@@ -48,11 +50,14 @@ class page_menu(ctk.CTkTabview):
         self.add("AirChange")
 
         # widgets
-        page_menu_start(self.tab("Start"))
-        page_menu_co2(self.tab("CO2"))
-        page_menu_rh(self.tab("RelHumid"))
-        page_menu_temp(self.tab("Temperature"))
-        page_menu_airch(self.tab("AirChange"))
+        page_menu_start(self.tab("Start"), co2_dayprofile, rh_dayprofile, temp_dayprofile, airch_dayprofile)
+        page_menu_co2(self.tab("CO2"), co2_dayprofile)
+        page_menu_rh(self.tab("RelHumid"), rh_dayprofile)
+        page_menu_temp(self.tab("Temperature"), temp_dayprofile)
+        page_menu_airch(self.tab("AirChange"), airch_dayprofile)
+
+       
+
     
 if __name__ == "__main__":  
     root = ctk.CTk()

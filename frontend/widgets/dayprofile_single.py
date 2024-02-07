@@ -28,7 +28,7 @@ from frontend.widgets.dayprofile_title import dayprofile_title
 
 
 class dayprofile_single(ctk.CTkFrame):
-    def __init__(self, parent, label_text, title_text = "Choose a dayprofile:"):
+    def __init__(self, parent, label_text, dayprofile_var, title_text = "Choose a dayprofile:"):
         super().__init__(master = parent, fg_color = FG_COLOR)
         
         # font
@@ -39,7 +39,7 @@ class dayprofile_single(ctk.CTkFrame):
         dayprofile_title(self, title_text).pack(fill = "x", expand = True)
 
         # combobox widget
-        dayprofile(self, label_text).pack(fill = "x", expand = True)
+        dayprofile(self, label_text, dayprofile_var).pack(fill = "x", expand = True)
 
 
 
