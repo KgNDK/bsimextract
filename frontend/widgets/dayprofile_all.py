@@ -28,7 +28,7 @@ from frontend.widgets.dayprofile import dayprofile
 from frontend.widgets.dayprofile_title import dayprofile_title
 
 class dayprofile_all(ctk.CTkFrame):
-    def __init__(self, parent, co2_dayprofile, rh_dayprofile, temp_dayprofile, airch_dayprofile, label_co2 = "CO2", label_temp = "Temperature", label_rh = "RelHumid", label_airch = "AirChange", title_text = "Choose a dayprofile:"):
+    def __init__(self, parent, co2_dayprofile_var, rh_dayprofile_var, temp_dayprofile_var, airch_dayprofile_var, label_co2 = "CO2", label_temp = "Temperature", label_rh = "RelHumid", label_airch = "AirChange", title_text = "Choose a dayprofile:"):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # font
@@ -39,10 +39,10 @@ class dayprofile_all(ctk.CTkFrame):
         dayprofile_title(self, title_text).pack(fill = "x", expand = True)
 
         # combobox widget
-        dayprofile(self, label_co2, co2_dayprofile).pack(fill = "x", expand = True)
-        dayprofile(self, label_temp, temp_dayprofile).pack(fill = "x", expand = True)
-        dayprofile(self, label_rh, rh_dayprofile).pack(fill = "x", expand = True)
-        dayprofile(self, label_airch, airch_dayprofile).pack(fill = "x", expand = True)
+        dayprofile(self, label_co2, co2_dayprofile_var).pack(fill = "x", expand = True)
+        dayprofile(self, label_temp, temp_dayprofile_var).pack(fill = "x", expand = True)
+        dayprofile(self, label_rh, rh_dayprofile_var).pack(fill = "x", expand = True)
+        dayprofile(self, label_airch, airch_dayprofile_var).pack(fill = "x", expand = True)
 
 
 

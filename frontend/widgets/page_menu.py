@@ -39,7 +39,7 @@ from frontend.pages.page_menu_airch import page_menu_airch
 
 
 class page_menu(ctk.CTkTabview):
-    def __init__(self, parent, co2_dayprofile, rh_dayprofile, temp_dayprofile, airch_dayprofile):
+    def __init__(self, parent, co2_dayprofile_var, rh_dayprofile_var, temp_dayprofile_var, airch_dayprofile_var, path_var, co2_maxco2_one_var):
         super().__init__(master = parent, width = 200)
 
         # tabs
@@ -50,11 +50,11 @@ class page_menu(ctk.CTkTabview):
         self.add("AirChange")
 
         # widgets
-        page_menu_start(self.tab("Start"), co2_dayprofile, rh_dayprofile, temp_dayprofile, airch_dayprofile)
-        page_menu_co2(self.tab("CO2"), co2_dayprofile)
-        page_menu_rh(self.tab("RelHumid"), rh_dayprofile)
-        page_menu_temp(self.tab("Temperature"), temp_dayprofile)
-        page_menu_airch(self.tab("AirChange"), airch_dayprofile)
+        page_menu_start(self.tab("Start"), co2_dayprofile_var, rh_dayprofile_var, temp_dayprofile_var, airch_dayprofile_var, path_var)
+        page_menu_co2(self.tab("CO2"), co2_dayprofile_var, co2_maxco2_one_var)
+        # page_menu_rh(self.tab("RelHumid"), rh_dayprofile_var)
+        # page_menu_temp(self.tab("Temperature"), temp_dayprofile_var)
+        # page_menu_airch(self.tab("AirChange"), airch_dayprofile_var)
 
        
 

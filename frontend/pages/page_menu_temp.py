@@ -26,12 +26,12 @@ from settings.settings import *
 from frontend.widgets.dayprofile_single import dayprofile_single
 
 class page_menu_temp(ctk.CTkFrame):
-    def __init__(self, parent, temp_dayprofile):
+    def __init__(self, parent, temp_dayprofile_var):
         super().__init__(master = parent, fg_color="transparent")
         self.pack(expand = True, fill = "both")
 
         # widgets for Temperature under this
-        dayprofile_single(self, "Temperature", temp_dayprofile).pack(fill = "x", expand = True)
+        dayprofile_single(self, "Temperature", temp_dayprofile_var).pack(fill = "x", expand = True)
 
 if __name__ == "__main__":
     root = ctk.CTk()

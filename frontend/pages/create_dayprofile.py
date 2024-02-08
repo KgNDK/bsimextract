@@ -46,8 +46,7 @@ class create_dayprofile(ctk.CTkToplevel):
         self.title(text_top_title)
         self.geometry("700x875")
         #* Looking the size of the top level window because of performance hit when resizing
-        self.minsize(700, 875)
-        self.maxsize(700, 875)
+        self.resizable(False, False)
 
         # grid layout
         self.columnconfigure((1, 2, 4), weight = 1)
@@ -166,10 +165,16 @@ class create_dayprofile(ctk.CTkToplevel):
             selected_days_tuple = tuple(day_var[i].get() for i in range(len(days)))
             selected_hours_tuple = tuple(hour_var[i].get() for i in range(len(hours)))
 
-            selected_months_str = str(selected_months_tuple).replace("(", "").replace(")", "").replace(",", "").replace("True", "1").replace("False", "0")
-            selected_weeks_str = str(selected_weeks_first_tuple + selected_weeks_second_tuple).replace("(", "").replace(")", "").replace(",", "").replace("True", "1").replace("False", "0")
-            selected_days_str = str(selected_days_tuple).replace("(", "").replace(")", "").replace(",", "").replace("True", "1").replace("False", "0")
-            selected_hours_str = str(selected_hours_tuple).replace("(", "").replace(")", "").replace(",", "").replace("True", "1").replace("False", "0")
+            #? Alternative way of formatting the dayprofile when save with 0 and 1 instead of True and False
+            # selected_months_str = str(selected_months_tuple).replace("(", "").replace(")", "").replace(",", "").replace("True", "1").replace("False", "0")
+            # selected_weeks_str = str(selected_weeks_first_tuple + selected_weeks_second_tuple).replace("(", "").replace(")", "").replace(",", "").replace("True", "1").replace("False", "0")
+            # selected_days_str = str(selected_days_tuple).replace("(", "").replace(")", "").replace(",", "").replace("True", "1").replace("False", "0")
+            # selected_hours_str = str(selected_hours_tuple).replace("(", "").replace(")", "").replace(",", "").replace("True", "1").replace("False", "0")
+
+            selected_months_str = str(selected_months_tuple).replace("(", "").replace(")", "").replace(",", "")
+            selected_weeks_str = str(selected_weeks_first_tuple + selected_weeks_second_tuple).replace("(", "").replace(")", "").replace(",", "")
+            selected_days_str = str(selected_days_tuple).replace("(", "").replace(")", "").replace(",", "")
+            selected_hours_str = str(selected_hours_tuple).replace("(", "").replace(")", "").replace(",", "")
 
             months_df = pd.DataFrame({'Months': selected_months_str.split()})
             weeks_df = pd.DataFrame({'Weeks': selected_weeks_str.split()})

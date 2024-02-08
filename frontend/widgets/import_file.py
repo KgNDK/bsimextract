@@ -28,7 +28,7 @@ sys.path = os.getcwd()
 from settings.settings import *
 
 class import_file(ctk.CTkFrame):
-    def __init__(self, parent, text_button = "Import Data"):
+    def __init__(self, parent, path_var, text_button = "Import file:"):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # font
@@ -40,21 +40,33 @@ class import_file(ctk.CTkFrame):
         self.columnconfigure((0), weight = 1, uniform = "a")
         self.columnconfigure((1), weight = 2, uniform = "a")
 
-        self.entry_var = tk.StringVar(self)
+        self.entry_var = ctk.StringVar(self)
 
-        ctk.CTkButton(self, text = text_button, command = self.browse_file, width = STANDARD_COLUMN_WIDTH_3, font = text_font).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkButton(self, text = text_button, command = lambda: self.button(path_var), textvariable = text_button, width = STANDARD_COLUMN_WIDTH_3, font = text_font).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         ctk.CTkEntry(self, textvariable = self.entry_var, state = "readonly", width = STANDARD_COLUMN_WIDTH_2_3).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+
+    def button(self, path_var):
+        file_path = self.browse_file()
+        if file_path:
+            path_var.set(f"{file_path}")
+        else:
+            CTkMessagebox(message="File has no path!", title="Warning Message!", icon="warning")
+        
 
     def browse_file(self):
         file_path = filedialog.askopenfilename(filetypes=[("Tekstfiler", "*.txt"), ("Alle filer", "*.*")])
         if file_path and not os.path.basename(file_path).startswith("dayprofile"):
             self.entry_var.set(os.path.basename(file_path))
+            return file_path
         if file_path and os.path.basename(file_path).startswith("dayprofile"):
             self.show_warning("You have tried to import a dayprofile file. Please try importing BSim Data in a .txt format instead.")
+            return
         if file_path and os.path.basename(file_path).startswith("requirement"):
             self.show_warning("You have tried to import the requirements file. Please try importing BSim Data in a .txt format instead.")
+            return
         if file_path and not os.path.basename(file_path).endswith("txt"):
             self.show_warning("The file you have tried to import is not a .txt file. Please try importing BSim Data in a .txt format instead.")
+            return
     
     def show_warning(self, text_msg = "You have tried to import a dayprofile. Please try importing BSim Data in a .txt format instead."):
         msg = CTkMessagebox(message = text_msg,

@@ -28,16 +28,18 @@ from settings.settings import *
 
 class co2_format_widget(ctk.CTkFrame):
     def __init__(self, parent,
-                 text_title = "CO2 hours above:",
-                 text_button = "Apply",
-                 text_max = "Max CO2:",
-                 text_color = "Formatting color:",
-                 value_1 = "1000",
-                 value_2 = "1250",
-                 value_3 = "1500",
-                 color_1 = "Yellow",
-                 color_2 = "Orange",
-                 color_3 = "Red",):
+                 co2_maxco2_one_var,
+                 text_title,
+                 text_button,
+                 text_max,
+                 text_color,
+                 value_1,
+                 value_2,
+                 value_3,
+                 color_1,
+                 color_2,
+                 color_3,
+                 ):
         
         super().__init__(master = parent, fg_color = FG_COLOR, width = 200)
 
@@ -58,9 +60,9 @@ class co2_format_widget(ctk.CTkFrame):
         ctk.CTkButton(self, text = text_button, command = self.apply_formatting, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         # max value entry widget
-        self.entry_1 = ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4)
+        self.entry_1 = ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4, textvariable = co2_maxco2_one_var)
         self.entry_1.grid(row = 1, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        self.entry_1.insert(0, value_1)
+        # self.entry_1.insert(0, value_1)
         
         self.entry_2 = ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4)
         self.entry_2.grid(row = 1, column = 2, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)

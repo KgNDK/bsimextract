@@ -42,31 +42,69 @@ class app(ctk.CTk):
         title_menu(self)
 
         # widgets
-        page_menu(self, self.co2_dayprofile, self.rh_dayprofile, self.temp_dayprofile, self.airch_dayprofile).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        page_menu(self,
+                  self.co2_dayprofile_var,
+                  self.rh_dayprofile_var,
+                  self.temp_dayprofile_var,
+                  self.airch_dayprofile_var,
+                  self.path_var,
+                  self.co2_maxco2_one_var,
+                #   self.rh_dayprofile_var,
+                #   self.temp_dayprofile_var,
+                #   self.airch_dayprofile_var
+                  
+                  ).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         self.mainloop()
 
     def init_parameters(self):
-        # variables
-        self.co2_dayprofile = ctk.StringVar()
-        self.rh_dayprofile = ctk.StringVar()
-        self.temp_dayprofile = ctk.StringVar()
-        self.airch_dayprofile = ctk.StringVar()
+        
+        #! path
+        # path variables
+        self.path_var = ctk.StringVar(value = START_PATH)
 
-        # # trace testing
-        # self.co2_dayprofile.trace("w", self.update_test)
-        # self.rh_dayprofile.trace("w", self.update_test)
-        # self.temp_dayprofile.trace("w", self.update_test)
-        # self.airch_dayprofile.trace("w", self.update_test)
+        # path trace variables
+        self.path_var.trace("w", lambda name, index, mode, var=self.path_var: on_variable_change(name, index, mode, var))
 
-    # # trace testing
-    # def update_test(self, *args):
-    #     print(self.co2_dayprofile.get())
-    #     print(self.rh_dayprofile.get())
-    #     print(self.temp_dayprofile.get())
-    #     print(self.airch_dayprofile.get())
+        #! dayprofile
+        # dayprofile variables
+        self.co2_dayprofile_var = ctk.StringVar(value = DAYPROFILE_CO2)
+        self.rh_dayprofile_var = ctk.StringVar(value = DAYPROFILE_RH)
+        self.temp_dayprofile_var = ctk.StringVar(value = DAYPROFILE_TEMP)
+        self.airch_dayprofile_var = ctk.StringVar(value = DAYPROFILE_AIRCH)
+
+        # dayprofile trace variables
+        self.co2_dayprofile_var.trace("w", lambda name, index, mode, var=self.co2_dayprofile_var: on_variable_change(name, index, mode, var))
+        self.rh_dayprofile_var.trace("w", lambda name, index, mode, var=self.rh_dayprofile_var: on_variable_change(name, index, mode, var))
+        self.temp_dayprofile_var.trace("w", lambda name, index, mode, var=self.temp_dayprofile_var: on_variable_change(name, index, mode, var))
+        self.airch_dayprofile_var.trace("w", lambda name, index, mode, var=self.airch_dayprofile_var: on_variable_change(name, index, mode, var))
+
+        #! co2
+        # co2 variables
+        self.co2_maxco2_one_var = ctk.StringVar(value = CO2_MAXCO2_ONE)
+        self.co2_maxco2_two_var = ctk.StringVar(value = CO2_MAXCO2_TWO)
+        self.co2_maxco2_three_var = ctk.StringVar(value = CO2_MAXCO2_THREE)
+        self.co2_formatcolor_one_var = ctk.StringVar(value = CO2_FORMATCOLOR_ONE)
+        self.co2_formatcolor_two_var = ctk.StringVar(value = CO2_FORMATCOLOR_TWO)
+        self.co2_formatcolor_three_var = ctk.StringVar(value = CO2_FORMATCOLOR_THREE)
+
+        # co2 trace variables
+        self.co2_maxco2_one_var.trace("w", lambda name, index, mode, var=self.co2_maxco2_one_var: on_variable_change(name, index, mode, var))
 
 
+
+    
+
+        def on_variable_change(name, index, mode, variable):
+            """
+            This function handles the event of a variable change. It takes in four parameters:
+                - name: the name of the variable
+                - index: the index of the variable
+                - mode: the mode of the variable change
+                - variable: the variable that has changed
+            This function does not return anything.
+            """
+            print(variable.get())
         
         
 

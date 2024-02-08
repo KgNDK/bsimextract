@@ -26,7 +26,7 @@ from settings.settings import *
 from frontend.widgets.import_file import import_file
 
 class import_file_widget(ctk.CTkFrame):
-    def __init__(self, parent, text_button = "Import Data", text_title = "Choose BSim data file:"):
+    def __init__(self, parent, path_var, text_title = "Choose BSim data file:"):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # font
@@ -37,7 +37,7 @@ class import_file_widget(ctk.CTkFrame):
         ctk.CTkLabel(self, text = text_title, width = STANDARD_COLUMN_WIDTH_TOTAL, font = title_font).pack(fill = "x", expand = True)
 
         # Import file widget
-        import_file(self, text_button).pack(fill = "x", expand = True)
+        import_file(self, path_var).pack(fill = "x", expand = True)
 
 
 if __name__ == "__main__":
