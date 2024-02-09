@@ -39,7 +39,25 @@ from frontend.pages.page_menu_airch import page_menu_airch
 
 
 class page_menu(ctk.CTkTabview):
-    def __init__(self, parent, co2_dayprofile_var, rh_dayprofile_var, temp_dayprofile_var, airch_dayprofile_var, path_var, co2_maxco2_one_var):
+    def __init__(self,
+                 parent,
+                 co2_dayprofile_var,
+                 rh_dayprofile_var,
+                 temp_dayprofile_var,
+                 airch_dayprofile_var,
+                 path_var,
+                 co2_maxco2_one_var,
+                 co2_maxco2_two_var,
+                 co2_maxco2_three_var,
+                 co2_formatcolor_one_var,
+                 co2_formatcolor_two_var,
+                 co2_formatcolor_three_var,
+                 airch_maxairch_one_var,
+                 airch_maxairch_two_var,
+                 airch_maxairch_three_var,
+                 airch_formatcolor_one_var,
+                 airch_formatcolor_two_var,
+                 airch_formatcolor_three_var):
         super().__init__(master = parent, width = 200)
 
         # tabs
@@ -51,10 +69,10 @@ class page_menu(ctk.CTkTabview):
 
         # widgets
         page_menu_start(self.tab("Start"), co2_dayprofile_var, rh_dayprofile_var, temp_dayprofile_var, airch_dayprofile_var, path_var)
-        page_menu_co2(self.tab("CO2"), co2_dayprofile_var, co2_maxco2_one_var)
+        page_menu_co2(self.tab("CO2"), co2_dayprofile_var, co2_maxco2_one_var, co2_maxco2_two_var, co2_maxco2_three_var, co2_formatcolor_one_var, co2_formatcolor_two_var, co2_formatcolor_three_var)
         # page_menu_rh(self.tab("RelHumid"), rh_dayprofile_var)
         # page_menu_temp(self.tab("Temperature"), temp_dayprofile_var)
-        # page_menu_airch(self.tab("AirChange"), airch_dayprofile_var)
+        page_menu_airch(self.tab("AirChange"), airch_dayprofile_var, airch_maxairch_one_var, airch_maxairch_two_var, airch_maxairch_three_var, airch_formatcolor_one_var, airch_formatcolor_two_var, airch_formatcolor_three_var)
 
        
 

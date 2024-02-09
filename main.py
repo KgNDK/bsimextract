@@ -49,9 +49,19 @@ class app(ctk.CTk):
                   self.airch_dayprofile_var,
                   self.path_var,
                   self.co2_maxco2_one_var,
-                #   self.rh_dayprofile_var,
-                #   self.temp_dayprofile_var,
-                #   self.airch_dayprofile_var
+                  self.co2_maxco2_two_var,
+                  self.co2_maxco2_three_var,
+                  self.co2_formatcolor_one_var,
+                  self.co2_formatcolor_two_var,
+                  self.co2_formatcolor_three_var,
+                  self.airch_maxairch_one_var,
+                  self.airch_maxairch_two_var,
+                  self.airch_maxairch_three_var,
+                  self.airch_formatcolor_one_var,
+                  self.airch_formatcolor_two_var,
+                  self.airch_formatcolor_three_var
+
+
                   
                   ).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
@@ -90,7 +100,28 @@ class app(ctk.CTk):
 
         # co2 trace variables
         self.co2_maxco2_one_var.trace("w", lambda name, index, mode, var=self.co2_maxco2_one_var: on_variable_change(name, index, mode, var))
+        self.co2_maxco2_two_var.trace("w", lambda name, index, mode, var=self.co2_maxco2_two_var: on_variable_change(name, index, mode, var))
+        self.co2_maxco2_three_var.trace("w", lambda name, index, mode, var=self.co2_maxco2_three_var: on_variable_change(name, index, mode, var))
+        self.co2_formatcolor_one_var.trace("w", lambda name, index, mode, var=self.co2_formatcolor_one_var: on_variable_change(name, index, mode, var))
+        self.co2_formatcolor_two_var.trace("w", lambda name, index, mode, var=self.co2_formatcolor_two_var: on_variable_change(name, index, mode, var))
+        self.co2_formatcolor_three_var.trace("w", lambda name, index, mode, var=self.co2_formatcolor_three_var: on_variable_change(name, index, mode, var))
 
+        #! airchange
+        # airchange variables
+        self.airch_maxairch_one_var = ctk.StringVar(value = AIRCH_MAXAIRCH_ONE)
+        self.airch_maxairch_two_var = ctk.StringVar(value = AIRCH_MAXAIRCH_TWO)
+        self.airch_maxairch_three_var = ctk.StringVar(value = AIRCH_MAXAIRCH_THREE)
+        self.airch_formatcolor_one_var = ctk.StringVar(value = AIRCH_FORMATCOLOR_ONE)
+        self.airch_formatcolor_two_var = ctk.StringVar(value = AIRCH_FORMATCOLOR_TWO)
+        self.airch_formatcolor_three_var = ctk.StringVar(value = AIRCH_FORMATCOLOR_THREE)
+
+        # airchange trace variables
+        self.airch_maxairch_one_var.trace("w", lambda name, index, mode, var=self.airch_maxairch_one_var: on_variable_change(name, index, mode, var))
+        self.airch_maxairch_two_var.trace("w", lambda name, index, mode, var=self.airch_maxairch_two_var: on_variable_change(name, index, mode, var))
+        self.airch_maxairch_three_var.trace("w", lambda name, index, mode, var=self.airch_maxairch_three_var: on_variable_change(name, index, mode, var))
+        self.airch_formatcolor_one_var.trace("w", lambda name, index, mode, var=self.airch_formatcolor_one_var: on_variable_change(name, index, mode, var))
+        self.airch_formatcolor_two_var.trace("w", lambda name, index, mode, var=self.airch_formatcolor_two_var: on_variable_change(name, index, mode, var))
+        self.airch_formatcolor_three_var.trace("w", lambda name, index, mode, var=self.airch_formatcolor_three_var: on_variable_change(name, index, mode, var))
 
 
     
@@ -98,9 +129,9 @@ class app(ctk.CTk):
         def on_variable_change(name, index, mode, variable):
             """
             This function handles the event of a variable change. It takes in four parameters:
-                - name: the name of the variable
-                - index: the index of the variable
-                - mode: the mode of the variable change
+                - name: the name of the variable (not used)
+                - index: the index of the variable (not used)
+                - mode: the mode of the variable change (not used)
                 - variable: the variable that has changed
             This function does not return anything.
             """
