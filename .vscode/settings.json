@@ -7,6 +7,7 @@
         "airchange",
         "columnspan",
         "FORMATCOLOR",
+        "hovermode",
         "Lauridsen",
         "LOWMAXRH",
         "maxairch",
@@ -22,11 +23,18 @@
         "MINRH",
         "mintemp",
         "MINTEMP",
+        "nticks",
         "padx",
         "pady",
         "relhumid",
         "setit",
         "textvariable",
-        "Universitet"
+        "tickfont",
+        "tickmode",
+        "tracegroupgap",
+        "traceorder",
+        "Universitet",
+        "xaxis",
+        "yaxis"
     ]
 }

@@ -34,6 +34,16 @@ def on_variable_change(name, index, mode, variable):
         print(variable.get())
 
 def on_variable_change_int(name, index, mode, variable, starting_value = ""):
+    """
+    Check if the length of the variable is greater than 0. If it is, try to convert the variable to an integer and print the result. If the conversion fails, print an error message and reset the variable to the starting value.
+    Parameters:
+    - name: the name of the variable (not used)
+    - index: the index of the variable (not used)
+    - mode: the mode of the variable (not used)
+    - variable: the variable to be checked
+    - starting_value: the initial value of the variable
+    This function does not return anything, but prints the results on the terminal and resets the variable to the starting value if the conversion fails.
+    """
     if int(len(variable.get())) > 0:
         try:
             int(variable.get())

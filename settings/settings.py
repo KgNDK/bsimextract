@@ -48,6 +48,7 @@ COLORS = [
 
 #! Appearance
 COLOR_MODE = "dark"
+# COLOR_MODE = "light"
 
 #! Grid structure
 #* Standard column width
@@ -138,5 +139,4 @@ AIRCH_MAXAIRCH_THREE = 4
 AIRCH_FORMATCOLOR_ONE = "Yellow"
 AIRCH_FORMATCOLOR_TWO = "Orange"
 AIRCH_FORMATCOLOR_THREE = "Red"
-
 

@@ -76,12 +76,13 @@ class page_menu(ctk.CTkTabview):
                  rh_maxrh_var,
                  rh_formatcolor_minrh_var,
                  rh_formatcolor_lowmaxrh_var,
-                 rh_formatcolor_maxrh_var
+                 rh_formatcolor_maxrh_var,
+                 page_menu_var
                  
                  
                  
                  ):
-        super().__init__(master = parent, width = 200)
+        super().__init__(master = parent, width = 200, command=lambda: page_menu_var.set(page_menu.get(self)))
 
         # tabs
         self.add("Start")
@@ -147,8 +148,6 @@ class page_menu(ctk.CTkTabview):
                                                
                                                
                                                )
-
-       
 
     
 if __name__ == "__main__":  
