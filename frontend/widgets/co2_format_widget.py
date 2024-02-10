@@ -25,6 +25,7 @@ sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 
 from settings.settings import *
+from func.apply_format import apply_format
 
 class co2_format_widget(ctk.CTkFrame):
     def __init__(self, parent,
@@ -56,7 +57,7 @@ class co2_format_widget(ctk.CTkFrame):
         ctk.CTkLabel(self, text = text_color, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 2, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         # button
-        ctk.CTkButton(self, text = text_button, command = self.apply_formatting, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkButton(self, text = text_button, command = apply_format, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         # max value entry widget
         self.entry_1 = ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4, textvariable = co2_maxco2_one_var)
@@ -77,10 +78,6 @@ class co2_format_widget(ctk.CTkFrame):
         
         self.dropdown_3 = ctk.CTkComboBox(self, values = list(zip(*COLORS))[0], width = STANDARD_COLUMN_WIDTH_4, variable = co2_formatcolor_three_var)
         self.dropdown_3.grid(row = 2, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-
-
-    def apply_formatting(self):
-        print("Applying formatting")
 
 
 if __name__ == "__main__":  

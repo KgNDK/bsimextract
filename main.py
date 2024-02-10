@@ -115,15 +115,7 @@ class app(ctk.CTk):
 
         #! temp
         # temp variables
-        self.temp_maxtemp_one_var = ctk.StringVar(value = TEMP_MAXTEMP_ONE)
-        self.temp_maxtemp_two_var = ctk.StringVar(value = TEMP_MAXTEMP_TWO)
-        self.temp_acceptedmaxtemp_var = ctk.StringVar(value = TEMP_ACCEPTEDMAXTEMP)
-        self.temp_acceptedmintemp_var = ctk.StringVar(value = TEMP_ACCEPTEDMINTEMP)
-        self.temp_mintemp_var = ctk.StringVar(value = TEMP_MINTEMP)
-        self.temp_formatcolor_maxone_var = ctk.StringVar(value = TEMP_FORMATCOLOR_MAXONE)
-        self.temp_formatcolor_maxtwo_var = ctk.StringVar(value = TEMP_FORMATCOLOR_MAXTWO)
-        self.temp_formatcolor_accepted_var = ctk.StringVar(value = TEMP_FORMATCOLOR_ACCEPTED)
-        self.temp_formatcolor_mintemp_var = ctk.StringVar(value = TEMP_FORMATCOLOR_MINTEMP)
+        
 
         # temp trace variables
 
