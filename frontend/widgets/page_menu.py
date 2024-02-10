@@ -70,7 +70,17 @@ class page_menu(ctk.CTkTabview):
                  temp_between_min_trans_var,
                  temp_between_max_winter_var,
                  temp_between_min_winter_var,
-                 temp_formatcolor_between_var):
+                 temp_formatcolor_between_var,
+                 rh_minrh_var,
+                 rh_lowmaxrh_var,
+                 rh_maxrh_var,
+                 rh_formatcolor_minrh_var,
+                 rh_formatcolor_lowmaxrh_var,
+                 rh_formatcolor_maxrh_var
+                 
+                 
+                 
+                 ):
         super().__init__(master = parent, width = 200)
 
         # tabs
@@ -100,7 +110,16 @@ class page_menu(ctk.CTkTabview):
                                        
                                        
                                        )
-        # page_menu_rh(self.tab("RelHumid"), rh_dayprofile_var)
+        page_menu_rh(self.tab("RelHumid"), rh_dayprofile_var,
+                                           rh_minrh_var,
+                                           rh_lowmaxrh_var,
+                                           rh_maxrh_var,
+                                           rh_formatcolor_minrh_var,
+                                           rh_formatcolor_lowmaxrh_var,
+                                           rh_formatcolor_maxrh_var
+                                           
+                                           
+                                           )
         page_menu_temp(self.tab("Temperature"), temp_dayprofile_var,
                                                 temp_mintemp_var,
                                                 temp_maxtemp_100h_var,

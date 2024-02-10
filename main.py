@@ -73,7 +73,14 @@ class app(ctk.CTk):
                   self.temp_between_min_trans_var,
                   self.temp_between_max_winter_var,
                   self.temp_between_min_winter_var,
-                  self.temp_formatcolor_between_var
+                  self.temp_formatcolor_between_var,
+                  self.rh_minrh_var,
+                  self.rh_lowmaxrh_var,
+                  self.rh_maxrh_var,
+                  self.rh_formatcolor_minrh_var,
+                  self.rh_formatcolor_lowmaxrh_var,
+                  self.rh_formatcolor_maxrh_var
+
 
                   ).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
@@ -123,9 +130,20 @@ class app(ctk.CTk):
 
         #! rh
         # rh variables
+        self.rh_minrh_var = ctk.StringVar(value = RH_MINRH)
+        self.rh_lowmaxrh_var = ctk.StringVar(value = RH_LOWMAXRH)
+        self.rh_maxrh_var = ctk.StringVar(value = RH_MAXRH)
+        self.rh_formatcolor_minrh_var = ctk.StringVar(value = RH_FORMATCOLOR_MINRH)
+        self.rh_formatcolor_lowmaxrh_var = ctk.StringVar(value = RH_FORMATCOLOR_LOWMAXRH)
+        self.rh_formatcolor_maxrh_var = ctk.StringVar(value = RH_FORMATCOLOR_MAXRH)
 
         # rh trace variables
-
+        self.rh_minrh_var.trace("w", lambda name, index, mode, var=self.rh_minrh_var: on_variable_change(name, index, mode, var))
+        self.rh_lowmaxrh_var.trace("w", lambda name, index, mode, var=self.rh_lowmaxrh_var: on_variable_change(name, index, mode, var))
+        self.rh_maxrh_var.trace("w", lambda name, index, mode, var=self.rh_maxrh_var: on_variable_change(name, index, mode, var))
+        self.rh_formatcolor_minrh_var.trace("w", lambda name, index, mode, var=self.rh_formatcolor_minrh_var: on_variable_change(name, index, mode, var))
+        self.rh_formatcolor_lowmaxrh_var.trace("w", lambda name, index, mode, var=self.rh_formatcolor_lowmaxrh_var: on_variable_change(name, index, mode, var))
+        self.rh_formatcolor_maxrh_var.trace("w", lambda name, index, mode, var=self.rh_formatcolor_maxrh_var: on_variable_change(name, index, mode, var))
 
         #! temp
         # temp variables
