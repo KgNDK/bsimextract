@@ -60,15 +60,29 @@ class app(ctk.CTk):
                   self.airch_maxairch_three_var,
                   self.airch_formatcolor_one_var,
                   self.airch_formatcolor_two_var,
-                  self.airch_formatcolor_three_var
+                  self.airch_formatcolor_three_var,
+                  self.temp_mintemp_var,
+                  self.temp_maxtemp_100h_var,
+                  self.temp_maxtemp_25h_var,
+                  self.temp_formatcolor_mintemp_var,
+                  self.temp_formatcolor_maxtemp_100h_var,
+                  self.temp_formatcolor_maxtemp_25h_var,
+                  self.temp_between_max_summer_var,
+                  self.temp_between_min_summer_var,
+                  self.temp_between_max_trans_var,
+                  self.temp_between_min_trans_var,
+                  self.temp_between_max_winter_var,
+                  self.temp_between_min_winter_var,
+                  self.temp_formatcolor_between_var
 
-
-                  
                   ).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         self.mainloop()
 
     def init_parameters(self):
+        """
+        Initialize parameters for path, dayprofile, co2, rh, temp, and airchange variables and their trace variables.
+        """
         
         #! path
         # path variables
@@ -115,9 +129,34 @@ class app(ctk.CTk):
 
         #! temp
         # temp variables
-        
+        self.temp_mintemp_var = ctk.StringVar(value = TEMP_MINTEMP)
+        self.temp_maxtemp_100h_var = ctk.StringVar(value = TEMP_MAXTEMP_100H)
+        self.temp_maxtemp_25h_var = ctk.StringVar(value = TEMP_MAXTEMP_25H)
+        self.temp_formatcolor_mintemp_var = ctk.StringVar(value = TEMP_FORMATCOLOR_MINTEMP)
+        self.temp_formatcolor_maxtemp_100h_var = ctk.StringVar(value = TEMP_FORMATCOLOR_MAXTEMP_100H)
+        self.temp_formatcolor_maxtemp_25h_var = ctk.StringVar(value = TEMP_FORMATCOLOR_MAXTEMP_25H)
+        self.temp_between_max_summer_var = ctk.StringVar(value = TEMP_BETWEEN_MAX_SUMMER)
+        self.temp_between_min_summer_var = ctk.StringVar(value = TEMP_BETWEEN_MIN_SUMMER)
+        self.temp_between_max_trans_var = ctk.StringVar(value = TEMP_BETWEEN_MAX_TRANS)
+        self.temp_between_min_trans_var = ctk.StringVar(value = TEMP_BETWEEN_MIN_TRANS)
+        self.temp_between_max_winter_var = ctk.StringVar(value = TEMP_BETWEEN_MAX_WINTER)
+        self.temp_between_min_winter_var = ctk.StringVar(value = TEMP_BETWEEN_MIN_WINTER)
+        self.temp_formatcolor_between_var = ctk.StringVar(value = TEMP_FORMATCOLOR_BETWEEN)
 
         # temp trace variables
+        self.temp_mintemp_var.trace("w", lambda name, index, mode, var=self.temp_mintemp_var: on_variable_change(name, index, mode, var))
+        self.temp_maxtemp_100h_var.trace("w", lambda name, index, mode, var=self.temp_maxtemp_100h_var: on_variable_change(name, index, mode, var))
+        self.temp_maxtemp_25h_var.trace("w", lambda name, index, mode, var=self.temp_maxtemp_25h_var: on_variable_change(name, index, mode, var))
+        self.temp_formatcolor_mintemp_var.trace("w", lambda name, index, mode, var=self.temp_formatcolor_mintemp_var: on_variable_change(name, index, mode, var))
+        self.temp_formatcolor_maxtemp_100h_var.trace("w", lambda name, index, mode, var=self.temp_formatcolor_maxtemp_100h_var: on_variable_change(name, index, mode, var))
+        self.temp_formatcolor_maxtemp_25h_var.trace("w", lambda name, index, mode, var=self.temp_formatcolor_maxtemp_25h_var: on_variable_change(name, index, mode, var))
+        self.temp_between_max_summer_var.trace("w", lambda name, index, mode, var=self.temp_between_max_summer_var: on_variable_change(name, index, mode, var))
+        self.temp_between_min_summer_var.trace("w", lambda name, index, mode, var=self.temp_between_min_summer_var: on_variable_change(name, index, mode, var))
+        self.temp_between_max_trans_var.trace("w", lambda name, index, mode, var=self.temp_between_max_trans_var: on_variable_change(name, index, mode, var))
+        self.temp_between_min_trans_var.trace("w", lambda name, index, mode, var=self.temp_between_min_trans_var: on_variable_change(name, index, mode, var))
+        self.temp_between_max_winter_var.trace("w", lambda name, index, mode, var=self.temp_between_max_winter_var: on_variable_change(name, index, mode, var))
+        self.temp_between_min_winter_var.trace("w", lambda name, index, mode, var=self.temp_between_min_winter_var: on_variable_change(name, index, mode, var))
+        self.temp_formatcolor_between_var.trace("w", lambda name, index, mode, var=self.temp_formatcolor_between_var: on_variable_change(name, index, mode, var))
 
         #! airchange
         # airchange variables
