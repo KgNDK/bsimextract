@@ -20,7 +20,7 @@ Importing internal modules
 from settings.settings import *
 from frontend.widgets.title_menu import title_menu
 from frontend.widgets.page_menu import page_menu
-from func.variable_changes import on_variable_change
+from func.variable_changes import on_variable_change, on_variable_change_int
 
 
 class app(ctk.CTk):
@@ -121,9 +121,10 @@ class app(ctk.CTk):
         self.co2_formatcolor_three_var = ctk.StringVar(value = CO2_FORMATCOLOR_THREE)
 
         # co2 trace variables
-        self.co2_maxco2_one_var.trace("w", lambda name, index, mode, var=self.co2_maxco2_one_var: on_variable_change(name, index, mode, var))
-        self.co2_maxco2_two_var.trace("w", lambda name, index, mode, var=self.co2_maxco2_two_var: on_variable_change(name, index, mode, var))
-        self.co2_maxco2_three_var.trace("w", lambda name, index, mode, var=self.co2_maxco2_three_var: on_variable_change(name, index, mode, var))
+        # self.co2_maxco2_one_var.trace("w", lambda name, index, mode, var=self.co2_maxco2_one_var: on_variable_change(name, index, mode, var))
+        self.co2_maxco2_one_var.trace("w", lambda name, index, mode, var=self.co2_maxco2_one_var: on_variable_change_int(name, index, mode, var, CO2_MAXCO2_ONE))
+        self.co2_maxco2_two_var.trace("w", lambda name, index, mode, var=self.co2_maxco2_two_var: on_variable_change_int(name, index, mode, var, CO2_MAXCO2_TWO))
+        self.co2_maxco2_three_var.trace("w", lambda name, index, mode, var=self.co2_maxco2_three_var: on_variable_change_int(name, index, mode, var, CO2_MAXCO2_THREE))
         self.co2_formatcolor_one_var.trace("w", lambda name, index, mode, var=self.co2_formatcolor_one_var: on_variable_change(name, index, mode, var))
         self.co2_formatcolor_two_var.trace("w", lambda name, index, mode, var=self.co2_formatcolor_two_var: on_variable_change(name, index, mode, var))
         self.co2_formatcolor_three_var.trace("w", lambda name, index, mode, var=self.co2_formatcolor_three_var: on_variable_change(name, index, mode, var))
@@ -138,9 +139,9 @@ class app(ctk.CTk):
         self.rh_formatcolor_maxrh_var = ctk.StringVar(value = RH_FORMATCOLOR_MAXRH)
 
         # rh trace variables
-        self.rh_minrh_var.trace("w", lambda name, index, mode, var=self.rh_minrh_var: on_variable_change(name, index, mode, var))
-        self.rh_lowmaxrh_var.trace("w", lambda name, index, mode, var=self.rh_lowmaxrh_var: on_variable_change(name, index, mode, var))
-        self.rh_maxrh_var.trace("w", lambda name, index, mode, var=self.rh_maxrh_var: on_variable_change(name, index, mode, var))
+        self.rh_minrh_var.trace("w", lambda name, index, mode, var=self.rh_minrh_var: on_variable_change_int(name, index, mode, var, RH_MINRH))
+        self.rh_lowmaxrh_var.trace("w", lambda name, index, mode, var=self.rh_lowmaxrh_var: on_variable_change_int(name, index, mode, var, RH_LOWMAXRH))
+        self.rh_maxrh_var.trace("w", lambda name, index, mode, var=self.rh_maxrh_var: on_variable_change_int(name, index, mode, var, RH_MAXRH))
         self.rh_formatcolor_minrh_var.trace("w", lambda name, index, mode, var=self.rh_formatcolor_minrh_var: on_variable_change(name, index, mode, var))
         self.rh_formatcolor_lowmaxrh_var.trace("w", lambda name, index, mode, var=self.rh_formatcolor_lowmaxrh_var: on_variable_change(name, index, mode, var))
         self.rh_formatcolor_maxrh_var.trace("w", lambda name, index, mode, var=self.rh_formatcolor_maxrh_var: on_variable_change(name, index, mode, var))
@@ -162,18 +163,18 @@ class app(ctk.CTk):
         self.temp_formatcolor_between_var = ctk.StringVar(value = TEMP_FORMATCOLOR_BETWEEN)
 
         # temp trace variables
-        self.temp_mintemp_var.trace("w", lambda name, index, mode, var=self.temp_mintemp_var: on_variable_change(name, index, mode, var))
-        self.temp_maxtemp_100h_var.trace("w", lambda name, index, mode, var=self.temp_maxtemp_100h_var: on_variable_change(name, index, mode, var))
-        self.temp_maxtemp_25h_var.trace("w", lambda name, index, mode, var=self.temp_maxtemp_25h_var: on_variable_change(name, index, mode, var))
+        self.temp_mintemp_var.trace("w", lambda name, index, mode, var=self.temp_mintemp_var: on_variable_change_int(name, index, mode, var, TEMP_MINTEMP))
+        self.temp_maxtemp_100h_var.trace("w", lambda name, index, mode, var=self.temp_maxtemp_100h_var: on_variable_change_int(name, index, mode, var, TEMP_MAXTEMP_100H))
+        self.temp_maxtemp_25h_var.trace("w", lambda name, index, mode, var=self.temp_maxtemp_25h_var: on_variable_change_int(name, index, mode, var, TEMP_MAXTEMP_25H))
         self.temp_formatcolor_mintemp_var.trace("w", lambda name, index, mode, var=self.temp_formatcolor_mintemp_var: on_variable_change(name, index, mode, var))
         self.temp_formatcolor_maxtemp_100h_var.trace("w", lambda name, index, mode, var=self.temp_formatcolor_maxtemp_100h_var: on_variable_change(name, index, mode, var))
         self.temp_formatcolor_maxtemp_25h_var.trace("w", lambda name, index, mode, var=self.temp_formatcolor_maxtemp_25h_var: on_variable_change(name, index, mode, var))
-        self.temp_between_max_summer_var.trace("w", lambda name, index, mode, var=self.temp_between_max_summer_var: on_variable_change(name, index, mode, var))
-        self.temp_between_min_summer_var.trace("w", lambda name, index, mode, var=self.temp_between_min_summer_var: on_variable_change(name, index, mode, var))
-        self.temp_between_max_trans_var.trace("w", lambda name, index, mode, var=self.temp_between_max_trans_var: on_variable_change(name, index, mode, var))
-        self.temp_between_min_trans_var.trace("w", lambda name, index, mode, var=self.temp_between_min_trans_var: on_variable_change(name, index, mode, var))
-        self.temp_between_max_winter_var.trace("w", lambda name, index, mode, var=self.temp_between_max_winter_var: on_variable_change(name, index, mode, var))
-        self.temp_between_min_winter_var.trace("w", lambda name, index, mode, var=self.temp_between_min_winter_var: on_variable_change(name, index, mode, var))
+        self.temp_between_max_summer_var.trace("w", lambda name, index, mode, var=self.temp_between_max_summer_var: on_variable_change_int(name, index, mode, var, TEMP_BETWEEN_MAX_SUMMER))
+        self.temp_between_min_summer_var.trace("w", lambda name, index, mode, var=self.temp_between_min_summer_var: on_variable_change_int(name, index, mode, var, TEMP_BETWEEN_MIN_SUMMER))
+        self.temp_between_max_trans_var.trace("w", lambda name, index, mode, var=self.temp_between_max_trans_var: on_variable_change_int(name, index, mode, var, TEMP_BETWEEN_MAX_TRANS))
+        self.temp_between_min_trans_var.trace("w", lambda name, index, mode, var=self.temp_between_min_trans_var: on_variable_change_int(name, index, mode, var, TEMP_BETWEEN_MIN_TRANS))
+        self.temp_between_max_winter_var.trace("w", lambda name, index, mode, var=self.temp_between_max_winter_var: on_variable_change_int(name, index, mode, var, TEMP_BETWEEN_MAX_WINTER))
+        self.temp_between_min_winter_var.trace("w", lambda name, index, mode, var=self.temp_between_min_winter_var: on_variable_change_int(name, index, mode, var, TEMP_BETWEEN_MIN_WINTER))
         self.temp_formatcolor_between_var.trace("w", lambda name, index, mode, var=self.temp_formatcolor_between_var: on_variable_change(name, index, mode, var))
 
         #! airchange
@@ -186,9 +187,9 @@ class app(ctk.CTk):
         self.airch_formatcolor_three_var = ctk.StringVar(value = AIRCH_FORMATCOLOR_THREE)
 
         # airchange trace variables
-        self.airch_maxairch_one_var.trace("w", lambda name, index, mode, var=self.airch_maxairch_one_var: on_variable_change(name, index, mode, var))
-        self.airch_maxairch_two_var.trace("w", lambda name, index, mode, var=self.airch_maxairch_two_var: on_variable_change(name, index, mode, var))
-        self.airch_maxairch_three_var.trace("w", lambda name, index, mode, var=self.airch_maxairch_three_var: on_variable_change(name, index, mode, var))
+        self.airch_maxairch_one_var.trace("w", lambda name, index, mode, var=self.airch_maxairch_one_var: on_variable_change_int(name, index, mode, var, AIRCH_MAXAIRCH_ONE))
+        self.airch_maxairch_two_var.trace("w", lambda name, index, mode, var=self.airch_maxairch_two_var: on_variable_change_int(name, index, mode, var, AIRCH_MAXAIRCH_TWO))
+        self.airch_maxairch_three_var.trace("w", lambda name, index, mode, var=self.airch_maxairch_three_var: on_variable_change_int(name, index, mode, var, AIRCH_MAXAIRCH_THREE))
         self.airch_formatcolor_one_var.trace("w", lambda name, index, mode, var=self.airch_formatcolor_one_var: on_variable_change(name, index, mode, var))
         self.airch_formatcolor_two_var.trace("w", lambda name, index, mode, var=self.airch_formatcolor_two_var: on_variable_change(name, index, mode, var))
         self.airch_formatcolor_three_var.trace("w", lambda name, index, mode, var=self.airch_formatcolor_three_var: on_variable_change(name, index, mode, var))

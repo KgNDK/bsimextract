@@ -59,9 +59,9 @@ class rh_format_widget(ctk.CTkFrame):
         ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, textvariable = rh_maxrh_var).grid(row = 2, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         # combobox
-        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = rh_formatcolor_minrh_var).grid(row = 3, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = rh_formatcolor_lowmaxrh_var).grid(row = 3, column = 2, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = rh_formatcolor_maxrh_var).grid(row = 3, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = rh_formatcolor_minrh_var, state="readonly").grid(row = 3, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = rh_formatcolor_lowmaxrh_var, state="readonly").grid(row = 3, column = 2, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = rh_formatcolor_maxrh_var, state="readonly").grid(row = 3, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         # button
         ctk.CTkButton(self, text = "Apply", command = apply_format, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)

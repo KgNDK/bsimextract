@@ -25,19 +25,18 @@ sys.path = os.getcwd()
 from settings.settings import *
 from frontend.widgets.import_file import import_file
 
+
 class import_file_widget(ctk.CTkFrame):
-    def __init__(self, parent, path_var, text_title = "Choose BSim data file:"):
+    def __init__(self, parent, path_var):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # font
         title_font = ctk.CTkFont(family=TITLE_FONT, size=TITLE_SIZE, weight=TITLE_WEIGHT)
         text_font = ctk.CTkFont(family=TEXT_FONT, size=TEXT_SIZE, weight=TEXT_WEIGHT)
 
-        # title label
-        ctk.CTkLabel(self, text = text_title, width = STANDARD_COLUMN_WIDTH_TOTAL, font = title_font).pack(fill = "x", expand = True)
-
         # Import file widget
         import_file(self, path_var).pack(fill = "x", expand = True)
+        
 
 
 if __name__ == "__main__":

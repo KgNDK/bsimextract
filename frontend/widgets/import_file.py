@@ -26,9 +26,11 @@ sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 
 from settings.settings import *
+from backend.import_data import import_data
+
 
 class import_file(ctk.CTkFrame):
-    def __init__(self, parent, path_var, text_button = "Import file:"):
+    def __init__(self, parent, path_var, text_button = "Get path:"):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # font
@@ -36,14 +38,17 @@ class import_file(ctk.CTkFrame):
         text_font = ctk.CTkFont(family=TEXT_FONT, size=TEXT_SIZE, weight=TEXT_WEIGHT)
         
         # grid layout
-        self.rowconfigure((0), weight = 1)
-        self.columnconfigure((0), weight = 1, uniform = "a")
-        self.columnconfigure((1), weight = 2, uniform = "a")
+        self.rowconfigure((0, 1), weight = 1)
+        self.columnconfigure((0, 1, 2, 3), weight = 1)
+
+        ctk.CTkLabel(self, text = "Choose BSim data file:", width = STANDARD_COLUMN_WIDTH_4*3, font = title_font).grid(row = 0, column = 0, columnspan = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkButton(self, text = "Import Data", width = STANDARD_COLUMN_WIDTH_4, command = import_data, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+
 
         self.entry_var = ctk.StringVar(self)
 
-        ctk.CTkButton(self, text = text_button, command = lambda: self.button(path_var), textvariable = text_button, width = STANDARD_COLUMN_WIDTH_3, font = text_font).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        ctk.CTkEntry(self, textvariable = self.entry_var, state = "readonly", width = STANDARD_COLUMN_WIDTH_2_3).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkButton(self, text = text_button, command = lambda: self.button(path_var), textvariable = text_button, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 1, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkEntry(self, textvariable = self.entry_var, state = "readonly", width = STANDARD_COLUMN_WIDTH_4*3).grid(row = 1, column = 0, columnspan = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
     def button(self, path_var):
         file_path = self.browse_file()

@@ -32,3 +32,16 @@ def on_variable_change(name, index, mode, variable):
     """
     if int(len(variable.get())) > 0:
         print(variable.get())
+
+def on_variable_change_int(name, index, mode, variable, starting_value = ""):
+    if int(len(variable.get())) > 0:
+        try:
+            int(variable.get())
+            print(variable.get())
+        except ValueError:
+            print(f"This isn't a number: {variable.get()}. An error has been raised. Value has been reset to {starting_value}.")
+            CTkMessagebox.CTkMessagebox(title = "Error", message = "Value must be a number!\nValue has been reset!\nPlease try again", icon = "warning")
+            variable.set(starting_value)
+    
+
+        

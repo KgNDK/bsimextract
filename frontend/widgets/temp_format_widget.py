@@ -88,10 +88,10 @@ class temp_format_widget(ctk.CTkFrame):
         ctk.CTkEntry(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, textvariable = temp_between_min_winter_var).grid(row = 7, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         # # combobox
-        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = temp_formatcolor_mintemp_var).grid(row = 3, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = temp_formatcolor_maxtemp_100h_var).grid(row = 3, column = 2, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = temp_formatcolor_maxtemp_25h_var).grid(row = 3, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = temp_formatcolor_between_var).grid(row = 8, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = temp_formatcolor_mintemp_var, state="readonly").grid(row = 3, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = temp_formatcolor_maxtemp_100h_var, state="readonly").grid(row = 3, column = 2, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = temp_formatcolor_maxtemp_25h_var, state="readonly").grid(row = 3, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkComboBox(self, width = STANDARD_COLUMN_WIDTH_4, font = text_font, values = list(zip(*COLORS))[0], variable = temp_formatcolor_between_var, state="readonly").grid(row = 8, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
 
 
