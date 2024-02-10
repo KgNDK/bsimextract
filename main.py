@@ -20,6 +20,7 @@ Importing internal modules
 from settings.settings import *
 from frontend.widgets.title_menu import title_menu
 from frontend.widgets.page_menu import page_menu
+from func.variable_changes import on_variable_change
 
 
 class app(ctk.CTk):
@@ -106,6 +107,26 @@ class app(ctk.CTk):
         self.co2_formatcolor_two_var.trace("w", lambda name, index, mode, var=self.co2_formatcolor_two_var: on_variable_change(name, index, mode, var))
         self.co2_formatcolor_three_var.trace("w", lambda name, index, mode, var=self.co2_formatcolor_three_var: on_variable_change(name, index, mode, var))
 
+        #! rh
+        # rh variables
+
+        # rh trace variables
+
+
+        #! temp
+        # temp variables
+        self.temp_maxtemp_one_var = ctk.StringVar(value = TEMP_MAXTEMP_ONE)
+        self.temp_maxtemp_two_var = ctk.StringVar(value = TEMP_MAXTEMP_TWO)
+        self.temp_acceptedmaxtemp_var = ctk.StringVar(value = TEMP_ACCEPTEDMAXTEMP)
+        self.temp_acceptedmintemp_var = ctk.StringVar(value = TEMP_ACCEPTEDMINTEMP)
+        self.temp_mintemp_var = ctk.StringVar(value = TEMP_MINTEMP)
+        self.temp_formatcolor_maxone_var = ctk.StringVar(value = TEMP_FORMATCOLOR_MAXONE)
+        self.temp_formatcolor_maxtwo_var = ctk.StringVar(value = TEMP_FORMATCOLOR_MAXTWO)
+        self.temp_formatcolor_accepted_var = ctk.StringVar(value = TEMP_FORMATCOLOR_ACCEPTED)
+        self.temp_formatcolor_mintemp_var = ctk.StringVar(value = TEMP_FORMATCOLOR_MINTEMP)
+
+        # temp trace variables
+
         #! airchange
         # airchange variables
         self.airch_maxairch_one_var = ctk.StringVar(value = AIRCH_MAXAIRCH_ONE)
@@ -123,19 +144,6 @@ class app(ctk.CTk):
         self.airch_formatcolor_two_var.trace("w", lambda name, index, mode, var=self.airch_formatcolor_two_var: on_variable_change(name, index, mode, var))
         self.airch_formatcolor_three_var.trace("w", lambda name, index, mode, var=self.airch_formatcolor_three_var: on_variable_change(name, index, mode, var))
 
-
-    
-
-        def on_variable_change(name, index, mode, variable):
-            """
-            This function handles the event of a variable change. It takes in four parameters:
-                - name: the name of the variable (not used)
-                - index: the index of the variable (not used)
-                - mode: the mode of the variable change (not used)
-                - variable: the variable that has changed
-            This function does not return anything.
-            """
-            print(variable.get())
         
         
 
