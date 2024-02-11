@@ -68,21 +68,20 @@ def on_page_menu_var_change(name, index, mode, variable, frame, dict = [], row =
         except:
             pass
 
-    for i in dict:
-        print(variable.get())
-        if variable.get() == "Start":
-            i(frame).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)
-        elif variable.get() == "CO2":
-            i(frame).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)
-        elif variable.get() == "RelHumid":
-            i(frame).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)
-        elif variable.get() == "Temperature":
-            i(frame).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)
-        elif variable.get() == "AirChange":
-            i(frame).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)
-        else:
-            print(f"Variable not found: {variable.get()}")
-            CTkMessagebox.CTkMessagebox(title = "Error", message = "Variable not found", icon = "warning")
+    print(variable.get())
+    if variable.get() == "Start":
+        i(frame).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)
+    elif variable.get() == "CO2":
+        i(frame).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)
+    elif variable.get() == "RelHumid":
+        i(frame).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)
+    elif variable.get() == "Temperature":
+        i(frame).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)
+    elif variable.get() == "AirChange":
+        i(frame).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)
+    else:
+        print(f"Variable not found: {variable.get()}")
+        CTkMessagebox.CTkMessagebox(title = "Error", message = "Variable not found", icon = "warning")
 
     
 
