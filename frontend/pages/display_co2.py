@@ -26,6 +26,9 @@ import pprint
 import plotly.express as px
 import pandas as pd
 import random
+import email
+import quopri
+import matplotlib 
 
 
 """

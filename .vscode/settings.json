@@ -5,6 +5,8 @@
         "acceptedmintemp",
         "ACCEPTEDMINTEMP",
         "airchange",
+        "AUTOMARGIN",
+        "colorscale",
         "columnspan",
         "Dataframe",
         "figsize",
@@ -27,8 +29,10 @@
         "mintemp",
         "MINTEMP",
         "nticks",
+        "openpyxl",
         "padx",
         "pady",
+        "randn",
         "relhumid",
         "scatterplot",
         "setit",
@@ -38,6 +42,7 @@
         "tracegroupgap",
         "traceorder",
         "Universitet",
+        "Viridis",
         "xaxis",
         "yaxis"
     ]

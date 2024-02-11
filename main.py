@@ -21,6 +21,9 @@ import io
 import tenacity
 import decimal
 import uuid
+import email
+import quopri
+import matplotlib
 
 """
 Importing internal modules
