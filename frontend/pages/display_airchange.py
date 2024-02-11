@@ -25,7 +25,7 @@ sys.path = os.getcwd()
 from settings.settings import *
 
 
-class display_airch(ctk.CTkFrame):
+class display_airchange(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(master = parent)
 
@@ -51,6 +51,6 @@ if __name__ == "__main__":
     root.title("TEST: display_rh")
     root.geometry("800x300")
 
-    display_airch(root).pack()
+    display_airchange(root).pack()
 
     root.mainloop()

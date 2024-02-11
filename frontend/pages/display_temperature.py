@@ -1,5 +1,5 @@
 """
-Frame for displaying rh data visually
+Frame for displaying temp data visually
 """
 
 """
@@ -25,7 +25,7 @@ sys.path = os.getcwd()
 from settings.settings import *
 
 
-class display_rh(ctk.CTkFrame):
+class display_temperature(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(master = parent)
 
@@ -38,7 +38,7 @@ class display_rh(ctk.CTkFrame):
         text_font = ctk.CTkFont(family=TEXT_FONT, size=TEXT_SIZE, weight=TEXT_WEIGHT)
 
         # label
-        ctk.CTkLabel(self, text = "rh", font = title_font).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkLabel(self, text = "temp", font = title_font).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         
 
@@ -51,6 +51,6 @@ if __name__ == "__main__":
     root.title("TEST: display_rh")
     root.geometry("800x300")
 
-    display_rh(root).pack()
+    display_temperature(root).pack()
 
     root.mainloop()

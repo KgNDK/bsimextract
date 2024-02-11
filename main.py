@@ -13,6 +13,14 @@ Importing extern modules
 import customtkinter as ctk
 import CTkMessagebox as CTkMessagebox
 import pandas as pd
+import kaleido
+from PIL import Image, ImageTk
+import plotly.graph_objs as go
+import plotly.io as pio
+import io
+import tenacity
+import decimal
+import uuid
 
 """
 Importing internal modules
@@ -23,9 +31,9 @@ from frontend.widgets.page_menu import page_menu
 from func.variable_changes import on_variable_change, on_variable_change_int, on_page_menu_var_change
 from frontend.pages.display_start import display_start
 from frontend.pages.display_co2 import display_co2
-from frontend.pages.display_airch import display_airch
-from frontend.pages.display_rh import display_rh
-from frontend.pages.display_temp import display_temp
+from frontend.pages.display_airchange import display_airchange
+from frontend.pages.display_relhumid import display_relhumid
+from frontend.pages.display_temperature import display_temperature
 
 class app(ctk.CTk):
     def __init__(self):
@@ -46,24 +54,19 @@ class app(ctk.CTk):
         # title menu
         title_menu(self)
 
-        # widgets
-        dict = [display_start, display_co2, display_rh, display_temp, display_airch]
+        #! widgets
+        # data visualization
+        function_dict = {
+            "display_start": display_start,
+            "display_co2": display_co2,
+            "display_relhumid": display_relhumid,
+            "display_temperature": display_temperature,
+            "display_airchange": display_airchange
+            }
+        display_start(self).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        self.page_menu_var.trace("w", lambda name, index, mode, var=self.page_menu_var: on_page_menu_var_change(name, index, mode, var, self, function_dict))
 
-        self.page_menu_var.trace("w", lambda name, index, mode, var=self.page_menu_var: on_page_menu_var_change(name, index, mode, var, self, dict))
-        # display_start(self).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        # display_co2(self).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        # display_rh(self).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        # display_temp(self).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        # display_airch(self).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-
-        # display_start(self)
-        # display_co2(self)
-        # display_rh(self)
-        # display_temp(self)
-        # display_airch(self)
-
-
-
+        # page menu
         page_menu(self,
                   self.co2_dayprofile_var,
                   self.rh_dayprofile_var,

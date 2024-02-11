@@ -12,6 +12,21 @@ Importing extern modules
 """
 import customtkinter as ctk
 import CTkMessagebox as CTkMessagebox
+# import seaborn as sns
+import kaleido
+from PIL import Image, ImageTk
+import plotly.graph_objs as go
+import plotly.io as pio
+import io
+import tenacity
+import decimal
+import uuid
+import webbrowser
+import pprint
+import plotly.express as px
+import pandas as pd
+import random
+
 
 """
 Importing internal modules
@@ -23,6 +38,8 @@ sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 
 from settings.settings import *
+from func.plot_visual import PlotlyPlot
+
 
 
 class display_co2(ctk.CTkFrame):
@@ -39,6 +56,15 @@ class display_co2(ctk.CTkFrame):
 
         # label
         ctk.CTkLabel(self, text = "CO2", font = title_font).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+
+        
+        # Sample data
+        x_values = [1, 2, 3, 4, 5]
+        y_values = [2, 3, 1, 4, 5]
+
+        # Create a PlotlyPlot instance
+        plot = PlotlyPlot(self)
+        plot.grid(row=1, column=0, sticky="nsew")
 
         
 
