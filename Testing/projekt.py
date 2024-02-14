@@ -109,7 +109,9 @@ fig1.update_layout(yaxis3=dict(
     side="right",
     range=[0,100], showgrid=False
 ))
-fig1.update_layout(template="simple_white")
+
+fig1.update_layout(paper_bgcolor="white", plot_bgcolor="white")
+fig1.update_yaxes(gridcolor='LightGrey')
 
 fig1.show()
 
@@ -122,16 +124,17 @@ fig2 = go.Figure(go.Pie(
 ))
 
 fig2.update_layout(
+    template="simple_white",
     width=800,
     height=800,
-    font=dict(family="Calibri", size=20),
+    font=dict(family="Calibri", size=32),
     legend=dict(
         x=0.05,
         y=-0.02,
         bgcolor="White",
         orientation="h",
         font=dict(
-            size=18,
+            size=28,
             color="black",
             family="Calibri",
         ),
@@ -140,4 +143,4 @@ fig2.update_layout(
 
 fig2.show()
 
-fig1.write_image("elforbrug_pie.png", engine="kaleido")
+fig2.write_image("elforbrug_pie.png", engine="kaleido")
