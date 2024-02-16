@@ -35,6 +35,8 @@
         "randn",
         "relhumid",
         "scatterplot",
+        "scrollableimage",
+        "scrollbarwidth",
         "setit",
         "textvariable",
         "tickfont",

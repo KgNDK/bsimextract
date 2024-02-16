@@ -30,7 +30,7 @@ from backend.import_data import import_data
 
 
 class import_file(ctk.CTkFrame):
-    def __init__(self, parent, path_var, text_button = "Get path:"):
+    def __init__(self, parent, path_var, new_data_var, text_button = "Get path:"):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # font
@@ -42,20 +42,26 @@ class import_file(ctk.CTkFrame):
         self.columnconfigure((0, 1, 2, 3), weight = 1)
 
         ctk.CTkLabel(self, text = "Choose BSim data file:", width = STANDARD_COLUMN_WIDTH_4*3, font = title_font).grid(row = 0, column = 0, columnspan = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        ctk.CTkButton(self, text = "Import Data", width = STANDARD_COLUMN_WIDTH_4, command = import_data, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-
+        ctk.CTkButton(self, text = "Import Data", width = STANDARD_COLUMN_WIDTH_4, command = lambda: self.button_import_data(path_var, new_data_var), font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         self.entry_var = ctk.StringVar(self)
 
-        ctk.CTkButton(self, text = text_button, command = lambda: self.button(path_var), textvariable = text_button, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 1, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkButton(self, text = text_button, command = lambda: self.button_get_path(path_var, new_data_var), textvariable = text_button, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 1, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         ctk.CTkEntry(self, textvariable = self.entry_var, state = "readonly", width = STANDARD_COLUMN_WIDTH_4*3).grid(row = 1, column = 0, columnspan = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
-    def button(self, path_var):
+    def button_get_path(self, path_var, new_data_var):
         file_path = self.browse_file()
         if file_path:
             path_var.set(f"{file_path}")
+            new_data_var.set(True)
         else:
             CTkMessagebox(message="File has no path!", title="Warning Message!", icon="warning")
+
+    def button_import_data(self, path_var, new_data_var):
+        if path_var.get() == "":
+            CTkMessagebox(message="You have not selected a file!\nPlease select a file with the button below.", title="Warning Message!", icon="warning")
+            return
+        import_data(path_var, new_data_var)
         
 
     def browse_file(self):

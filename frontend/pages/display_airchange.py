@@ -26,7 +26,7 @@ from settings.settings import *
 
 
 class display_airchange(ctk.CTkFrame):
-    def __init__(self, parent):
+    def __init__(self, parent, new_data_var):
         super().__init__(master = parent)
 
         # layout

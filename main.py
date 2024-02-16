@@ -66,8 +66,8 @@ class app(ctk.CTk):
             "display_temperature": display_temperature,
             "display_airchange": display_airchange
             }
-        display_start(self).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        self.page_menu_var.trace("w", lambda name, index, mode, var=self.page_menu_var: on_page_menu_var_change(name, index, mode, var, self, function_dict))
+        display_start(self, self.new_data_var).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        self.page_menu_var.trace("w", lambda name, index, mode, var=self.page_menu_var: on_page_menu_var_change(name, index, mode, var, self, function_dict, self.new_data_var))
 
         # page menu
         page_menu(self,
@@ -107,7 +107,8 @@ class app(ctk.CTk):
                   self.rh_formatcolor_minrh_var,
                   self.rh_formatcolor_lowmaxrh_var,
                   self.rh_formatcolor_maxrh_var,
-                  self.page_menu_var
+                  self.page_menu_var,
+                  self.new_data_var
                   
                   
                   
@@ -130,6 +131,22 @@ class app(ctk.CTk):
 
         # path trace variables
         self.path_var.trace("w", lambda name, index, mode, var=self.path_var: on_variable_change(name, index, mode, var, text_before = f"{name} has been changed to: "))
+
+        #! data
+        # data variables
+        self.new_data_var = ctk.BooleanVar(value = False, name = "new_data_var")
+        print(f"new_data_var has been changed to: {self.new_data_var.get()}")
+
+        # data trace variables
+        self.new_data_var.trace("w", lambda name, index, mode, var=self.new_data_var: print(f"{name} has been changed to: {var.get()}"))
+
+
+        # #! display 
+        # self.display_height_var = ctk.IntVar(name = "display_height_var")
+        # self.display_width_var = ctk.IntVar(name = "display_width_var")
+
+        # self.display_height_var.trace("w", lambda name, index, mode, var=self.display_height_var: on_variable_change_int(name, index, mode, var, text_before = f"{name} has been changed to: "))
+        # self.display_width_var.trace("w", lambda name, index, mode, var=self.display_width_var: on_variable_change_int(name, index, mode, var, text_before = f"{name} has been changed to: "))
 
         #! dayprofile
         # dayprofile variables

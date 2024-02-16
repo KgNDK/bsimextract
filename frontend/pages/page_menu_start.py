@@ -28,13 +28,13 @@ from frontend.widgets.import_file_widget import import_file_widget
 from frontend.widgets.dayprofile_all import dayprofile_all
 
 class page_menu_start(ctk.CTkFrame):
-    def __init__(self, parent, co2_dayprofile_var, rh_dayprofile_var, temp_dayprofile_var, airch_dayprofile_var, path_var):
+    def __init__(self, parent, co2_dayprofile_var, rh_dayprofile_var, temp_dayprofile_var, airch_dayprofile_var, path_var, new_data_var):
         super().__init__(master = parent, fg_color="transparent")
         self.pack(expand = True, fill = "both")
 
         # widget importing data file in .txt format
         
-        import_file_widget(self, path_var).pack(expand = True, fill = "x")
+        import_file_widget(self, path_var, new_data_var).pack(expand = True, fill = "x")
 
         # widgets for start under this
         dayprofile_all(self, co2_dayprofile_var, rh_dayprofile_var, temp_dayprofile_var, airch_dayprofile_var).pack(expand = True, fill = "x")

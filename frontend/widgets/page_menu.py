@@ -77,7 +77,8 @@ class page_menu(ctk.CTkTabview):
                  rh_formatcolor_minrh_var,
                  rh_formatcolor_lowmaxrh_var,
                  rh_formatcolor_maxrh_var,
-                 page_menu_var
+                 page_menu_var,
+                 new_data_var
                  
                  
                  
@@ -96,7 +97,8 @@ class page_menu(ctk.CTkTabview):
                                            rh_dayprofile_var,
                                            temp_dayprofile_var,
                                            airch_dayprofile_var,
-                                           path_var
+                                           path_var,
+                                           new_data_var
                                            
                                            
                                            

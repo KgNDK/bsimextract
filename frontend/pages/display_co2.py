@@ -41,12 +41,12 @@ sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 
 from settings.settings import *
-from func.plot_visual import PlotlyPlot
+from func.figures.random_plot import TestPlot
 
 
 
 class display_co2(ctk.CTkFrame):
-    def __init__(self, parent):
+    def __init__(self, parent, new_data_var):
         super().__init__(master = parent)
 
         # layout
@@ -66,8 +66,9 @@ class display_co2(ctk.CTkFrame):
         y_values = [2, 3, 1, 4, 5]
 
         # Create a PlotlyPlot instance
-        plot = PlotlyPlot(self)
+        plot = TestPlot(self)
         plot.grid(row=1, column=0, sticky="nsew")
+
 
         
 

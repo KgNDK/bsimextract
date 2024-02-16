@@ -27,7 +27,7 @@ from frontend.widgets.import_file import import_file
 
 
 class import_file_widget(ctk.CTkFrame):
-    def __init__(self, parent, path_var):
+    def __init__(self, parent, path_var, new_data_var):
         super().__init__(master = parent, fg_color = FG_COLOR)
 
         # font
@@ -35,7 +35,7 @@ class import_file_widget(ctk.CTkFrame):
         text_font = ctk.CTkFont(family=TEXT_FONT, size=TEXT_SIZE, weight=TEXT_WEIGHT)
 
         # Import file widget
-        import_file(self, path_var).pack(fill = "x", expand = True)
+        import_file(self, path_var, new_data_var).pack(fill = "x", expand = True)
         
 
 

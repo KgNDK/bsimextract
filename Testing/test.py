@@ -26,31 +26,6 @@ for table in root.findall('table'):
 df = pd.DataFrame(data, columns=columns)
 
 
-# df = df.transpose()
-# print(df.iloc[:, 0])
-
-# if "Varme" in str(df.iloc[:, 0]):
-#     print("yes")
-
-# print(df.iloc[df.iloc[:, 0][df.iloc[:, 0] == "kWh/m²"].index[0], 1:].str.replace(',', '.').astype(float).head(12))
-# print(df.iloc[df.iloc[:, 0][df.iloc[:, 0] == "kWh/m²"].index[6], 1:].str.replace(',', '.').astype(float).head(12))
-
-# print(df)
-# print(df[df.iloc[:, 1]].index.get_loc("Varme"))
-
-# print(df.iloc[:, 0][df.iloc[:, 0] == "kWh/m²"].index[6])
-# print(df.iloc[df.iloc[:, 0][df.iloc[:, 0] == "kWh/m²"].index[6], 1:].str.replace(',', '.').astype(float).head(12))
-# print(df.iloc[74, 1:].str.replace(',', '.').astype(float).head(12))
-
-
-# Print the column names
-# print("Column names:", columns)
-
-# print(str(df.iloc["Varme", :]))
-# print(df)
-# df.to_csv('output.txt', sep='\t', index=False, encoding='ISO-8859-1')
-
-
 #! plot 1
 
 fig1 = go.Figure(
@@ -157,9 +132,11 @@ fig1.update_layout(yaxis3=dict(
 fig1.update_layout(paper_bgcolor="white", plot_bgcolor="white")
 fig1.update_yaxes(gridcolor='LightGrey')
 
-fig1.show()
+# fig1.show()
 
 # fig1.write_image("opvarmning_vs_forbrug.png", engine="kaleido")
+
+#! plot 2
 
 #? Area
 # print(df.iloc[:, 0][df.iloc[:, 0] == "I alt til bygningsdrift"]) # 30 # Used if Be18 is updated with new xml layout
@@ -195,12 +172,12 @@ fig2 = go.Figure(
     )
 )
 
-fig2.add_bar(y=[round((df.iloc[4, 1:].str.replace(',', '.').astype(float).iloc[12] * 1000) / area, 2)], x=["Overtemperatur i rum"], marker_color = "#211a52")
-fig2.add_bar(y=[round(df.iloc[18, 1:].str.replace(',', '.').astype(float).iloc[12], 2)], x=["Rumopvarmning"], marker_color = "#54616e")
-fig2.add_bar(y=[round(df.iloc[28, 1:].str.replace(',', '.').astype(float).iloc[12] / area, 2)], x=["Køling"], marker_color = "#594fbf")
-fig2.add_bar(y=[round(df.iloc[29, 1:].str.replace(',', '.').astype(float).iloc[12] / area, 2)], x=["Belysning"], marker_color = "#bb5b17")
-fig2.add_bar(y=[round((df.iloc[30, 1:].str.replace(',', '.').astype(float).iloc[12] - df.iloc[28, 1:].str.replace(',', '.').astype(float).iloc[12] / area - df.iloc[29, 1:].str.replace(',', '.').astype(float).iloc[12]) / area, 2)], x=["Eltilbygningsdrift"], marker_color = "#007fa3")
-fig2.add_bar(y=[round(df.iloc[74, 1:].str.replace(',', '.').astype(float).iloc[12], 2)], x=["Varmtbrugsvand"], marker_color = "#0e8563")
+fig2.add_bar(y=[round((df.iloc[4, 1:].str.replace(',', '.').astype(float).iloc[12] * 1000) / area, 2)], x=["Overtemperatur i rum"], marker_color = "#211a52", text=f"{round(((df.iloc[4, 1:].str.replace(',', '.').astype(float).iloc[12] * 1000) / area) * ratio * 100, 1)}%")
+fig2.add_bar(y=[round(df.iloc[18, 1:].str.replace(',', '.').astype(float).iloc[12], 2)], x=["Rumopvarmning"], marker_color = "#54616e", text=f"{round((df.iloc[18, 1:].str.replace(',', '.').astype(float).iloc[12]) * ratio * 100, 1)}%")
+fig2.add_bar(y=[round(df.iloc[28, 1:].str.replace(',', '.').astype(float).iloc[12] / area, 2)], x=["Køling"], marker_color = "#594fbf", text=f"{round((df.iloc[28, 1:].str.replace(',', '.').astype(float).iloc[12] / area) * ratio * 100, 1)}%")
+fig2.add_bar(y=[round(df.iloc[29, 1:].str.replace(',', '.').astype(float).iloc[12] / area, 2)], x=["Belysning"], marker_color = "#bb5b17", text=f"{round((df.iloc[29, 1:].str.replace(',', '.').astype(float).iloc[12] / area) * ratio * 100, 1)}%")
+fig2.add_bar(y=[round((df.iloc[30, 1:].str.replace(',', '.').astype(float).iloc[12] - df.iloc[28, 1:].str.replace(',', '.').astype(float).iloc[12] / area - df.iloc[29, 1:].str.replace(',', '.').astype(float).iloc[12]) / area, 2)], x=["El til bygningsdrift"], marker_color = "#007fa3", text=f"{round(((df.iloc[30, 1:].str.replace(',', '.').astype(float).iloc[12] - df.iloc[28, 1:].str.replace(',', '.').astype(float).iloc[12] / area - df.iloc[29, 1:].str.replace(',', '.').astype(float).iloc[12]) / area) * ratio * 100, 1)}%")
+fig2.add_bar(y=[round(df.iloc[74, 1:].str.replace(',', '.').astype(float).iloc[12], 2)], x=["Varmtbrugsvand"], marker_color = "#0e8563", text=f"{round((df.iloc[74, 1:].str.replace(',', '.').astype(float).iloc[12]) * ratio * 100, 1)}%")
 
 fig2.add_trace(go.Scatter(
     x=[],
@@ -227,3 +204,5 @@ fig2.update_yaxes(gridcolor='LightGrey')
 fig2.update_layout(barmode='stack', xaxis={'categoryorder':'total ascending'})
 
 fig2.show()
+
+# fig2.write_image("energiforbrug.png", engine="kaleido")

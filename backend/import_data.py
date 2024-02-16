@@ -11,6 +11,7 @@ Importing data from the data file
 Importing extern modules
 """
 import CTkMessagebox as CTkMessagebox
+import pandas as pd
 
 """
 Importing internal modules
@@ -21,5 +22,13 @@ import sys
 sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 
-def import_data():
+def import_data(path_var, new_data_var):
     print("Importing data")
+    data = pd.read_csv(rf"{path_var.get()}", sep="\t", encoding='latin1')
+    df = pd.DataFrame(data)
+    print(df)
+    # new_data_var.set(True)
+
+
+if __name__ == "__main__":
+    import_data()

@@ -61,7 +61,7 @@ def on_variable_change_int(name, index, mode, variable, starting_value = "", tex
             CTkMessagebox.CTkMessagebox(title = "Error", message = "Value must be a number!\nValue has been reset!\nPlease try again", icon = "warning")
             variable.set(starting_value)
 
-def on_page_menu_var_change(name, index, mode, variable, frame, dict, row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY): 
+def on_page_menu_var_change(name, index, mode, variable, frame, dict, new_data_var, row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY): 
     """
     Function to handle a change in the page menu variable.
 
@@ -90,10 +90,9 @@ def on_page_menu_var_change(name, index, mode, variable, frame, dict, row = 0, c
     value = f"display_{variable.get()}".lower()
     
     if value in dict:
-        dict[value](frame).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)  
+        dict[value](frame, new_data_var).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)  
     else:
         print(f"Variable not found: {variable.get()}")
         CTkMessagebox.CTkMessagebox(title = "Error", message = "Variable not found", icon = "warning")
-    
 
         
