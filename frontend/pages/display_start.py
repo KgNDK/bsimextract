@@ -32,7 +32,7 @@ from backend.import_data import import_data
 
 
 class display_start(ctk.CTkFrame):
-    def __init__(self, parent, new_data_var, page_menu_var, path_var):
+    def __init__(self, parent, new_data_var, page_menu_var, path_var, dayprofile_var):
         super().__init__(master = parent)
 
         # layout
@@ -52,8 +52,12 @@ class display_start(ctk.CTkFrame):
         new_data_var.trace("w", lambda name, index, mode, var=new_data_var, path_var=path_var: add_plot(self, var, path_var))
         # new_data_var.trace("w", lambda name, index, mode, var=new_data_var: add_plot(self, var, df))
        
-        if os.path.isfile('figures output/TestTable.png'):
+        if os.path.isfile('figures output/Imported Data Table.png'):
             img = tk.PhotoImage(file='figures output/Imported Data Table.png')
+            ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
+
+        if os.path.isfile('figures output/TestTable.png'):
+            img = tk.PhotoImage(file='figures output/TestTable.png')
             ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
 
         def add_plot(self, var, path_var):
@@ -72,7 +76,7 @@ class display_start(ctk.CTkFrame):
                 # Create a table plot with imported data
                 plot = TestTable(self, size_y=70, size_x=30)
                 img = tk.PhotoImage(file='figures output/TestTable.png')
-                ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
+                ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
 
 

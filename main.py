@@ -73,8 +73,9 @@ class app(ctk.CTk):
             "display_temperature": display_temperature,
             "display_airchange": display_airchange
             }
-        display_start(self, self.new_data_var, self.page_menu_var, self.path_var).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        self.page_menu_var.trace("w", lambda name, index, mode, var=self.page_menu_var: on_page_menu_var_change(name, index, mode, var, self, function_dict, self.new_data_var, self.path_var))
+        dayprofile_var = None
+        display_start(self, self.new_data_var, self.page_menu_var, self.path_var, dayprofile_var).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        self.page_menu_var.trace("w", lambda name, index, mode, var=self.page_menu_var: on_page_menu_var_change(name, index, mode, var, self, function_dict, self.new_data_var, self.path_var, self.co2_dayprofile_var, self.rh_dayprofile_var, self.temp_dayprofile_var, self.airch_dayprofile_var))
 
         # page menu
         page_menu(self,

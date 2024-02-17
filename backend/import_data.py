@@ -27,7 +27,7 @@ def import_data(path_var):
     # data = pd.read_csv(rf"{path_var.get()}", sep="\t", encoding='utf-8', errors='replace')
     with open(path_var.get(), 'r', encoding='utf-8', errors='replace') as file:
         data = pd.read_csv(file, sep='\t')
-    dataframe = pd.DataFrame(data).replace(",", ".", regex=True)
+    dataframe = pd.DataFrame(data).replace(",", ".", regex=True).replace("³", "^3", regex=True).replace("°", "circ", regex=True)
     print(dataframe)
     return dataframe
 
