@@ -46,6 +46,19 @@ COLORS = [
     ("Fuchsia", "#ff00ff")
 ]
 
+#* Plotly colors
+PLOTLY_COLORS = [
+    "#211a52",
+    "#54616e",
+    "#594fbf",
+    "#bb5b17",
+    "#007fa3",
+    "#0e8563",
+    "#cc445b",
+    "#97701f",
+    "#a1654"
+]
+
 #! Appearance
 # COLOR_MODE = "dark"
 COLOR_MODE = "light"

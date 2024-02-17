@@ -14,6 +14,7 @@ Importing extern modules
 import customtkinter as ctk
 import CTkMessagebox as CTkMessagebox
 import tkinter as tk
+import kaleido
 
 """
 Importing internal modules
@@ -52,8 +53,8 @@ class display_start(ctk.CTkFrame):
         new_data_var.trace("w", lambda name, index, mode, var=new_data_var, path_var=path_var: add_plot(self, var, path_var))
         # new_data_var.trace("w", lambda name, index, mode, var=new_data_var: add_plot(self, var, df))
        
-        if os.path.isfile('figures output/Imported Data Table.png'):
-            img = tk.PhotoImage(file='figures output/Imported Data Table.png')
+        if os.path.isfile('figures output/TableStart.png'):
+            img = tk.PhotoImage(file='figures output/TableStart.png')
             ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
 
         if os.path.isfile('figures output/TestTable.png'):
@@ -72,11 +73,22 @@ class display_start(ctk.CTkFrame):
             #     ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
 
 
+            # if var.get() == True:
+            #     path = path_var.get()
+            #     plot = TablePlot(self, import_data(path))
+            #     img = tk.PhotoImage(file='figures output/Imported Data Table.png')
+            #     ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
+
+            path = path_var.get()
+            import_data(path)
             if var.get() == True:
-                # Create a table plot with imported data
-                plot = TestTable(self, size_y=70, size_x=30)
-                img = tk.PhotoImage(file='figures output/TestTable.png')
+                TablePlot(self, import_data(path), size_y=70, size_x=30)
+                img = tk.PhotoImage(file='figures output/TableStart.png')
                 ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+
+                
+                
+
 
 
 
