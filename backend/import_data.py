@@ -12,6 +12,7 @@ Importing extern modules
 """
 import CTkMessagebox as CTkMessagebox
 import pandas as pd
+import matplotlib
 
 """
 Importing internal modules
@@ -22,13 +23,13 @@ import sys
 sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 
-def import_data(path_var, new_data_var):
-    print("Importing data")
-    new_data_var.set(True)
-    data = pd.read_csv(rf"{path_var.get()}", sep="\t", encoding='latin1')
-    df = pd.DataFrame(data)
-    print(df)
-    # new_data_var.set(True)
+def import_data(path_var):
+    # data = pd.read_csv(rf"{path_var.get()}", sep="\t", encoding='utf-8', errors='replace')
+    with open(path_var.get(), 'r', encoding='utf-8', errors='replace') as file:
+        data = pd.read_csv(file, sep='\t')
+    dataframe = pd.DataFrame(data).replace(",", ".", regex=True)
+    print(dataframe)
+    return dataframe
 
 
 if __name__ == "__main__":

@@ -46,14 +46,14 @@ class import_file(ctk.CTkFrame):
 
         self.entry_var = ctk.StringVar(self)
 
-        ctk.CTkButton(self, text = text_button, command = lambda: self.button_get_path(path_var), textvariable = text_button, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 1, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkButton(self, text = text_button, command = lambda: self.button_get_path(path_var, new_data_var), textvariable = text_button, width = STANDARD_COLUMN_WIDTH_4, font = text_font).grid(row = 1, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         ctk.CTkEntry(self, textvariable = self.entry_var, state = "readonly", width = STANDARD_COLUMN_WIDTH_4*3).grid(row = 1, column = 0, columnspan = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
-    def button_get_path(self, path_var):
+    def button_get_path(self, path_var, new_data_var):
         file_path = self.browse_file()
         if file_path:
             path_var.set(f"{file_path}")
-            # new_data_var.set(True)
+            new_data_var.set(False)
         else:
             CTkMessagebox(message="File has no path!", title="Warning Message!", icon="warning")
 
@@ -61,7 +61,7 @@ class import_file(ctk.CTkFrame):
         if path_var.get() == "":
             CTkMessagebox(message="You have not selected a file!\nPlease select a file with the button below.", title="Warning Message!", icon="warning")
             return
-        import_data(path_var, new_data_var)
+        new_data_var.set(True)
         
 
     def browse_file(self):

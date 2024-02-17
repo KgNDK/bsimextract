@@ -26,7 +26,7 @@ from settings.settings import *
 
 
 class display_relhumid(ctk.CTkFrame):
-    def __init__(self, parent, new_data_var, page_menu_var):
+    def __init__(self, parent, new_data_var, page_menu_var, path_var):
         super().__init__(master = parent)
 
         # layout

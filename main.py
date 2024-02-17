@@ -25,6 +25,7 @@ import email
 import quopri
 import matplotlib
 import os
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 """
 Importing internal modules
@@ -40,6 +41,8 @@ from frontend.pages.display_relhumid import display_relhumid
 from frontend.pages.display_temperature import display_temperature
 from func.clearup import clear_figure_output
 
+
+
 class app(ctk.CTk):
     def __init__(self):
         # setup
@@ -49,7 +52,6 @@ class app(ctk.CTk):
         self.title(f"BSimExtract {VERSION_NUMBER}")
         self.minsize(800, 500)
         self.init_parameters()
-
         
         # layout
         self.rowconfigure((0), weight = 1)
@@ -71,8 +73,8 @@ class app(ctk.CTk):
             "display_temperature": display_temperature,
             "display_airchange": display_airchange
             }
-        display_start(self, self.new_data_var, self.page_menu_var).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        self.page_menu_var.trace("w", lambda name, index, mode, var=self.page_menu_var: on_page_menu_var_change(name, index, mode, var, self, function_dict, self.new_data_var))
+        display_start(self, self.new_data_var, self.page_menu_var, self.path_var).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        self.page_menu_var.trace("w", lambda name, index, mode, var=self.page_menu_var: on_page_menu_var_change(name, index, mode, var, self, function_dict, self.new_data_var, self.path_var))
 
         # page menu
         page_menu(self,
@@ -139,8 +141,7 @@ class app(ctk.CTk):
 
         #! data
         # data variables
-        self.new_data_var = ctk.BooleanVar(value = False, name = "new_data_var")
-        print(f"new_data_var has been changed to: {self.new_data_var.get()}")
+        self.new_data_var = ctk.BooleanVar(name = "new_data_var")
 
         # data trace variables
         self.new_data_var.trace("w", lambda name, index, mode, var=self.new_data_var: print(f"{name} has been changed to: {var.get()}"))

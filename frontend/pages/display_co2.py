@@ -46,7 +46,7 @@ from func.figures.random_plot import TestPlot
 
 
 class display_co2(ctk.CTkFrame):
-    def __init__(self, parent, new_data_var, page_menu_var):
+    def __init__(self, parent, new_data_var, page_menu_var, path_var):
         super().__init__(master = parent)
 
         # layout

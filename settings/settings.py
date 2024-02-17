@@ -47,8 +47,8 @@ COLORS = [
 ]
 
 #! Appearance
-COLOR_MODE = "dark"
-# COLOR_MODE = "light"
+# COLOR_MODE = "dark"
+COLOR_MODE = "light"
 
 #! Grid structure
 #* Standard column width

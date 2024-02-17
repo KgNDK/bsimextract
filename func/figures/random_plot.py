@@ -152,11 +152,3 @@ class TestTable(tk.Frame):
         img_bytes = fig.to_image(format="png")
         img = Image.open(io.BytesIO(img_bytes))
         img.save('figures output/TestTable.png')
-        
-        # return 'figures output/TestTable.png'
-
-        # # Display the plot in the Tkinter GUI
-        # photo = ImageTk.PhotoImage(img)
-        # label = tk.Label(self, image=photo)
-        # label.image = photo
-        # label.pack()
