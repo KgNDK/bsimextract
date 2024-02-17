@@ -107,7 +107,7 @@ class TestPlot(tk.Frame):
         label.pack()
 
 class TestTable(tk.Frame):
-    def __init__(self, parent, plot_height = PLOTLY_STANDARD_HEIGHT, plot_width = PLOTLY_STANDARD_WIDTH, size_y = 30, size_x = 20):
+    def __init__(self, parent, plot_height = PLOTLY_STANDARD_HEIGHT, plot_width = PLOTLY_STANDARD_WIDTH, size_y = 30, size_x = 20, cell_y = 20, cell_x = 70):
         tk.Frame.__init__(self, parent)
 
         # Create a random 100x4 array
@@ -134,9 +134,9 @@ class TestTable(tk.Frame):
             )])
 
         fig.update_layout(
-            width=PLOTLY_STANDARD_WIDTH*1.8,
-            height=PLOTLY_STANDARD_HEIGHT*2.6,
-            margin=PLOTLY_STANDARD_MARGIN,
+            width=size_x*cell_x,
+            height=size_y*cell_y,
+            margin=dict(l=5, r=5, t=5, b=5),
             paper_bgcolor = PLOTLY_STANDARD_PAPER_BACKGROUND_COLOR,
             # automargin = PLOTLY_STANDARD_AUTOMARGIN,
             autosize = PLOTLY_STANDARD_AUTOSIZE,

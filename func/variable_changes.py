@@ -90,7 +90,7 @@ def on_page_menu_var_change(name, index, mode, variable, frame, dict, new_data_v
     value = f"display_{variable.get()}".lower()
     
     if value in dict:
-        dict[value](frame, new_data_var).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)  
+        dict[value](frame, new_data_var, variable).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)  
     else:
         print(f"Variable not found: {variable.get()}")
         CTkMessagebox.CTkMessagebox(title = "Error", message = "Variable not found", icon = "warning")

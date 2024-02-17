@@ -24,6 +24,7 @@ import uuid
 import email
 import quopri
 import matplotlib
+import os
 
 """
 Importing internal modules
@@ -37,6 +38,7 @@ from frontend.pages.display_co2 import display_co2
 from frontend.pages.display_airchange import display_airchange
 from frontend.pages.display_relhumid import display_relhumid
 from frontend.pages.display_temperature import display_temperature
+from func.clearup import clear_figure_output
 
 class app(ctk.CTk):
     def __init__(self):
@@ -57,6 +59,9 @@ class app(ctk.CTk):
         # title menu
         title_menu(self)
 
+        # clear old data
+        clear_figure_output()
+
         #! widgets
         # data visualization
         function_dict = {
@@ -66,7 +71,7 @@ class app(ctk.CTk):
             "display_temperature": display_temperature,
             "display_airchange": display_airchange
             }
-        display_start(self, self.new_data_var).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        display_start(self, self.new_data_var, self.page_menu_var).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         self.page_menu_var.trace("w", lambda name, index, mode, var=self.page_menu_var: on_page_menu_var_change(name, index, mode, var, self, function_dict, self.new_data_var))
 
         # page menu
@@ -116,7 +121,7 @@ class app(ctk.CTk):
                   ).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
         
         
-
+        
 
         self.mainloop()
 
@@ -249,6 +254,8 @@ class app(ctk.CTk):
 
         # tabview menu trace variables
         self.page_menu_var.trace("w", lambda name, index, mode, var=self.page_menu_var, text_before="Tabview: ", text_after=", has been selected.": on_variable_change(name, index, mode, var, text_before, text_after))
+
+    
        
 
 app()

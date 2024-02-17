@@ -24,6 +24,7 @@ sys.path = os.getcwd()
 
 def import_data(path_var, new_data_var):
     print("Importing data")
+    new_data_var.set(True)
     data = pd.read_csv(rf"{path_var.get()}", sep="\t", encoding='latin1')
     df = pd.DataFrame(data)
     print(df)

@@ -6,6 +6,7 @@
         "ACCEPTEDMINTEMP",
         "airchange",
         "AUTOMARGIN",
+        "clearup",
         "colorscale",
         "columnspan",
         "Dataframe",
