@@ -28,7 +28,9 @@ import pandas as pd
 import random
 import email
 import quopri
-import matplotlib 
+import matplotlib
+import tkinter as tk
+import kaleido
 
 
 """
@@ -42,6 +44,10 @@ sys.path = os.getcwd()
 
 from settings.settings import *
 from func.figures.random_plot import TestPlot
+from backend.scrollableimage import ScrollableImage
+from backend.import_data import import_data
+from func.figures.table_plot import TablePlot
+from backend.import_data import import_data_dayprofile
 
 
 
@@ -63,12 +69,32 @@ class display_co2(ctk.CTkFrame):
         ctk.CTkLabel(self, text = "CO2_Figure_Distribution_Curve", font = title_font).grid(row = 1, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
         ctk.CTkLabel(self, text = "CO2_Figure_Bar_Chart", font = title_font).grid(row = 2, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
 
-        print(co2_dayprofile_var.get())
+        # print(co2_dayprofile_var.get())
 
-        # plots
-        if new_data_var.get() == True:
-            pass
+        # table data
+        new_data_var.trace("w", lambda name, index, mode, var=new_data_var, path_var=path_var, co2_dayprofile_var=co2_dayprofile_var: add_plot(self, var, path_var, co2_dayprofile_var))
+       
+        if os.path.isfile('figures output/TableCo2.png'):
+            img = tk.PhotoImage(file='figures output/TableCo2.png')
+            ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
 
+        def add_plot(self, var, path_var, co2_dayprofile_var):
+            path = path_var.get()
+            path_dayprofile = co2_dayprofile_var.get()
+            print("plotting co2 table")
+            if var.get() == True:
+                print("plotting co2 table")
+                pass
+                import_data_dayprofile(path, path_dayprofile)
+
+
+
+            # path = path_var.get()
+            # import_data(path)
+            # if var.get() == True:
+            #     TablePlot(self, import_data(path), size_y=70, size_x=30)
+            #     img = tk.PhotoImage(file='figures output/TableStart.png')
+            #     ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         
 

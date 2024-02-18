@@ -28,7 +28,7 @@ sys.path = os.getcwd()
 
 from backend.timemeasure import timeit
 
-@timeit
+#@timeit
 @lru_cache(maxsize=1)
 def import_data(path_var):
     """
@@ -68,8 +68,8 @@ def import_dayprofile(path_var):
         CTkMessagebox.CTkMessagebox(title = "Error", message = f"Error while importing dayprofile: {traceback.format_exc()}", icon = "warning")
         return None
 
-@timeit
-@lru_cache(maxsize=4)
+#@timeit
+@lru_cache(maxsize=10)
 def import_data_dayprofile(path_var, dayprofile_var):
     """
     This function imports data from a given path and day profile, processes the data, and returns the resulting dataframe.
@@ -117,6 +117,8 @@ def add_week(df, year):
     hours = pd.date_range(start=f'{year}-01-01', end=f'{year}-12-31 23:00', freq='H')
     df['Week'] = pd.to_datetime(hours).strftime('%U')
     df['Week'] = df['Week'].apply(week_number)
+    week_move = df.pop("Week")
+    df.insert(2, "Week", week_move)
     return df
 
 def week_number(row):

@@ -48,7 +48,7 @@ from settings.settings import *
 from backend.import_data import import_data
 from backend.timemeasure import timeit
 
-@timeit
+#@timeit
 class TablePlot(tk.Frame):
     def __init__(self, parent, df, size_y = 30, size_x = 20, cell_y = 20, cell_x = 70):
         tk.Frame.__init__(self, parent)
