@@ -1,10 +1,4 @@
-import customtkinter as ctk
-
-def optionmenu_callback(choice):
-    print("optionmenu dropdown clicked:", choice)
-
-
-app = ctk.CTk()
-optionmenu = ctk.CTkOptionMenu(app, values=["option 1", "option 2"], command=optionmenu_callback).pack()
-
-app.mainloop()
+import os
+normalized_path = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/Bsimdata.txt")
+formatted_path = r"{}".format(normalized_path)
+print(f"r'{formatted_path}'")

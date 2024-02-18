@@ -33,6 +33,7 @@ import tkinter as tk
 import kaleido
 
 
+
 """
 Importing internal modules
 """
@@ -48,6 +49,8 @@ from backend.scrollableimage import ScrollableImage
 from backend.import_data import import_data
 from func.figures.table_plot import TablePlot
 from backend.import_data import import_data_dayprofile
+from backend.time import delay_decorator
+from backend.sort_data import discard_data
 
 
 
@@ -69,14 +72,40 @@ class display_co2(ctk.CTkFrame):
         ctk.CTkLabel(self, text = "CO2_Figure_Distribution_Curve", font = title_font).grid(row = 1, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
         ctk.CTkLabel(self, text = "CO2_Figure_Bar_Chart", font = title_font).grid(row = 2, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
 
-        # print(co2_dayprofile_var.get())
-
         # table data
-        new_data_var.trace("w", lambda name, index, mode, var=new_data_var, path_var=path_var, co2_dayprofile_var=co2_dayprofile_var: add_plot(self, var, path_var, co2_dayprofile_var))
-       
+        auto_plot = ctk.StringVar(value = True)
+        print(auto_plot.get())
+
+        def test(path, dayprofile):
+            if path == "":
+                CTkMessagebox.CTkMessagebox(title="Error", message="No path selected")
+                return
+            else:
+                
+                df = discard_data(import_data_dayprofile(path, dayprofile), "Co2")
+                print(df.head())
+
+        path = path_var.get()
+        print(path)
+        dayprofile = co2_dayprofile_var.get()
+        print(dayprofile)
+
+        if auto_plot.get():
+            path = f"r'{path}'"
+            print(path)
+            dayprofile = f"r'{dayprofile}'"
+            print(dayprofile)
+            # test(path, dayprofile)
+            # auto_plot.set(False)
+
+        
+
+
         if os.path.isfile('figures output/TableCo2.png'):
             img = tk.PhotoImage(file='figures output/TableCo2.png')
             ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
+
+        
 
         def add_plot(self, var, path_var, co2_dayprofile_var):
             path = path_var.get()
@@ -104,13 +133,14 @@ if __name__ == "__main__":
 
     ctk.set_appearance_mode(COLOR_MODE)
 
-    new_data_var = ""
-    page_menu_var = ""
-    path_var = ""
+    new_data_var = ctk.StringVar(value = "")
+    page_menu_var = ctk.StringVar(value = "")
+    path_var = ctk.StringVar(value = "")
+    co2_dayprofile_var = ctk.StringVar(value = "test string for dayprofile")
 
     root.title("TEST: display_co2")
     root.geometry("800x300")
 
-    display_co2(root, new_data_var, page_menu_var, path_var).pack()
+    display_co2(root, new_data_var, page_menu_var, path_var, co2_dayprofile_var).pack()
 
     root.mainloop()

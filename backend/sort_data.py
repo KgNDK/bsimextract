@@ -24,7 +24,7 @@ import sys
 sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 
-from backend.timemeasure import timeit
+from backend.time import timeit
 from backend.import_data import import_data_dayprofile
 
 

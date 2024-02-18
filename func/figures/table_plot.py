@@ -46,7 +46,7 @@ sys.path = os.getcwd()
 
 from settings.settings import *
 from backend.import_data import import_data
-from backend.timemeasure import timeit
+from backend.time import timeit
 
 #@timeit
 class TablePlot(tk.Frame):

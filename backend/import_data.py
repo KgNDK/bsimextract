@@ -26,7 +26,7 @@ import sys
 sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 
-from backend.timemeasure import timeit
+from backend.time import timeit
 
 #@timeit
 @lru_cache(maxsize=1)
@@ -37,7 +37,12 @@ def import_data(path_var):
     If an error occurs during the import, it prints the error message and returns None.
     """
     try:
-        df = pd.read_csv(path_var, encoding="ISO-8859-1", sep='\t')
+        if path_var.startswith("r"):
+            path_var_lc = f"r'{path_var}'"
+        else:
+            path_var_lc = path_var
+    
+        df = pd.read_csv(path_var_lc, encoding="ISO-8859-1", sep='\t')
         df.columns = [col.split(')')[0].replace('(', ' ') for col in df.columns]
         df = df.replace(",", ".", regex=True)
 
@@ -61,7 +66,11 @@ def import_dayprofile(path_var):
         DataFrame: The imported dayprofile as a pandas DataFrame, or None if there was an error.
     """
     try:
-        df = pd.read_csv(path_var, sep='\t')
+        if path_var.startswith("r"):
+            path_var_lc = f"r'{path_var}'"
+        else:
+            path_var_lc = path_var
+        df = pd.read_csv(path_var_lc, sep='\t')
         return df
     except:
         print(f"Error while importing data: {traceback.format_exc()}")
@@ -79,10 +88,18 @@ def import_data_dayprofile(path_var, dayprofile_var):
     Return:
     - df_data: a processed dataframe
     """
-    df_data = import_data(path_var)
+    if path_var.startswith("r"):
+        path_var_lc = f"r'{path_var}'"
+    else:
+        path_var_lc = path_var
+    if dayprofile_var.startswith("r"):
+        dayprofile_var_lc = f"r'{dayprofile_var}'"
+    else:
+        dayprofile_var_lc = dayprofile_var
+    df_data = import_data(path_var_lc)
     year = int(df_data.iloc[1, 0])
     df_data = add_week(df_data, year)
-    df_dayprofile = import_dayprofile(dayprofile_var)
+    df_dayprofile = import_dayprofile(dayprofile_var_lc)
     mask = df_data.apply(check_data, args=(df_dayprofile,), axis=1)
     df_data = df_data[mask]
     return df_data
