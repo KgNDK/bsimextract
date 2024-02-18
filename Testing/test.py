@@ -9,7 +9,7 @@ from plotly.subplots import make_subplots
 
 
 #! Importing XML file and conversion to dataframe
-tree = ET.parse(r'C:\Users\Mikkel H. Lauridsen\OneDrive - Aalborg Universitet\Undervisning\05 Projekt\11 Be18+BSim\Myretuen eksisterende_nylayout_V2(FV)_Design_res1.xml')
+tree = ET.parse(r'C:\Users\Mikkel H. Lauridsen\OneDrive - Aalborg Universitet\Undervisning\06 Prjekt\02 Be18\H11_eksisterende_ny_res.xml')
 root = tree.getroot()
 
 data = []
@@ -24,7 +24,9 @@ for table in root.findall('table'):
         data.append([child.text for child in row])
 
 df = pd.DataFrame(data, columns=columns)
+# df.to_excel(r'C:\Users\Mikkel H. Lauridsen\OneDrive - Aalborg Universitet\Undervisning\06 Prjekt\02 Be18\test.xlsx', index=False)
 
+# print(df)
 
 #! plot 1
 
@@ -80,7 +82,7 @@ fig1.add_bar(
     y=df.iloc[74, 1:].str.replace(',', '.').astype(float).head(12),
     name='Varmt brugsvand',
     offsetgroup=0,
-    base = df.iloc[177, 1:].str.replace(',', '.').astype(float).head(12),
+    base = df.iloc[18, 1:].str.replace(',', '.').astype(float).head(12),
     marker=dict(color="#ae2f2f"),
 )
 
@@ -127,12 +129,12 @@ fig1.update_layout(yaxis3=dict(
     title="[%]",
     overlaying="y",
     side="right",
-    range=[0,100], showgrid=False
+    range=[0,105], showgrid=False
 ))
 fig1.update_layout(paper_bgcolor="white", plot_bgcolor="white")
 fig1.update_yaxes(gridcolor='LightGrey')
 
-# fig1.show()
+fig1.show()
 
 # fig1.write_image("opvarmning_vs_forbrug.png", engine="kaleido")
 
@@ -141,8 +143,11 @@ fig1.update_yaxes(gridcolor='LightGrey')
 #? Area
 # print(df.iloc[:, 0][df.iloc[:, 0] == "I alt til bygningsdrift"]) # 30 # Used if Be18 is updated with new xml layout
 # print(df.iloc[:, 0][df.iloc[:, 0] == "I alt"]) # 139 # Used if Be18 is updated with new xml layout
-area = round((sum((df.iloc[30, 1:].str.replace(',', '.').astype(float).head(13) / df.iloc[31, 1:].str.replace(',', '.').astype(float).head(13)) / len(df.iloc[30, 1:].str.replace(',', '.').astype(float).head(13))) +
-         sum((df.iloc[139, 1:].str.replace(',', '.').astype(float).head(13) / df.iloc[140, 1:].str.replace(',', '.').astype(float).head(13)) / len(df.iloc[139, 1:].str.replace(',', '.').astype(float).head(13)))) / 2, 2)
+if round(sum(df.iloc[139,1:].str.replace(',', '.').astype(float).head(13)), 1) == 0.0:
+    area = round(sum((df.iloc[30, 1:].str.replace(',', '.').astype(float).head(13) / df.iloc[31, 1:].str.replace(',', '.').astype(float).head(13)) / len(df.iloc[30, 1:].str.replace(',', '.').astype(float).head(13))), 2)
+else:
+    area = round((sum((df.iloc[30, 1:].str.replace(',', '.').astype(float).head(13) / df.iloc[31, 1:].str.replace(',', '.').astype(float).head(13)) / len(df.iloc[30, 1:].str.replace(',', '.').astype(float).head(13))) +
+            sum((df.iloc[139, 1:].str.replace(',', '.').astype(float).head(13) / df.iloc[140, 1:].str.replace(',', '.').astype(float).head(13)) / len(df.iloc[139, 1:].str.replace(',', '.').astype(float).head(13)))) / 2, 2)
 
 #? axis
 fig2values = [
@@ -153,6 +158,7 @@ fig2values = [
     round((df.iloc[30, 1:].str.replace(',', '.').astype(float).iloc[12] - df.iloc[28, 1:].str.replace(',', '.').astype(float).iloc[12] / area - df.iloc[29, 1:].str.replace(',', '.').astype(float).iloc[12]) / area, 2),
     round(df.iloc[74, 1:].str.replace(',', '.').astype(float).iloc[12], 2)
 ]
+# print(fig2values)
 
 ratio = round(1. / sum(fig2values), 5)
 tick_pos = range(0, int(max(fig2values)) + 1, 7)
