@@ -193,7 +193,7 @@ class create_dayprofile(ctk.CTkToplevel):
 
             if file_path:
                 with open(file_path, "w") as file:
-                    dayprofile_df.to_csv(file, sep=' ', index=False)
+                    dayprofile_df.to_csv(file, sep='\t', index=False)
 
                 print(f'Dayprofile saved too: {file_path}')
             

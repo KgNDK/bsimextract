@@ -25,7 +25,7 @@ sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 
 from settings.settings import *
-from func.apply_format import apply_format
+from backend.apply_format import apply_format
 
 class temp_format_widget(ctk.CTkFrame):
     def __init__(self,

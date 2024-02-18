@@ -1,5 +1,5 @@
 """
-TITLE
+Clears all the files in the 'figures output' folder when the program is started.
 """
 
 """
@@ -22,7 +22,9 @@ import sys
 sys.path = os.getcwd()
 #* IMPORTANT: DO NOT CHANGE THESE LINES
 
+from backend.timemeasure import timeit
 
+@timeit
 def clear_figure_output():
     """
     Clears all the files in the 'figures output' folder.

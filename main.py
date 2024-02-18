@@ -33,13 +33,13 @@ Importing internal modules
 from settings.settings import *
 from frontend.widgets.title_menu import title_menu
 from frontend.widgets.page_menu import page_menu
-from func.variable_changes import on_variable_change, on_variable_change_int, on_page_menu_var_change
+from backend.variable_changes import on_variable_change, on_variable_change_int, on_page_menu_var_change
 from frontend.pages.display_start import display_start
 from frontend.pages.display_co2 import display_co2
 from frontend.pages.display_airchange import display_airchange
 from frontend.pages.display_relhumid import display_relhumid
 from frontend.pages.display_temperature import display_temperature
-from func.clearup import clear_figure_output
+from backend.clearup import clear_figure_output
 
 
 

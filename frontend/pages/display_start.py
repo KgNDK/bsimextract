@@ -27,7 +27,7 @@ sys.path = os.getcwd()
 
 from settings.settings import *
 from func.figures.random_plot import TestTable
-from func.scrollableimage import ScrollableImage
+from backend.scrollableimage import ScrollableImage
 from func.figures.table_plot import TablePlot
 from backend.import_data import import_data
 
