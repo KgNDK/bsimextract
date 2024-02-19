@@ -53,9 +53,6 @@ class TablePlot(tk.Frame):
     def __init__(self, parent, df, size_y = 30, size_x = 20, cell_y = 20, cell_x = 70):
         tk.Frame.__init__(self, parent)
 
-        # column_names = [column for column in df.columns[:size_y]]
-        # print(column_names)
-
         fig = go.Figure(data=[go.Table(
             header=dict(values=list(df.columns[:size_x]),
                         fill_color=PLOTLY_COLORS[0],

@@ -37,7 +37,7 @@ class display_start(ctk.CTkFrame):
         super().__init__(master = parent)
 
         # layout
-        self.rowconfigure((0), weight = 1)
+        self.rowconfigure((0, 1), weight = 1)
         self.columnconfigure((0), weight = 1)
 
         # font
@@ -52,14 +52,14 @@ class display_start(ctk.CTkFrame):
        
         if os.path.isfile('figures output/TableStart.png'):
             img = tk.PhotoImage(file='figures output/TableStart.png')
-            ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
+            ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=1, column=0, sticky="nsew")
 
         def add_table_plot(self, var, path_var):
             path = path_var.get()
             if var.get() == True:
                 TablePlot(self, import_data(path), size_y=70, size_x=30)
                 img = tk.PhotoImage(file='figures output/TableStart.png')
-                ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+                ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=1, column=0, sticky="nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
                 
                 

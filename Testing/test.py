@@ -33,7 +33,7 @@ df = pd.DataFrame(data, columns=columns)
 fig1 = go.Figure(
         layout=go.Layout(
             # title="Opvarmning vs. Forbrug",
-            yaxis_title="[kWh/m^2 pr. år]",
+            yaxis_title="Energi [kWh/m^2 pr. år]",
             barmode="group",
             height=300,
             width=1000,
@@ -48,6 +48,7 @@ fig1 = go.Figure(
             overlaying="y",
             anchor="x",
             # plot_bgcolor="white",
+            
         ),
         legend=dict(
             x=0,
@@ -126,7 +127,7 @@ fig1.add_trace(go.Scatter(
 
 
 fig1.update_layout(yaxis3=dict(
-    title="[%]",
+    title="Udnyttelses-faktor [%]",
     overlaying="y",
     side="right",
     range=[0,105], showgrid=False
@@ -136,7 +137,7 @@ fig1.update_yaxes(gridcolor='LightGrey')
 
 fig1.show()
 
-# fig1.write_image("opvarmning_vs_forbrug.png", engine="kaleido")
+fig1.write_image("opvarmning_vs_forbrug.png", engine="kaleido")
 
 #! plot 2
 
@@ -194,11 +195,11 @@ fig2.add_trace(go.Scatter(
 
 fig2.update_layout(
     yaxis=dict(
-        title="[kWh/m^2 pr. år]",
+        title="Energiforbrug [kWh/m^2 pr. år]",
         range=[0, max(fig2values) + 0.5],
     ),
     yaxis3=dict(
-        title="[%]",
+        title="Andel af total [%]",
         overlaying="y",
         side="right",
         range=[0, max(fig2values)*ratio*100],
@@ -209,6 +210,6 @@ fig2.update_layout(paper_bgcolor="white", plot_bgcolor="white", showlegend=False
 fig2.update_yaxes(gridcolor='LightGrey')
 fig2.update_layout(barmode='stack', xaxis={'categoryorder':'total ascending'})
 
-fig2.show()
+# fig2.show()
 
 # fig2.write_image("energiforbrug.png", engine="kaleido")

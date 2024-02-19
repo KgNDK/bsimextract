@@ -33,24 +33,30 @@ from backend.time import timeit
 def import_data(path_var):
     """
     A function to import data from a CSV file located at the given path_var.
+    If the path is formatted incorrectly it tries to correct it and if that fails, it prints an error message and returns None.
     This function reads the CSV file, cleans the column names, and replaces commas with periods.
     If an error occurs during the import, it prints the error message and returns None.
     """
     try:
-        if path_var.startswith("r"):
-            path_var_lc = f"r'{path_var}'"
-        else:
-            path_var_lc = path_var
+        try:
+            if path_var.startswith('"r'):
+                path_var_lc = f"r'{path_var}'"
+            else:
+                path_var_lc = path_var
+        except:
+            print(f"Error while importing data: {traceback.format_exc()}")
+            CTkMessagebox.CTkMessagebox(title = "Error", message = f"Error while loading data path, in 'import_data' function", icon = "warning")
+            return None
     
+        print(path_var_lc)
         df = pd.read_csv(path_var_lc, encoding="ISO-8859-1", sep='\t')
         df.columns = [col.split(')')[0].replace('(', ' ') for col in df.columns]
         df = df.replace(",", ".", regex=True)
-
         return df
-        
+    
     except:
         print(f"Error while importing data: {traceback.format_exc()}")
-        CTkMessagebox.CTkMessagebox(title = "Error", message = f"Error while importing data: {traceback.format_exc()}", icon = "warning")
+        CTkMessagebox.CTkMessagebox(title = "Error", message = f"Error while importing data, in 'import_data' function", icon = "warning")
         return None
     
 
@@ -58,23 +64,27 @@ def import_data(path_var):
 def import_dayprofile(path_var):
     """
     A function that imports a dayprofile from a given path.
-
-    Args:
-        path_var (str): The path to the dayprofile file.
-
+    If the path is formatted incorrectly it tries to correct it and if that fails, it prints an error message and returns None.
     Returns:
         DataFrame: The imported dayprofile as a pandas DataFrame, or None if there was an error.
     """
     try:
-        if path_var.startswith("r"):
-            path_var_lc = f"r'{path_var}'"
-        else:
-            path_var_lc = path_var
+        try:
+            if path_var.startswith('"r'):
+                path_var_lc = f"r'{path_var}'"
+            else:
+                path_var_lc = path_var
+        except:
+            print(f"Error while importing data: {traceback.format_exc()}")
+            CTkMessagebox.CTkMessagebox(title = "Error", message = f"Error while loading dayprofile path, in 'import_dayprofile' function", icon = "warning")
+            return None
+        
+        print(path_var_lc)
         df = pd.read_csv(path_var_lc, sep='\t')
         return df
     except:
         print(f"Error while importing data: {traceback.format_exc()}")
-        CTkMessagebox.CTkMessagebox(title = "Error", message = f"Error while importing dayprofile: {traceback.format_exc()}", icon = "warning")
+        CTkMessagebox.CTkMessagebox(title = "Error", message = f"Error while importing dayprofile, in 'import_dayprofile' function", icon = "warning")
         return None
 
 #@timeit
@@ -88,21 +98,42 @@ def import_data_dayprofile(path_var, dayprofile_var):
     Return:
     - df_data: a processed dataframe
     """
-    if path_var.startswith("r"):
-        path_var_lc = f"r'{path_var}'"
-    else:
-        path_var_lc = path_var
-    if dayprofile_var.startswith("r"):
-        dayprofile_var_lc = f"r'{dayprofile_var}'"
-    else:
+    try:
+        try:
+            if path_var.startswith('"r'):
+                path_var_lc = f"r'{path_var}'"
+            else:
+                path_var_lc = path_var
+
+        except:
+            print(f"Error while importing data: {traceback.format_exc()}")
+            CTkMessagebox.CTkMessagebox(title = "Error", message = f"Error while loading data path, in 'import_data_dayprofile' function", icon = "warning")
+            return None
+    
+        try:
+            if dayprofile_var.startswith('"r'):
+                dayprofile_var_lc = f"r'{dayprofile_var}'"
+            else:
+                dayprofile_var_lc = dayprofile_var
+        except:
+            print(f"Error while importing data: {traceback.format_exc()}")
+            CTkMessagebox.CTkMessagebox(title = "Error", message = f"Error while loading dayprofile path, in 'import_data_dayprofile' function", icon = "warning")
+            return None
+        
+        print(path_var_lc, dayprofile_var_lc)
         dayprofile_var_lc = dayprofile_var
-    df_data = import_data(path_var_lc)
-    year = int(df_data.iloc[1, 0])
-    df_data = add_week(df_data, year)
-    df_dayprofile = import_dayprofile(dayprofile_var_lc)
-    mask = df_data.apply(check_data, args=(df_dayprofile,), axis=1)
-    df_data = df_data[mask]
-    return df_data
+        df_data = import_data(path_var_lc)
+        year = int(df_data.iloc[1, 0])
+        df_data = add_week(df_data, year)
+        df_dayprofile = import_dayprofile(dayprofile_var_lc)
+        mask = df_data.apply(check_data, args=(df_dayprofile,), axis=1)
+        df_data = df_data[mask]
+        return df_data
+    
+    except:
+        print(f"Error while importing data: {traceback.format_exc()}")
+        CTkMessagebox.CTkMessagebox(title = "Error", message = f"Error while importing data or dayprofile, in 'import_data_dayprofile' function", icon = "warning")
+        return None
 
     
 def check_data(row, df_dayprofile):

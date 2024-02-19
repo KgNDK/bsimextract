@@ -51,6 +51,7 @@ from func.figures.table_plot import TablePlot
 from backend.import_data import import_data_dayprofile
 from backend.time import delay_decorator
 from backend.sort_data import discard_data
+from backend.import_data import import_dayprofile
 
 
 
@@ -73,30 +74,31 @@ class display_co2(ctk.CTkFrame):
         ctk.CTkLabel(self, text = "CO2_Figure_Bar_Chart", font = title_font).grid(row = 2, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
 
         # table data
-        auto_plot = ctk.StringVar(value = True)
+        auto_plot = ctk.BooleanVar(value = True)
         print(auto_plot.get())
 
-        def test(path, dayprofile):
-            if path == "":
-                CTkMessagebox.CTkMessagebox(title="Error", message="No path selected")
-                return
-            else:
-                
-                df = discard_data(import_data_dayprofile(path, dayprofile), "Co2")
-                print(df.head())
+        def test(path, dayprofile):                
+            df = discard_data(import_data_dayprofile(path, dayprofile), "Co2")
+            print(df.head())
 
         path = path_var.get()
-        print(path)
         dayprofile = co2_dayprofile_var.get()
-        print(dayprofile)
 
-        if auto_plot.get():
-            path = f"r'{path}'"
-            print(path)
-            dayprofile = f"r'{dayprofile}'"
-            print(dayprofile)
-            # test(path, dayprofile)
-            # auto_plot.set(False)
+        if auto_plot.get() == True:
+            if path == "":
+                CTkMessagebox.CTkMessagebox(title="Error", message="No data path selected")
+                return
+            elif dayprofile == "":
+                CTkMessagebox.CTkMessagebox(title="Error", message="No dayprofile for CO2 selected")
+                return
+            else:
+                dayprofile = os.path.normpath(f"{os.getcwd()}/dayprofiles/{dayprofile}")
+                
+
+
+
+                
+                auto_plot.set(False)
 
         
 
