@@ -4,7 +4,7 @@ Scatter plot with plotly
 
 """
 # TODO LIST
-
+Airchange has to be fixed
 """
 
 """
@@ -35,8 +35,7 @@ import datetime
 import string
 import itertools
 from openpyxl.workbook import Workbook
-
-
+import math
 
 """
 Importing internal modules
@@ -59,12 +58,15 @@ class ScatterPlot(tk.Frame):
 
         label = df.columns[5].split()[0]
         # print(label)
+        print(df)
         
         fig = go.Figure()
 
         if label.lower() == "co2":
+            label = "CO2"
             unit = "ppm" 
             max_dtick_x = max(50, round(len(df)/50, -2))
+            max_dtick_y = max(50, round(int(df[5:].astype(float).max().iloc[0])/10), -2)
             fig.update_layout(
                 yaxis=dict(
                     dtick=50,
@@ -77,11 +79,12 @@ class ScatterPlot(tk.Frame):
                 ),
                 yaxis_showgrid=True,
             )
-        elif label.lower() == "temp":
-            label = "Temperature"
+        elif label.lower() == "top":
+            label = "Operativ temperatur"
             unit = "°C"
             max_dtick_x = max(50, round(len(df)/50, -2))
-            tick0_y = round(min(df[5:])-1, 0)
+            tick0_y = int(df[5:].astype(float).min().iloc[0]) - 1
+            print(tick0_y)
             fig.update_layout(
                 yaxis=dict(
                     dtick=1,
@@ -94,10 +97,42 @@ class ScatterPlot(tk.Frame):
                 ),
                 yaxis_showgrid=True,
             )
-        elif label.lower() == "humidity":
+        elif label.lower() == "relhumid":
             unit = "%"
-        elif label.lower() == "airchange":
-            unit = "$h^{-1}$"
+            label = "Relativ luftfugtighed"
+            max_dtick_x = max(50, round(len(df)/50, -2))
+            tick0_y = round(int(df[5:].astype(float).min().iloc[0]) - 5, -1)
+            print(tick0_y)
+            fig.update_layout(
+                yaxis=dict(
+                    dtick=10,
+                    tick0=tick0_y,
+                    gridcolor='LightGrey'
+                ),
+                xaxis=dict(
+                    dtick=max_dtick_x,
+                    gridcolor='LightGrey'
+                ),
+                yaxis_showgrid=True,
+            )
+        # elif label.lower() == "ventilout":
+        #     unit = "$h^{-1}$"
+        #     label = "AirChange"
+        #     max_dtick_x = max(50, round(len(df)/50, -2))
+        #     tick0_y = int(df[5:].astype(float).min().iloc[0]) - 1
+        #     print(tick0_y)
+        #     fig.update_layout(
+        #         yaxis=dict(
+        #             dtick=1,
+        #             tick0=tick0_y,
+        #             gridcolor='LightGrey'
+        #         ),
+        #         xaxis=dict(
+        #             dtick=max_dtick_x,
+        #             gridcolor='LightGrey'
+        #         ),
+        #         yaxis_showgrid=True,
+        #     )
         else:
             unit = ""
 
