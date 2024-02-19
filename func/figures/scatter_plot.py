@@ -56,16 +56,16 @@ class ScatterPlot(tk.Frame):
     def __init__(self, parent, df):
         tk.Frame.__init__(self, parent)
 
-        label = df.columns[5].split()[0]
-        # print(label)
-        print(df)
-        
         fig = go.Figure()
+
+        #* Parameters
+        length_df = len(df)
+        label = df.columns[5].split()[0]
 
         if label.lower() == "co2":
             label = "CO2"
             unit = "ppm" 
-            max_dtick_x = max(50, round(len(df)/50, -2))
+            max_dtick_x = max(50, round(length_df/50, -2))
             max_dtick_y = max(50, round(int(df[5:].astype(float).max().iloc[0])/10), -2)
             fig.update_layout(
                 yaxis=dict(
@@ -82,9 +82,8 @@ class ScatterPlot(tk.Frame):
         elif label.lower() == "top":
             label = "Operativ temperatur"
             unit = "°C"
-            max_dtick_x = max(50, round(len(df)/50, -2))
+            max_dtick_x = max(50, round(length_df/50, -2))
             tick0_y = int(df[5:].astype(float).min().iloc[0]) - 1
-            print(tick0_y)
             fig.update_layout(
                 yaxis=dict(
                     dtick=1,
@@ -100,9 +99,8 @@ class ScatterPlot(tk.Frame):
         elif label.lower() == "relhumid":
             unit = "%"
             label = "Relativ luftfugtighed"
-            max_dtick_x = max(50, round(len(df)/50, -2))
+            max_dtick_x = max(50, round(length_df/50, -2))
             tick0_y = round(int(df[5:].astype(float).min().iloc[0]) - 5, -1)
-            print(tick0_y)
             fig.update_layout(
                 yaxis=dict(
                     dtick=10,
@@ -115,98 +113,74 @@ class ScatterPlot(tk.Frame):
                 ),
                 yaxis_showgrid=True,
             )
-        # elif label.lower() == "ventilout":
-        #     unit = "$h^{-1}$"
-        #     label = "AirChange"
-        #     max_dtick_x = max(50, round(len(df)/50, -2))
-        #     tick0_y = int(df[5:].astype(float).min().iloc[0]) - 1
-        #     print(tick0_y)
-        #     fig.update_layout(
-        #         yaxis=dict(
-        #             dtick=1,
-        #             tick0=tick0_y,
-        #             gridcolor='LightGrey'
-        #         ),
-        #         xaxis=dict(
-        #             dtick=max_dtick_x,
-        #             gridcolor='LightGrey'
-        #         ),
-        #         yaxis_showgrid=True,
-        #     )
+        elif label.lower() == "airchange":
+            unit = "h^-1"
+            label = "Luftskifte"
+            max_dtick_x = max(50, round(length_df/50, -2))
+            fig.update_layout(
+                yaxis=dict(
+                    dtick=2,
+                    tick0=0,
+                    gridcolor='LightGrey'
+                ),
+                xaxis=dict(
+                    dtick=max_dtick_x,
+                    gridcolor='LightGrey'
+                ),
+                yaxis_showgrid=True,
+            )
         else:
             unit = ""
 
+        for column in df.columns[5:]:
+            fig.add_trace(go.Scatter(
+                        x=list(range(length_df)), 
+                        y=df[column],
+                        mode='lines',
+                        name=column))
+
 
         
-
-        for column in df.columns[5:]:
-            # if column.startswith('label'):
-                print(column)
-                print(max(df[column]))
-                # sorted_values = df[column].sort_values()
-                fig.add_trace(go.Scatter(
-                            x=list(range(len(df))), 
-                            y=df[column],
-                            mode='lines',
-                            name=column))
-                # df[column].to_excel(r'C:\Users\Mikkel H. Lauridsen\OneDrive - Aalborg Universitet\Undervisning\06 Prjekt\test.xlsx', index=False)
-                
-        # fig.add_trace(go.Scatter(
-        #     x=list(range(len(df))),
-        #     y=df["Co2 002"],
-        # ))
-                
         fig.update_layout(
-            # xaxis_title="Brugstid [h]",
-            # yaxis_title=f"{label} [{unit}]",
-            width = (len(df)/2)+200,
+            width = (length_df/2)+200,
             height = 300,
             margin=dict(l=0, r=0, t=0, b=0),
             paper_bgcolor = PLOTLY_STANDARD_PAPER_BACKGROUND_COLOR,
             plot_bgcolor="white",
-            # gridcolor='LightGrey',
             autosize = PLOTLY_STANDARD_AUTOSIZE,
             xaxis = dict(
-                # showgrid=True,
                 gridcolor='LightGrey',
-                range=[0, len(df)],
+                range=[0, length_df],
                 title = "Brugstid [h]",
             ),
             yaxis = dict(
-                # showgrid=False,
                 range=[0, max(df[5:])],
                 title = f"{label} [{unit}]",
             ),
             autotypenumbers="convert types"
         )
 
-
-        # fig.update_layout(yaxis=dict(
-        #     title="Udnyttelses-faktor [%]",
-        #     overlaying="y",
-        #     side="right",
-        #     range=[0,105], showgrid=False
-        # ))
-
-        # # fig.update_layout(
-        # #     width=size_x*cell_x,
-        # #     height=size_y*cell_y,
-        # #     # margin=dict(l=5, r=5, t=5, b=5),
-        # #     margin=dict(l=0, r=0, t=0, b=0),
-        # #     paper_bgcolor = PLOTLY_STANDARD_PAPER_BACKGROUND_COLOR,
-        # #     # automargin = PLOTLY_STANDARD_AUTOMARGIN,
-        # #     autosize = PLOTLY_STANDARD_AUTOSIZE,
-        # #     )
+        if length_df == 8760:
+            tick0_x = (df["Week"] == 0).sum()
+            fig.update_layout(
+                xaxis = dict(
+                    dtick = 168, 
+                    tick0 = tick0_x,
+                )
+            )
+                
 
         if not os.path.exists("figures output"):
             os.mkdir("figures output")
         
-        # Save the plot as a PNG
+        #* Save the plot as a PNG
         img_bytes = fig.to_image(format="png")
         img = Image.open(io.BytesIO(img_bytes))
         img.save(f'figures output/ScatterPlot{label}.png')
 
         root.destroy()
+
+        
 
 if __name__ == "__main__":
 
@@ -214,8 +188,14 @@ if __name__ == "__main__":
 
     path_var = os.path.normpath("C:\\Users\\Mikkel H. Lauridsen\\OneDrive - Aalborg Universitet\\Programmer\\03 BSimExtract\\Bsimdata.txt")
     dayprofile_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract/dayprofiles/dayprofile_altid.txt")
-    # df = import_data(path_var)
     df = discard_data(import_data_dayprofile(path_var, dayprofile_var), "Co2")
+
+    #? different graphs
+    #* "Co2" for CO2 concentration
+    #* "RelHumid" for relative humidity
+    #* "Top " for temperature - Remember the space after
+    #* "AirChange" for air change
+
     ScatterPlot(root, df)#.pack()
 
     root.mainloop()

@@ -16,6 +16,7 @@ import matplotlib
 from functools import lru_cache
 import traceback
 import datetime
+from datetime import timedelta
 
 """
 Importing internal modules
@@ -163,7 +164,7 @@ def add_week(df, year):
     - df: pandas DataFrame with the 'Week' column added
     """
     hours = pd.date_range(start=f'{year}-01-01', end=f'{year}-12-31 23:00', freq='H')
-    df['Week'] = pd.to_datetime(hours).strftime('%U')
+    df['Week'] = pd.to_datetime(hours).strftime('%W')
     df['Week'] = df['Week'].apply(week_number)
     week_move = df.pop("Week")
     df.insert(2, "Week", week_move)
