@@ -62,6 +62,13 @@ class DistributionPlot(tk.Frame):
         # length_df = len(df)
         label = df.columns[5].split()[0]
         name = label
+        print(df)
+
+        def sort_segments(x):
+            segment_length = len(x) // 5
+            partitioned = np.partition(x, segment_length * np.arange(1, 5))
+            sorted_segments = np.sort(partitioned.reshape(5, -1), axis=1)
+            return pd.Series(sorted_segments.flatten())
 
         unit = "NoUnit"
         if label.lower() == "co2":
@@ -77,9 +84,11 @@ class DistributionPlot(tk.Frame):
             unit = "h^-1"
             label = "Luftskifte"
         
-        # sorted_df = df[df.columns[5:]].apply(lambda x: x.sort_values(ignore_index=True, ascending=True)).reset_index(drop=True)
-        sorted_df = df[df.columns[5:]].apply(lambda x: x.sort_values(ignore_index=True, ascending=True, kind="stable")).apply(lambda x: x.sort_values(ignore_index=True, ascending=True, kind="mergesort")).reset_index(drop=True)
-
+        sorted_df = df[df.columns[5:]].apply(lambda x: x.sort_values(ignore_index=True, ascending=True)).reset_index(drop=True)
+        # sorted_df = df[df.columns[5:]].apply(lambda x: x.sort_values(ignore_index=True, ascending=True, kind="stable")).apply(lambda x: x.sort_values(ignore_index=True, ascending=True, kind="mergesort")).reset_index(drop=True)
+        # sorted_df = df[df.columns[5:]].apply(lambda x: pd.Series(np.sort(x, kind="stable"))).reset_index(drop=True)
+        # sorted_df = df[df.columns[5:]].apply(sort_segments).reset_index(drop=True)
+        
         num=0
         for column in sorted_df.columns:
             fig.add_trace(go.Scatter(

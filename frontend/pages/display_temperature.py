@@ -67,7 +67,10 @@ class display_temperature(ctk.CTkFrame):
 
         # parameters
         name = "Top"
-        parameters = ["-18", "18-22", "22-25", "25-27", 27, 28]
+        parameters = [27, 28] # Always
+        # parameters = ["-23", "23-26", 26] # Summer period
+        # parameters = ["-20", "20-25", 25] # Winter period
+        # parameters = ["-20", "20-26", 26] # Transition period
         path = path_var.get()
         dayprofile = temp_dayprofile_var.get()
 

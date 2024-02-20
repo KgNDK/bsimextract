@@ -70,7 +70,7 @@ class display_co2(ctk.CTkFrame):
 
         # parameters
         name = "CO2"
-        parameters = ["-700", "700-1000", "1000-1600", 1600]
+        parameters = [950, 1200]
         path = path_var.get()
         dayprofile = co2_dayprofile_var.get()
 

@@ -67,7 +67,7 @@ class display_airchange(ctk.CTkFrame):
 
         # parameters
         name = "AirChange"
-        parameters = ["-1", "1-2", "2-3", "3-4", "4-5", 5]
+        parameters = ["-1", "1-2", "2-3", "3-4", "4-5", 5] # Needs to be changed GitHub #27
         path = path_var.get()
         dayprofile = airch_dayprofile_var.get()
 

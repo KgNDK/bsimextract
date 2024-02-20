@@ -90,7 +90,7 @@ class BarPlot(tk.Frame):
                     counts.append(sum(df[column].astype(float) > param))
                 else:
                     if param.startswith("-"):
-                        right = int(param[1:])
+                        right = int(param[1:]) - 0.1
                         counts.append(sum(df[column].astype(float) < right))
                     else:
                         left, right = map(int, param.split("-"))
@@ -186,12 +186,12 @@ if __name__ == "__main__":
 
     path_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/DATA/Bsimdata.txt")
     dayprofile_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract/dayprofiles/dayprofile_altid.txt")
-    df = discard_data(import_data_dayprofile(path_var, dayprofile_var), "RelHumid")
+    df = discard_data(import_data_dayprofile(path_var, dayprofile_var), "Top ")
 
     #? example of parameters
     # parameters = ["-500", "500-700", 700, "600-1000", 800] # Co2
-    # parameters = ["-25", "21-26", 27, "26-31", 32] # Top
-    parameters = ["-100", "10-20", 20, "20-30", 30] # RelHumid
+    parameters = ["-25", "-26"] # Top
+    # parameters = ["-100", "10-20", 20, "20-30", 30] # RelHumid
     # parameters = ["-1", "1-2", 2, "2-3", 3, 0] # AirChange
 
 
