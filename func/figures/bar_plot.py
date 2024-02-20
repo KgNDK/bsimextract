@@ -61,8 +61,10 @@ class BarPlot(tk.Frame):
         #* Parameters
         length_df = len(df)
         label = df.columns[5].split()[0]
+        max_df = int(df.iloc[:, 5:].astype(float).values.max()) # Maximal value from df[5:]
 
         print(df)
+        print(max_df)
 
         # if label.lower() == "co2":
         #     label = "CO2"
@@ -150,45 +152,79 @@ class BarPlot(tk.Frame):
         #         ))
         #     num += 1
 
-        parameter = [1000, 1250, 1500]
+        parameters = [500, 750, 1000]
+
+        #? axis
+
+        ratio = round(1. / length_df, 5)
+        tick_pos = range(0, int(max_df) + 1, 7)
+        print(ratio)
+
+        data = []
+
+
         for column in df.columns[5:]:
-            df[column] = pd.to_numeric(df[column], errors='coerce')
-            counts = [np.sum(df[column] >= p) for p in parameter]  # Calculate counts for each threshold
+            counts = [sum(df[column].astype(float) > param) for param in parameters]
+            data.append(counts)
+
+        df_counts = pd.DataFrame(data, columns=[f'Timer over: {param}' for param in parameters], index=df.columns[5:])
+
+        color_mapping = {param: color for param, color in zip(df_counts.columns, PLOTLY_COLORS)}
+
+        for param in df_counts.columns:
             fig.add_trace(go.Bar(
-                x=parameter,  # Use the thresholds as x-coordinates
-                y=counts,
-                name=column  # Set the name of the bar
+                x=df_counts.index,
+                y=df_counts[param],
+                name=param,
+                text=df_counts[param],
+                marker_color=color_mapping[param]
             ))
 
-        
-        # fig.update_layout(
-        #     width = (length_df/2)+200,
-        #     height = 300,
-        #     margin=dict(l=0, r=0, t=0, b=0),
-        #     paper_bgcolor = PLOTLY_STANDARD_PAPER_BACKGROUND_COLOR,
-        #     plot_bgcolor="white",
-        #     autosize = PLOTLY_STANDARD_AUTOSIZE,
-        #     xaxis = dict(
-        #         gridcolor='LightGrey',
-        #         range=[0, length_df],
-        #         title = "Brugstid [h]",
-        #     ),
-        #     yaxis = dict(
-        #         range=[0, max(df[5:])],
-        #         title = f"{label} [{unit}]",
-        #     ),
-        #     autotypenumbers="convert types"
-        # )
+        fig.add_trace(go.Scatter(
+            x=[],
+            y=[],
+            yaxis="y2",
+            opacity=0,
+        ))
 
-        # if length_df == 8760:
-        #     tick0_x = (df["Week"] == 0).sum()
-        #     fig.update_layout(
-        #         xaxis = dict(
-        #             dtick = 168, 
-        #             tick0 = tick0_x,
-        #         )
-        #     )
-                
+        fig.update_layout(
+            barmode="group",
+            height=500,
+            width=700,
+            hovermode="x",
+            margin=dict(b=0,t=10,l=0,r=10),
+            paper_bgcolor="white",
+            plot_bgcolor="white",
+            font=dict(
+                family="Calibri",
+                size=20
+            ),
+            legend=dict(
+                x=0,
+                y=-0.15,
+                bgcolor="White",
+                orientation="h",
+                font=dict(
+                    size=16,
+                    color="black",
+                    family="Calibri",
+                ),
+            ),
+            yaxis = dict(
+                title = "Timer over [h]",
+                range = [0, round(df_counts.max().max()+50, -2)],
+                showgrid=True,
+                showticklabels=True,
+                gridcolor="LightGrey",
+            ),
+            yaxis2 = dict(
+                title = "Andel af total brugstid [%]",
+                overlaying = "y",
+                side = "right",
+                range = [0, df_counts.max().max()*ratio*100],
+                showgrid = False
+            )
+        )                
 
         if not os.path.exists("figures output"):
             os.mkdir("figures output")

@@ -33,7 +33,7 @@ df = pd.DataFrame(data, columns=columns)
 fig1 = go.Figure(
         layout=go.Layout(
             # title="Opvarmning vs. Forbrug",
-            yaxis_title="Energi [kWh/m^2 pr. år]",
+            yaxis_title="Energi [kWh/m$^2$ pr. år]",
             barmode="group",
             height=300,
             width=1000,
@@ -163,7 +163,7 @@ fig2values = [
 
 ratio = round(1. / sum(fig2values), 5)
 tick_pos = range(0, int(max(fig2values)) + 1, 7)
-tick_text = [str(int(ratio * pos * 100)) + ' %' for pos in tick_pos]
+# tick_text = [str(int(ratio * pos * 100)) + ' %' for pos in tick_pos]
 
 fig2 = go.Figure(
         layout=go.Layout(
@@ -210,6 +210,6 @@ fig2.update_layout(paper_bgcolor="white", plot_bgcolor="white", showlegend=False
 fig2.update_yaxes(gridcolor='LightGrey')
 fig2.update_layout(barmode='stack', xaxis={'categoryorder':'total ascending'})
 
-# fig2.show()
+fig2.show()
 
 # fig2.write_image("energiforbrug.png", engine="kaleido")

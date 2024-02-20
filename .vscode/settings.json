@@ -16,6 +16,7 @@
         "cumsum",
         "Dataframe",
         "dtick",
+        "dtype",
         "Energi",
         "ffill",
         "figsize",

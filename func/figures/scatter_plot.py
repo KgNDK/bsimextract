@@ -132,12 +132,17 @@ class ScatterPlot(tk.Frame):
         else:
             unit = ""
 
-        for column in df.columns[5:]:
+        for index, column in enumerate(df.columns[5:]):
             fig.add_trace(go.Scatter(
                         x=list(range(length_df)), 
                         y=df[column],
                         mode='lines',
-                        name=column))
+                        name=column,
+                        line=dict(
+                            color=PLOTLY_COLORS[index],
+                            # width=1
+                        ),
+            ))
 
 
         
