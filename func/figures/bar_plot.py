@@ -142,7 +142,7 @@ class BarPlot(tk.Frame):
             ),
             legend=dict(
                 x=0,
-                y=-0.15,
+                y=-0.1,
                 bgcolor="White",
                 orientation="h",
                 font=dict(

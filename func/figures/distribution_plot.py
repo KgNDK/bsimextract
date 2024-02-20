@@ -1,5 +1,5 @@
 """
-Scatter plot with plotly 
+Distribution plot with plotly 
 """
 
 """
@@ -52,122 +52,85 @@ from backend.import_data import import_data_dayprofile
 from backend.time import timeit
 from backend.sort_data import discard_data
 
-class ScatterPlot(tk.Frame):
+class DistributionPlot(tk.Frame):
     def __init__(self, parent, df):
         tk.Frame.__init__(self, parent)
 
         fig = go.Figure()
 
         #* Parameters
-        length_df = len(df)
+        # length_df = len(df)
         label = df.columns[5].split()[0]
         name = label
 
+        unit = "NoUnit"
         if label.lower() == "co2":
             label = "CO2"
-            unit = "ppm" 
-            max_dtick_x = max(50, round(length_df/50, -2))
-            max_dtick_y = max(50, round(int(df[5:].astype(float).max().iloc[0])/6, -2))
-            fig.update_layout(
-                yaxis=dict(
-                    dtick=max_dtick_y,
-                    tick0=400,
-                    gridcolor='LightGrey'
-                ),
-                xaxis=dict(
-                    dtick=max_dtick_x,
-                    gridcolor='LightGrey'
-                ),
-                yaxis_showgrid=True,
-            )
+            unit = "ppm"
         elif label.lower() == "top":
             label = "Operativ temperatur"
             unit = "°C"
-            max_dtick_x = max(50, round(length_df/50, -2))
-            tick0_y = int(df[5:].astype(float).min().iloc[0]) - 1
-            fig.update_layout(
-                yaxis=dict(
-                    dtick=1,
-                    tick0=tick0_y,
-                    gridcolor='LightGrey'
-                ),
-                xaxis=dict(
-                    dtick=max_dtick_x,
-                    gridcolor='LightGrey'
-                ),
-                yaxis_showgrid=True,
-            )
         elif label.lower() == "relhumid":
             unit = "%"
             label = "Relativ luftfugtighed"
-            max_dtick_x = max(50, round(length_df/50, -2))
-            tick0_y = round(int(df[5:].astype(float).min().iloc[0]) - 5, -1)
-            fig.update_layout(
-                yaxis=dict(
-                    dtick=10,
-                    tick0=tick0_y,
-                    gridcolor='LightGrey'
-                ),
-                xaxis=dict(
-                    dtick=max_dtick_x,
-                    gridcolor='LightGrey'
-                ),
-                yaxis_showgrid=True,
-            )
         elif label.lower() == "airchange":
             unit = "h^-1"
             label = "Luftskifte"
-            max_dtick_x = max(50, round(length_df/50, -2))
-            fig.update_layout(
-                yaxis=dict(
-                    dtick=1,
-                    tick0=0,
-                    gridcolor='LightGrey'
-                ),
-                xaxis=dict(
-                    dtick=max_dtick_x,
-                    gridcolor='LightGrey'
-                ),
-                yaxis_showgrid=True,
-            )
-        else:
-            unit = ""
-
-        for index, column in enumerate(df.columns[5:]):
-            fig.add_trace(go.Scatter(
-                        x=list(range(length_df)), 
-                        y=df[column],
-                        mode='lines',
-                        name=column,
-                        line=dict(
-                            color=PLOTLY_COLORS[index],
-                            # width=1
-                        ),
-            ))
-
-
         
+        # sorted_df = df[df.columns[5:]].apply(lambda x: x.sort_values(ignore_index=True, ascending=True)).reset_index(drop=True)
+        sorted_df = df[df.columns[5:]].apply(lambda x: x.sort_values(ignore_index=True, ascending=True, kind="stable")).apply(lambda x: x.sort_values(ignore_index=True, ascending=True, kind="mergesort")).reset_index(drop=True)
+
+        num=0
+        for column in sorted_df.columns:
+            fig.add_trace(go.Scatter(
+                x=sorted_df.index,
+                y=sorted_df[column],
+                mode='lines',
+                name=column,
+                line=dict(
+                    color=PLOTLY_COLORS[num],
+                ),
+            ))
+            num += 1
+
+        fig.add_trace(go.Scatter(
+            x=[],
+            y=[],
+            xaxis="x2",
+            opacity=0,
+        ))
+
         fig.update_layout(
-            width = (length_df/2)+200,
-            height = 400,
+            width = 1000,
+            height = 500,
             margin=dict(l=0, r=0, t=0, b=0),
             paper_bgcolor = PLOTLY_STANDARD_PAPER_BACKGROUND_COLOR,
             plot_bgcolor="white",
             autosize = PLOTLY_STANDARD_AUTOSIZE,
+            font=dict(family="Calibri", size=20),
+            autotypenumbers="convert types",
             xaxis = dict(
-                gridcolor='LightGrey',
-                range=[0, length_df],
-                title = "Brugstid [h]",
+                visible=False
+                
+            ),
+            xaxis2 = dict(
+                title = "Andel af brugstid [%]",
+                overlaying = "x",
+                range = [0, 100],
+                showgrid = True,
+                gridcolor = 'LightGrey',
+                dtick = 10,
+                tick0 = 0,
             ),
             yaxis = dict(
                 range=[0, max(df[5:])],
                 title = f"{label} [{unit}]",
+                showgrid = True,
+                gridcolor = 'LightGrey',
             ),
-            autotypenumbers="convert types",
-            font=dict(family="Calibri", size=20),
             legend=dict(
                 x=0,
-                y=-0.3,
+                y=-0.2,
                 bgcolor="White",
                 orientation="h",
                 font=dict(
@@ -176,17 +139,7 @@ class ScatterPlot(tk.Frame):
                     family="Calibri",
                 ),
             ),
-        )
-
-        if length_df == 8760:
-            tick0_x = (df["Week"] == 0).sum()
-            fig.update_layout(
-                xaxis = dict(
-                    dtick = 168, 
-                    tick0 = tick0_x,
-                )
-            )
-                
+        )                
 
         if not os.path.exists("figures output"):
             os.mkdir("figures output")
@@ -194,7 +147,11 @@ class ScatterPlot(tk.Frame):
         #* Save the plot as a PNG
         img_bytes = fig.to_image(format="png")
         img = Image.open(io.BytesIO(img_bytes))
-        img.save(f'figures output/ScatterPlot{name.upper()}.png')
+        img.save(f'figures output/DistributionPlot{name.upper()}.png')
+
+        # #! REMEMBER TO REMOVE
+        # root.destroy()
+        # #! REMEMBER TO REMOVE
 
         
 
@@ -212,6 +169,6 @@ if __name__ == "__main__":
     #* "Top " for temperature - Remember the space after
     #* "AirChange" for air change
 
-    ScatterPlot(root, df)#.pack()
+    DistributionPlot(root, df)#.pack()
 
     root.mainloop()

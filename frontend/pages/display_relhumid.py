@@ -50,6 +50,7 @@ from backend.sort_data import discard_data
 from backend.import_data import import_dayprofile
 from func.figures.scatter_plot import ScatterPlot
 from func.figures.bar_plot import BarPlot
+from func.figures.distribution_plot import DistributionPlot
 
 
 class display_relhumid(ctk.CTkFrame):
@@ -121,6 +122,12 @@ class display_relhumid(ctk.CTkFrame):
                 img_BarPlot = tk.PhotoImage(file=f'figures output/BarPlot{name.upper()}.png')
                 ScrollableImage(self, image = img_BarPlot, scrollbarwidth=20).grid(row=1, column=1, sticky="nsew", columnspan = 2, padx = STANDARD_PADX, pady = STANDARD_PADY)
                 auto_plot_Bar.set(False)
+
+            if auto_plot_Distribution.get() == True:
+                DistributionPlot(self, df)
+                img_DistributionPlot = tk.PhotoImage(file=f'figures output/DistributionPlot{name.upper()}.png')
+                ScrollableImage(self, image = img_DistributionPlot, scrollbarwidth=20).grid(row=2, column=1, sticky="nsew", columnspan = 2, padx = STANDARD_PADX, pady = STANDARD_PADY)
+                auto_plot_Distribution.set(False)
 
         
 
