@@ -12,8 +12,6 @@ Importing extern modules
 """
 import customtkinter as ctk
 import CTkMessagebox as CTkMessagebox
-# import seaborn as sns
-import kaleido
 from PIL import Image, ImageTk
 import plotly.graph_objs as go
 import plotly.io as pio
@@ -53,6 +51,8 @@ from backend.time import delay_decorator
 from backend.sort_data import discard_data
 from backend.import_data import import_dayprofile
 from func.figures.scatter_plot import ScatterPlot
+from func.figures.bar_plot import BarPlot
+# from func.figures.distribution_plot import DistributionPlot
 
 
 
@@ -68,72 +68,66 @@ class display_co2(ctk.CTkFrame):
         title_font = ctk.CTkFont(family=TITLE_FONT, size=TITLE_SIZE, weight=TITLE_WEIGHT)
         text_font = ctk.CTkFont(family=TEXT_FONT, size=TEXT_SIZE, weight=TEXT_WEIGHT)
 
-        # label
-        ctk.CTkLabel(self, text = "CO2_Table_data", font = title_font).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, rowspan = 3)
-        ctk.CTkLabel(self, text = "CO2_Figure_Box_Plot", font = title_font).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
-        ctk.CTkLabel(self, text = "CO2_Figure_Distribution_Curve", font = title_font).grid(row = 1, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
-        ctk.CTkLabel(self, text = "CO2_Figure_Bar_Chart", font = title_font).grid(row = 2, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
-
-        # table data
-        auto_plot_Scatter = ctk.BooleanVar(value = True)
-
+        # parameters
+        name = "CO2"
+        parameters = ["-700", "700-1000", "1000-1600", 1600]
         path = path_var.get()
         dayprofile = co2_dayprofile_var.get()
 
-        if os.path.isfile('figures output/ScatterPlotCO2.png'):
-            img_ScatterPlot = tk.PhotoImage(file='figures output/ScatterPlotCO2.png')
-            ScrollableImage(self, image = img_ScatterPlot, scrollbarwidth=20).grid(row=0, column=1, sticky="nsew", columnspan = 2, padx = STANDARD_PADX, pady = STANDARD_PADY)
-            auto_plot_Scatter.set(False)
-        # elif os.path.isfile('figures output/AnotherPlot.png'):
-        #     img = tk.PhotoImage(file='figures output/AnotherPlot.png')
-        #     ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
+        # label
+        ctk.CTkLabel(self, text = f"TablePlot{name}", font = title_font).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, rowspan = 3)
+        ctk.CTkLabel(self, text = f"ScatterPlot{name}", font = title_font).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
+        ctk.CTkLabel(self, text = f"BarPlot{name}", font = title_font).grid(row = 1, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
+        ctk.CTkLabel(self, text = f"DistributionPlot{name}", font = title_font).grid(row = 2, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
 
-        
-        if auto_plot_Scatter.get() == True:
-            if path == "":
-                CTkMessagebox.CTkMessagebox(title="Error", message="No data path selected")
-                return
-            elif dayprofile == "":
-                CTkMessagebox.CTkMessagebox(title="Error", message="No dayprofile for CO2 selected")
-                return
-            else:
-                path = path_var.get()
-                dayprofile = co2_dayprofile_var.get()
-                dayprofile = os.path.normpath(f"{os.getcwd()}/dayprofiles/{dayprofile}")
-                df = discard_data(import_data_dayprofile(path, dayprofile), "Co2")
+        # auto plot variables
+        auto_plot_Scatter = ctk.BooleanVar(value = True)
+        auto_plot_Bar = ctk.BooleanVar(value = True)
+        auto_plot_Distribution = ctk.BooleanVar(value = True)
+        auto_plot_Table = ctk.BooleanVar(value = True)
+
+        # plots
+        if path == "":
+            CTkMessagebox.CTkMessagebox(title="Error", message="No data path selected")
+            return
+        elif dayprofile == "":
+            CTkMessagebox.CTkMessagebox(title="Error", message=f"No dayprofile for {name.upper()} selected")
+            return
+        else:
+            dayprofile = os.path.normpath(f"{os.getcwd()}/dayprofiles/{dayprofile}")
+            df = discard_data(import_data_dayprofile(path, dayprofile), f"{name.lower().capitalize()}")
+
+            plots = [
+                ("ScatterPlot", 0, auto_plot_Scatter),
+                ("BarPlot", 1, auto_plot_Bar),
+                ("DistributionPlot", 2, auto_plot_Distribution)
+            ]
+
+            for plot_type, row, auto_plot_var in plots:
+                if os.path.isfile(f'figures output/{plot_type}{name.upper()}.png'):
+                    img = tk.PhotoImage(file=f'figures output/{plot_type}{name.upper()}.png')
+                    ScrollableImage(self, image=img, scrollbarwidth=20).grid(row=row, column=1, sticky="nsew", columnspan=2, padx=STANDARD_PADX, pady=STANDARD_PADY)
+                    auto_plot_var.set(False)
+
+            if os.path.isfile(f'figures output/TablePlot{name.upper()}.png'):
+                img_TablePlot = tk.PhotoImage(file=f'figures output/TablePlot{name.upper()}.png')
+                ScrollableImage(self, image = img_TablePlot, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew", rowspan = 3, padx = STANDARD_PADX, pady = STANDARD_PADY)
+                auto_plot_Table.set(False)
+            
+            if auto_plot_Scatter.get() == True:
                 ScatterPlot(self, df)
-                img_ScatterPlot = tk.PhotoImage(file='figures output/ScatterPlotCO2.png')
+                img_ScatterPlot = tk.PhotoImage(file=f'figures output/ScatterPlot{name.upper()}.png')
                 ScrollableImage(self, image = img_ScatterPlot, scrollbarwidth=20).grid(row=0, column=1, sticky="nsew", columnspan = 2, padx = STANDARD_PADX, pady = STANDARD_PADY)
                 auto_plot_Scatter.set(False)
 
-        
+            if auto_plot_Bar.get() == True:
+                BarPlot(self, df, parameters)
+                img_BarPlot = tk.PhotoImage(file=f'figures output/BarPlot{name.upper()}.png')
+                ScrollableImage(self, image = img_BarPlot, scrollbarwidth=20).grid(row=1, column=1, sticky="nsew", columnspan = 2, padx = STANDARD_PADX, pady = STANDARD_PADY)
+                auto_plot_Bar.set(False)
 
-
-        # if os.path.isfile('figures output/ScatterPlotCO2.png'):
-        #     img = tk.PhotoImage(file='figures output/ScatterPlotCO2.png')
-        #     ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
-
-        
-
-        def add_plot(self, var, path_var, co2_dayprofile_var):
-            path = path_var.get()
-            path_dayprofile = co2_dayprofile_var.get()
-            print("plotting co2 table")
-            if var.get() == True:
-                print("plotting co2 table")
-                pass
-                import_data_dayprofile(path, path_dayprofile)
-
-
-
-            # path = path_var.get()
-            # import_data(path)
-            # if var.get() == True:
-            #     TablePlot(self, import_data(path), size_y=70, size_x=30)
-            #     img = tk.PhotoImage(file='figures output/TableStart.png')
-            #     ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-
-        
+            
+    
 
 
 if __name__ == "__main__":

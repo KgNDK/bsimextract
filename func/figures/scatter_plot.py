@@ -61,15 +61,16 @@ class ScatterPlot(tk.Frame):
         #* Parameters
         length_df = len(df)
         label = df.columns[5].split()[0]
+        name = label
 
         if label.lower() == "co2":
             label = "CO2"
             unit = "ppm" 
             max_dtick_x = max(50, round(length_df/50, -2))
-            max_dtick_y = max(50, round(int(df[5:].astype(float).max().iloc[0])/10), -2)
+            max_dtick_y = max(50, round(int(df[5:].astype(float).max().iloc[0])/6, -2))
             fig.update_layout(
                 yaxis=dict(
-                    dtick=50,
+                    dtick=max_dtick_y,
                     tick0=400,
                     gridcolor='LightGrey'
                 ),
@@ -119,7 +120,7 @@ class ScatterPlot(tk.Frame):
             max_dtick_x = max(50, round(length_df/50, -2))
             fig.update_layout(
                 yaxis=dict(
-                    dtick=2,
+                    dtick=1,
                     tick0=0,
                     gridcolor='LightGrey'
                 ),
@@ -181,7 +182,7 @@ class ScatterPlot(tk.Frame):
         #* Save the plot as a PNG
         img_bytes = fig.to_image(format="png")
         img = Image.open(io.BytesIO(img_bytes))
-        img.save(f'figures output/ScatterPlot{label}.png')
+        img.save(f'figures output/ScatterPlot{name.upper()}.png')
 
         
 

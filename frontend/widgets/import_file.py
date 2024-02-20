@@ -27,6 +27,7 @@ sys.path = os.getcwd()
 
 from settings.settings import *
 from backend.import_data import import_data
+from backend.clearup import clear_figure_output
 
 
 class import_file(ctk.CTkFrame):
@@ -62,6 +63,7 @@ class import_file(ctk.CTkFrame):
             CTkMessagebox(message="You have not selected a file!\nPlease select a file with the button below.", title="Warning Message!", icon="warning")
             return
         new_data_var.set(True)
+        clear_figure_output()
         
 
     def browse_file(self):
