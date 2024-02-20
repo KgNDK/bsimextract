@@ -4,7 +4,7 @@ Scatter plot with plotly
 
 """
 # TODO LIST
-Airchange has to be fixed
+
 """
 
 """
@@ -177,8 +177,6 @@ class ScatterPlot(tk.Frame):
         img_bytes = fig.to_image(format="png")
         img = Image.open(io.BytesIO(img_bytes))
         img.save(f'figures output/ScatterPlot{label}.png')
-
-        root.destroy()
 
         
 

@@ -52,6 +52,7 @@ from backend.import_data import import_data_dayprofile
 from backend.time import delay_decorator
 from backend.sort_data import discard_data
 from backend.import_data import import_dayprofile
+from func.figures.scatter_plot import ScatterPlot
 
 
 
@@ -60,7 +61,7 @@ class display_co2(ctk.CTkFrame):
         super().__init__(master = parent)
 
         # layout
-        self.rowconfigure((0, 1, 2), weight = 1)
+        self.rowconfigure((0, 1, 2), weight = 1, uniform="a")
         self.columnconfigure((0, 1, 2), weight = 1)
 
         # font
@@ -74,17 +75,21 @@ class display_co2(ctk.CTkFrame):
         ctk.CTkLabel(self, text = "CO2_Figure_Bar_Chart", font = title_font).grid(row = 2, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
 
         # table data
-        auto_plot = ctk.BooleanVar(value = True)
-        print(auto_plot.get())
-
-        def test(path, dayprofile):                
-            df = discard_data(import_data_dayprofile(path, dayprofile), "Co2")
-            print(df.head())
+        auto_plot_Scatter = ctk.BooleanVar(value = True)
 
         path = path_var.get()
         dayprofile = co2_dayprofile_var.get()
 
-        if auto_plot.get() == True:
+        if os.path.isfile('figures output/ScatterPlotCO2.png'):
+            img_ScatterPlot = tk.PhotoImage(file='figures output/ScatterPlotCO2.png')
+            ScrollableImage(self, image = img_ScatterPlot, scrollbarwidth=20).grid(row=0, column=1, sticky="nsew", columnspan = 2, padx = STANDARD_PADX, pady = STANDARD_PADY)
+            auto_plot_Scatter.set(False)
+        # elif os.path.isfile('figures output/AnotherPlot.png'):
+        #     img = tk.PhotoImage(file='figures output/AnotherPlot.png')
+        #     ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
+
+        
+        if auto_plot_Scatter.get() == True:
             if path == "":
                 CTkMessagebox.CTkMessagebox(title="Error", message="No data path selected")
                 return
@@ -92,20 +97,21 @@ class display_co2(ctk.CTkFrame):
                 CTkMessagebox.CTkMessagebox(title="Error", message="No dayprofile for CO2 selected")
                 return
             else:
+                path = path_var.get()
+                dayprofile = co2_dayprofile_var.get()
                 dayprofile = os.path.normpath(f"{os.getcwd()}/dayprofiles/{dayprofile}")
-                
-
-
-
-                
-                auto_plot.set(False)
+                df = discard_data(import_data_dayprofile(path, dayprofile), "Co2")
+                ScatterPlot(self, df)
+                img_ScatterPlot = tk.PhotoImage(file='figures output/ScatterPlotCO2.png')
+                ScrollableImage(self, image = img_ScatterPlot, scrollbarwidth=20).grid(row=0, column=1, sticky="nsew", columnspan = 2, padx = STANDARD_PADX, pady = STANDARD_PADY)
+                auto_plot_Scatter.set(False)
 
         
 
 
-        if os.path.isfile('figures output/TableCo2.png'):
-            img = tk.PhotoImage(file='figures output/TableCo2.png')
-            ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
+        # if os.path.isfile('figures output/ScatterPlotCO2.png'):
+        #     img = tk.PhotoImage(file='figures output/ScatterPlotCO2.png')
+        #     ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew")
 
         
 

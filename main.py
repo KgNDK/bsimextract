@@ -26,6 +26,8 @@ import quopri
 import matplotlib
 import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import openpyxl
+from openpyxl.workbook import Workbook
 
 """
 Importing internal modules
