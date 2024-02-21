@@ -62,7 +62,7 @@ class DistributionPlot(tk.Frame):
         # length_df = len(df)
         label = df.columns[5].split()[0]
         name = label
-        print(df)
+        # print(df)
 
         def sort_segments(x):
             segment_length = len(x) // 5

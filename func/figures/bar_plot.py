@@ -106,13 +106,17 @@ class BarPlot(tk.Frame):
             room_counts = {}
             cleaned_index = []
             for item in df_counts.index:
-                room_name = item.split(" ")[1]
+                # room_name = str(item.split(" ")[1:])
+                # room_name = tuple(item.split(" ")[1:])
+                # room_name = item.split(" ")[1]
+                room_name = " ".join(item.split(" ")[1:])
+
                 if room_name in room_counts:
                     room_counts[room_name] += 1
-                    cleaned_index.append(f"Rum {room_name} {room_counts[room_name]}")
+                    cleaned_index.append(f"{room_name} {room_counts[room_name]}")
                 else:
                     room_counts[room_name] = 0
-                    cleaned_index.append(f"Rum {room_name}")
+                    cleaned_index.append(f"{room_name}")
             fig.add_trace(go.Bar(
                 x=cleaned_index,
                 y=df_counts[param],
