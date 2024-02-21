@@ -53,7 +53,7 @@ from backend.time import timeit
 from backend.sort_data import discard_data
 
 class BarPlot(tk.Frame):
-    def __init__(self, parent, df, parameters):
+    def __init__(self, parent, df, parameters, Interval = "Timer", Interval_unit = "h"):
         tk.Frame.__init__(self, parent)
 
         fig = go.Figure()
@@ -97,7 +97,7 @@ class BarPlot(tk.Frame):
                         counts.append(sum((df[column].astype(float) > left) & (df[column].astype(float) < right)))
             data.append(counts)
 
-        column_names = [f"Timer under: {str(param)[1:]} {unit}" if str(param).startswith("-") else f"Timer mellem: {str(param)} {unit}" if '-' in str(param) else f"Timer over: {str(param)} {unit}" for param in parameters]
+        column_names = [f"{Interval} under: {str(param)[1:]} {unit}" if str(param).startswith("-") else f"{Interval} mellem: {str(param)} {unit}" if '-' in str(param) else f"{Interval} over: {str(param)} {unit}" for param in parameters]
         df_counts = pd.DataFrame(data, columns=column_names, index=df.columns[5:])
 
         color_mapping = {param: color for param, color in zip(df_counts.columns, PLOTLY_COLORS)}
@@ -106,9 +106,6 @@ class BarPlot(tk.Frame):
             room_counts = {}
             cleaned_index = []
             for item in df_counts.index:
-                # room_name = str(item.split(" ")[1:])
-                # room_name = tuple(item.split(" ")[1:])
-                # room_name = item.split(" ")[1]
                 room_name = " ".join(item.split(" ")[1:])
 
                 if room_name in room_counts:
@@ -135,7 +132,7 @@ class BarPlot(tk.Frame):
         fig.update_layout(
             barmode="group",
             height=500,
-            width=(len(df.columns[5:])*len(parameters)*60)+200,
+            width=max(1000, (len(df.columns[5:])*len(parameters)*60)+200),
             hovermode="x",
             margin=dict(b=0,t=10,l=0,r=10),
             paper_bgcolor="white",
@@ -146,7 +143,7 @@ class BarPlot(tk.Frame):
             ),
             legend=dict(
                 x=0,
-                y=-0.1,
+                y=-0.2,
                 bgcolor="White",
                 orientation="h",
                 font=dict(
@@ -156,7 +153,7 @@ class BarPlot(tk.Frame):
                 ),
             ),
             yaxis = dict(
-                title = "Timer [h]",
+                title = f"{Interval} [{Interval_unit}]",
                 range = [0, round(df_counts.max().max()+50, -2)],
                 showgrid=True,
                 showticklabels=True,
@@ -194,7 +191,7 @@ if __name__ == "__main__":
 
     #? example of parameters
     # parameters = ["-500", "500-700", 700, "600-1000", 800] # Co2
-    parameters = ["-25", "-26"] # Top
+    parameters = ["-27", "-28"] # Top
     # parameters = ["-100", "10-20", 20, "20-30", 30] # RelHumid
     # parameters = ["-1", "1-2", 2, "2-3", 3, 0] # AirChange
 

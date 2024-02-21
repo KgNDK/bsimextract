@@ -74,6 +74,9 @@ class DistributionPlot(tk.Frame):
         if label.lower() == "co2":
             label = "CO2"
             unit = "ppm"
+            #* Converting data to int to avoid sorting algorithm errors
+            for column in df.columns[5:]:
+                df[column] = pd.to_numeric(df[column], errors='coerce').fillna(0).astype(int)
         elif label.lower() == "top":
             label = "Operativ temperatur"
             unit = "°C"
@@ -83,11 +86,9 @@ class DistributionPlot(tk.Frame):
         elif label.lower() == "airchange":
             unit = "h^-1"
             label = "Luftskifte"
-        
+
+        #* Sorting data
         sorted_df = df[df.columns[5:]].apply(lambda x: x.sort_values(ignore_index=True, ascending=True)).reset_index(drop=True)
-        # sorted_df = df[df.columns[5:]].apply(lambda x: x.sort_values(ignore_index=True, ascending=True, kind="stable")).apply(lambda x: x.sort_values(ignore_index=True, ascending=True, kind="mergesort")).reset_index(drop=True)
-        # sorted_df = df[df.columns[5:]].apply(lambda x: pd.Series(np.sort(x, kind="stable"))).reset_index(drop=True)
-        # sorted_df = df[df.columns[5:]].apply(sort_segments).reset_index(drop=True)
         
         num=0
         for column in sorted_df.columns:
@@ -123,7 +124,7 @@ class DistributionPlot(tk.Frame):
                 
             ),
             xaxis2 = dict(
-                title = "Andel af brugstid [%]",
+                title = "Andel af brugstid under [%]",
                 overlaying = "x",
                 range = [0, 100],
                 showgrid = True,

@@ -125,6 +125,10 @@ def import_data_dayprofile(path_var, dayprofile_var):
         dayprofile_var_lc = dayprofile_var
         df_data = import_data(path_var_lc)
         year = int(df_data.iloc[1, 0])
+        # if pd.notna(df_data.iloc[1, 0]):
+        #     year = int(df_data.iloc[1, 0])
+        # else:
+        #     year = 2000
         df_data = add_week(df_data, year)
         df_dayprofile = import_dayprofile(dayprofile_var_lc)
         mask = df_data.apply(check_data, args=(df_dayprofile,), axis=1)

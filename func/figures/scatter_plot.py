@@ -53,7 +53,7 @@ from backend.time import timeit
 from backend.sort_data import discard_data
 
 class ScatterPlot(tk.Frame):
-    def __init__(self, parent, df):
+    def __init__(self, parent, df, Interval_unit = "h"):
         tk.Frame.__init__(self, parent)
 
         fig = go.Figure()
@@ -148,8 +148,8 @@ class ScatterPlot(tk.Frame):
 
         
         fig.update_layout(
-            width = (length_df/2)+200,
-            height = 400,
+            width = max(1000, (length_df/2)+200),
+            height = 500,
             margin=dict(l=0, r=0, t=0, b=0),
             paper_bgcolor = PLOTLY_STANDARD_PAPER_BACKGROUND_COLOR,
             plot_bgcolor="white",
@@ -157,7 +157,7 @@ class ScatterPlot(tk.Frame):
             xaxis = dict(
                 gridcolor='LightGrey',
                 range=[0, length_df],
-                title = "Brugstid [h]",
+                title = f"Brugstid [{Interval_unit}]",
             ),
             yaxis = dict(
                 range=[0, max(df[5:])],
@@ -167,7 +167,7 @@ class ScatterPlot(tk.Frame):
             font=dict(family="Calibri", size=20),
             legend=dict(
                 x=0,
-                y=-0.3,
+                y=-0.2,
                 bgcolor="White",
                 orientation="h",
                 font=dict(

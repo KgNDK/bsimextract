@@ -56,7 +56,7 @@ PLOTLY_COLORS = [
     "#0e8563",
     "#cc445b",
     "#97701f",
-    "#a1654"
+    "#a16547",
 ]
 
 #! Appearance

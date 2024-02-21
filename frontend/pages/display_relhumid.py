@@ -67,8 +67,8 @@ class display_relhumid(ctk.CTkFrame):
 
         # parameters
         name = "RelHumid"
-        parameters = ["-25", "25-60", 60] # Always
-        # parameters = ["25-45"] # Winter period 
+        # parameters = ["-25", "25-60", 60] # Always
+        parameters = ["25-45"] # Winter period 
         path = path_var.get()
         dayprofile = rh_dayprofile_var.get()
 
