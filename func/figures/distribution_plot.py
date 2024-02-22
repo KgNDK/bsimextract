@@ -114,6 +114,7 @@ class DistributionPlot(tk.Frame):
                     y0 = param,
                     x1 = len(sorted_df),
                     y1 = param,
+                    layer="below",
                     line=dict(
                         color=PLOTLY_COLORS_2[color_index],
                     )
@@ -125,6 +126,7 @@ class DistributionPlot(tk.Frame):
                         y0 = param,
                         x1 = side,
                         y1 = param + shape_height,
+                        layer="below",
                         line=dict(
                             color=PLOTLY_COLORS_2[color_index],
                         )
@@ -139,6 +141,7 @@ class DistributionPlot(tk.Frame):
                     y0 = right,
                     x1 = len(sorted_df),
                     y1 = right,
+                    layer="below",
                     line=dict(
                         color=PLOTLY_COLORS_2[color_index],
                         )
@@ -150,6 +153,7 @@ class DistributionPlot(tk.Frame):
                             y0 = right,
                             x1 = side,
                             y1 = right - shape_height,
+                            layer="below",
                             line=dict(
                                 color=PLOTLY_COLORS_2[color_index],
                             )
@@ -250,7 +254,7 @@ if __name__ == "__main__":
 
     path_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/DATA/Bsimdata.txt")
     dayprofile_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract/dayprofiles/dayprofile_altid.txt")
-    df = discard_data(import_data_dayprofile(path_var, dayprofile_var), "AirChange")
+    df = discard_data(import_data_dayprofile(path_var, dayprofile_var), "Co2")
 
     #? different graphs
     #* "Co2" for CO2 concentration
@@ -258,10 +262,10 @@ if __name__ == "__main__":
     #* "Top " for temperature - Remember the space after
     #* "AirChange" for air change
 
-    # parameters = ["-500", "500-700", 700, "600-1000", 800] # Co2
+    parameters = ["-500", "500-700", 700, "600-1000", 800] # Co2
     # parameters = ["-27", "-28"] # Top
     # parameters = ["-100", "10-20", 20, "20-30", 30] # RelHumid
-    parameters = ["-1", "1-2", 2, "2-3", 3, 0] # AirChange
+    # parameters = ["-1", "1-2", 2, "2-3", 3, 0] # AirChange
 
     DistributionPlot(root, df, parameters)#.pack()
 
