@@ -78,9 +78,17 @@ class BarPlot(tk.Frame):
             label = "Luftskifte"
         
 
-        #? axis
+        #* secondary y axis auto scaling 
         ratio = round(1. / length_df, 5)
 
+        fig.add_trace(go.Scatter(
+            x=[],
+            y=[],
+            yaxis="y2",
+            opacity=0,
+        ))
+        
+        #* parameters
         data = []
 
         for column in df.columns[5:]:
@@ -122,12 +130,7 @@ class BarPlot(tk.Frame):
                 marker_color=color_mapping[param]
             ))
 
-        fig.add_trace(go.Scatter(
-            x=[],
-            y=[],
-            yaxis="y2",
-            opacity=0,
-        ))
+        
 
         fig.update_layout(
             barmode="group",

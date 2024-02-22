@@ -53,16 +53,15 @@ from backend.time import timeit
 from backend.sort_data import discard_data
 
 class DistributionPlot(tk.Frame):
-    def __init__(self, parent, df):
+    def __init__(self, parent, df, parameters = []):
         tk.Frame.__init__(self, parent)
 
         fig = go.Figure()
 
         #* Parameters
         # length_df = len(df)
-        label = df.columns[5].split()[0]
-        name = label
-        # print(df)
+        label_input = df.columns[5].split()[0]
+        name = label_input
 
         def sort_segments(x):
             segment_length = len(x) // 5
@@ -71,32 +70,112 @@ class DistributionPlot(tk.Frame):
             return pd.Series(sorted_segments.flatten())
 
         unit = "NoUnit"
-        if label.lower() == "co2":
+        if label_input.lower() == "co2":
             label = "CO2"
             unit = "ppm"
-            #* Converting data to int to avoid sorting algorithm errors
+            #* Converting data to int to avoid sorting algorithmic errors
             for column in df.columns[5:]:
                 df[column] = pd.to_numeric(df[column], errors='coerce').fillna(0).astype(int)
-        elif label.lower() == "top":
+            shape_height = 10
+        elif label_input.lower() == "top":
             label = "Operativ temperatur"
             unit = "°C"
-        elif label.lower() == "relhumid":
+            #* Converting data to two decimals to avoid sorting algorithmic errors
+            for column in df.columns[5:]:
+                df[column] = pd.to_numeric(df[column], errors='coerce').fillna(0).round(2)
+            shape_height = 0.3
+        elif label_input.lower() == "relhumid":
             unit = "%"
             label = "Relativ luftfugtighed"
-        elif label.lower() == "airchange":
+            #* Converting data to two decimals to avoid sorting algorithmic errors
+            for column in df.columns[5:]:
+                df[column] = pd.to_numeric(df[column], errors='coerce').fillna(0).round(2)
+            shape_height = 2
+        elif label_input.lower() == "airchange":
             unit = "h^-1"
             label = "Luftskifte"
+            #* Converting data to two decimals to avoid sorting algorithmic errors
+            for column in df.columns[5:]:
+                df[column] = pd.to_numeric(df[column], errors='coerce').fillna(0).round(2)
+            shape_height = 0.3
+            
 
         #* Sorting data
         sorted_df = df[df.columns[5:]].apply(lambda x: x.sort_values(ignore_index=True, ascending=True)).reset_index(drop=True)
+
         
+        color_index = 0
+
+        for param in parameters:
+            if isinstance(param, int):
+                fig.add_shape(
+                    type="line",
+                    x0 = 0,
+                    y0 = param,
+                    x1 = len(sorted_df),
+                    y1 = param,
+                    line=dict(
+                        color=PLOTLY_COLORS_2[color_index],
+                    )
+                )
+                for side in (0, len(sorted_df)):
+                    fig.add_shape(
+                        type="line",
+                        x0 = side,
+                        y0 = param,
+                        x1 = side,
+                        y1 = param + shape_height,
+                        line=dict(
+                            color=PLOTLY_COLORS_2[color_index],
+                        )
+                    )
+                color_index += 1
+            else:
+                if param.startswith("-"):
+                    right = int(param[1:])
+                    fig.add_shape(
+                    type="line",
+                    x0 = 0,
+                    y0 = right,
+                    x1 = len(sorted_df),
+                    y1 = right,
+                    line=dict(
+                        color=PLOTLY_COLORS_2[color_index],
+                        )
+                    )
+                    for side in (0, len(sorted_df)):
+                        fig.add_shape(
+                            type="line",
+                            x0 = side,
+                            y0 = right,
+                            x1 = side,
+                            y1 = right - shape_height,
+                            line=dict(
+                                color=PLOTLY_COLORS_2[color_index],
+                            )
+                        )
+                    color_index += 1
+                else:
+                    left, right = map(int, param.split("-"))
+                    fig.add_hrect(
+                        y0 = left,
+                        y1 = right,
+                        fillcolor = PLOTLY_COLORS_2[color_index],
+                        layer="below",
+                        line_width=0,
+                        opacity = 0.2
+                    )
+                    color_index += 1
+                        
+
         num=0
         for column in sorted_df.columns:
+            trace_name = " ".join(column.split(" ")[1:])
             fig.add_trace(go.Scatter(
                 x=sorted_df.index,
                 y=sorted_df[column],
                 mode='lines',
-                name=column,
+                name=trace_name,
                 line=dict(
                     color=PLOTLY_COLORS[num],
                 ),
@@ -159,9 +238,9 @@ class DistributionPlot(tk.Frame):
         img = Image.open(io.BytesIO(img_bytes))
         img.save(f'figures output/DistributionPlot{name.upper()}.png')
 
-        # #! REMEMBER TO REMOVE
-        # root.destroy()
-        # #! REMEMBER TO REMOVE
+        #! REMEMBER TO REMOVE
+        root.destroy()
+        #! REMEMBER TO REMOVE
 
         
 
@@ -171,7 +250,7 @@ if __name__ == "__main__":
 
     path_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/DATA/Bsimdata.txt")
     dayprofile_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract/dayprofiles/dayprofile_altid.txt")
-    df = discard_data(import_data_dayprofile(path_var, dayprofile_var), "Co2")
+    df = discard_data(import_data_dayprofile(path_var, dayprofile_var), "AirChange")
 
     #? different graphs
     #* "Co2" for CO2 concentration
@@ -179,6 +258,11 @@ if __name__ == "__main__":
     #* "Top " for temperature - Remember the space after
     #* "AirChange" for air change
 
-    DistributionPlot(root, df)#.pack()
+    # parameters = ["-500", "500-700", 700, "600-1000", 800] # Co2
+    # parameters = ["-27", "-28"] # Top
+    # parameters = ["-100", "10-20", 20, "20-30", 30] # RelHumid
+    parameters = ["-1", "1-2", 2, "2-3", 3, 0] # AirChange
+
+    DistributionPlot(root, df, parameters)#.pack()
 
     root.mainloop()

@@ -59,6 +59,15 @@ PLOTLY_COLORS = [
     "#a16547",
 ]
 
+PLOTLY_COLORS_2 = [
+    "#df8e2e",
+    "#b19335",
+    "#31a9c1",
+    "#cc8b66",
+    "#5caf8d",
+    "#e78293",
+]
+
 #! Appearance
 # COLOR_MODE = "dark"
 COLOR_MODE = "light"

@@ -58,7 +58,7 @@ from func.figures.distribution_plot import DistributionPlot
 
 
 
-path_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/DATA/Data til Mikkel 1TH.txt")
+path_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/DATA/Data til Mikkel 1.th..txt")
 dayprofile_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract/dayprofiles/dayprofile_altid.txt")
 df = discard_data(import_data(path_var), "Co2")
 # df = df.drop(634)
