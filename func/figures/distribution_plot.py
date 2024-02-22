@@ -76,14 +76,14 @@ class DistributionPlot(tk.Frame):
             #* Converting data to int to avoid sorting algorithmic errors
             for column in df.columns[5:]:
                 df[column] = pd.to_numeric(df[column], errors='coerce').fillna(0).astype(int)
-            shape_height = 10
+            shape_height = 50
         elif label_input.lower() == "top":
             label = "Operativ temperatur"
             unit = "°C"
             #* Converting data to two decimals to avoid sorting algorithmic errors
             for column in df.columns[5:]:
                 df[column] = pd.to_numeric(df[column], errors='coerce').fillna(0).round(2)
-            shape_height = 0.3
+            shape_height = 0.6
         elif label_input.lower() == "relhumid":
             unit = "%"
             label = "Relativ luftfugtighed"
@@ -126,7 +126,7 @@ class DistributionPlot(tk.Frame):
                         y0 = param,
                         x1 = side,
                         y1 = param + shape_height,
-                        layer="below",
+                        # layer="below",
                         line=dict(
                             color=PLOTLY_COLORS_2[color_index],
                         )
@@ -171,20 +171,54 @@ class DistributionPlot(tk.Frame):
                     )
                     color_index += 1
                         
+        print(sorted_df.columns)
+        # num=0
+        # for column in sorted_df.columns:
+        #     trace_name = " ".join(column.split(" ")[1:])
+        #     fig.add_trace(go.Scatter(
+        #         x=sorted_df.index,
+        #         y=sorted_df[column],
+        #         mode='lines',
+        #         name=trace_name,
+        #         # xaxis=f"x{num+3}",
+        #         xaxis="x",
+        #         line=dict(
+        #             color=PLOTLY_COLORS[num],
+        #         ),
+        #     ))
+        #     # fig.update_layout(
+        #     #     {f"xaxis{num+3}": {
+        #     #         "overlaying": "x",
+        #     #         "range": [0, len(sorted_df.index)],
+        #     #         "visible": False
+        #     #     }}
+        #     # )
+        #     num += 1
 
-        num=0
+        num = 0
         for column in sorted_df.columns:
             trace_name = " ".join(column.split(" ")[1:])
+            filtered_data = sorted_df[sorted_df[column] != 0]  # Filter out data points with value 0
             fig.add_trace(go.Scatter(
-                x=sorted_df.index,
-                y=sorted_df[column],
+                x=filtered_data.index,
+                y=filtered_data[column],
                 mode='lines',
                 name=trace_name,
+                xaxis="x",
                 line=dict(
                     color=PLOTLY_COLORS[num],
                 ),
             ))
             num += 1
+
+        # for i in range(num):
+        #     fig.update_layout(
+        #         {f"xaxis{i+3}": {
+        #             "overlaying": "x",
+        #             "range": [0, len(sorted_df.index)],
+        #             "visible": False
+        #         }}
+        #     )
 
         fig.add_trace(go.Scatter(
             x=[],
@@ -196,7 +230,7 @@ class DistributionPlot(tk.Frame):
         fig.update_layout(
             width = 1000,
             height = 500,
-            margin=dict(l=0, r=0, t=0, b=0),
+            margin=dict(b=5,t=10,l=5,r=10),
             paper_bgcolor = PLOTLY_STANDARD_PAPER_BACKGROUND_COLOR,
             plot_bgcolor="white",
             autosize = PLOTLY_STANDARD_AUTOSIZE,
@@ -242,9 +276,9 @@ class DistributionPlot(tk.Frame):
         img = Image.open(io.BytesIO(img_bytes))
         img.save(f'figures output/DistributionPlot{name.upper()}.png')
 
-        #! REMEMBER TO REMOVE
-        root.destroy()
-        #! REMEMBER TO REMOVE
+        # #! REMEMBER TO REMOVE
+        # root.destroy()
+        # #! REMEMBER TO REMOVE
 
         
 

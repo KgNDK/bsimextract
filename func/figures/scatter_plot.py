@@ -80,7 +80,7 @@ class ScatterPlot(tk.Frame):
                 ),
                 yaxis_showgrid=True,
             )
-            shape_height = 10
+            shape_height = 50
         elif label.lower() == "top":
             label = "Operativ temperatur"
             unit = "°C"
@@ -153,14 +153,14 @@ class ScatterPlot(tk.Frame):
                         color=PLOTLY_COLORS_2[color_index],
                     )
                 )
-                for side in (0, len(df)):
+                for side in (0+0.2, len(df)-0.2):
                     fig.add_shape(
                         type="line",
                         x0 = side,
                         y0 = param,
                         x1 = side,
                         y1 = param + shape_height,
-                        layer="below",
+                        # layer="below",
                         line=dict(
                             color=PLOTLY_COLORS_2[color_index],
                         )
@@ -223,7 +223,7 @@ class ScatterPlot(tk.Frame):
         fig.update_layout(
             width = max(1000, (length_df/2)+200),
             height = 500,
-            margin=dict(l=0, r=0, t=0, b=0),
+            margin=dict(b=5,t=10,l=5,r=10),
             paper_bgcolor = PLOTLY_STANDARD_PAPER_BACKGROUND_COLOR,
             plot_bgcolor="white",
             autosize = PLOTLY_STANDARD_AUTOSIZE,
@@ -269,9 +269,9 @@ class ScatterPlot(tk.Frame):
         img = Image.open(io.BytesIO(img_bytes))
         img.save(f'figures output/ScatterPlot{name.upper()}.png')
 
-        #! REMEMBER TO REMOVE
-        root.destroy()
-        #! REMEMBER TO REMOVE
+        # #! REMEMBER TO REMOVE
+        # root.destroy()
+        # #! REMEMBER TO REMOVE
 
         
 
@@ -289,10 +289,10 @@ if __name__ == "__main__":
     #* "Top " for temperature - Remember the space after
     #* "AirChange" for air change
 
-    parameters = ["-800", "900-1000", 1100] # Co2
-    parameters = ["-27", "-28"] # Top
-    parameters = ["-100", "10-20", 20, "20-30", 30] # RelHumid
-    parameters = ["-1", "1-2", 2, "2-3", 3, 0] # AirChange
+    # parameters = ["-800", "900-1000", 1100] # Co2
+    # parameters = ["-27", "-28"] # Top
+    # parameters = ["-100", "10-20", 20, "20-30", 30] # RelHumid
+    # parameters = ["-1", "1-2", 2, "2-3", 3, 0] # AirChange
 
     ScatterPlot(root, df, parameters)#.pack()
 

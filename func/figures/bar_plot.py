@@ -137,7 +137,7 @@ class BarPlot(tk.Frame):
             height=500,
             width=max(1000, (len(df.columns[5:])*len(parameters)*60)+200),
             hovermode="x",
-            margin=dict(b=0,t=10,l=0,r=10),
+            margin=dict(b=5,t=10,l=5,r=10),
             paper_bgcolor="white",
             plot_bgcolor="white",
             font=dict(
