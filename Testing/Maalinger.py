@@ -60,15 +60,15 @@ from func.figures.distribution_plot import DistributionPlot
 
 path_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/DATA/Data til Mikkel 1.th..txt")
 dayprofile_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract/dayprofiles/dayprofile_altid.txt")
-df = discard_data(import_data(path_var), "Top ")
+df = discard_data(import_data(path_var), "RelHumid")
 # df = df.drop(634)
 
 # print(len(df.columns))
 
 # parameters = []
 # parameters = [950, 1200] # Co2
-parameters = [27, 28] # Top
-# parameters = ["-25", "25-60", 60] # RelHumid
+# parameters = [27, 28] # Top
+parameters = ["-25", "25-60", 60] # RelHumid
 # parameters = [PAS] # AirChange
 
 

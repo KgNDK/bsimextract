@@ -149,22 +149,23 @@ class ScatterPlot(tk.Frame):
                     y0 = param,
                     x1 = len(df),
                     y1 = param,
+                    layer="below",
                     line=dict(
                         color=PLOTLY_COLORS_2[color_index],
                     )
                 )
-                for side in (0+0.2, len(df)-0.2):
-                    fig.add_shape(
-                        type="line",
-                        x0 = side,
-                        y0 = param,
-                        x1 = side,
-                        y1 = param + shape_height,
-                        # layer="below",
-                        line=dict(
-                            color=PLOTLY_COLORS_2[color_index],
-                        )
-                    )
+                # for side in (0+0.2, len(df)-0.2):
+                #     fig.add_shape(
+                #         type="line",
+                #         x0 = side,
+                #         y0 = param,
+                #         x1 = side,
+                #         y1 = param + shape_height,
+                #         # layer="below",
+                #         line=dict(
+                #             color=PLOTLY_COLORS_2[color_index],
+                #         )
+                #     )
                 color_index += 1
             else:
                 if param.startswith("-"):
@@ -180,18 +181,18 @@ class ScatterPlot(tk.Frame):
                         color=PLOTLY_COLORS_2[color_index],
                         )
                     )
-                    for side in (0, len(df)):
-                        fig.add_shape(
-                            type="line",
-                            x0 = side,
-                            y0 = right,
-                            x1 = side,
-                            y1 = right - shape_height,
-                            layer="below",
-                            line=dict(
-                                color=PLOTLY_COLORS_2[color_index],
-                            )
-                        )
+                    # for side in (0, len(df)):
+                    #     fig.add_shape(
+                    #         type="line",
+                    #         x0 = side,
+                    #         y0 = right,
+                    #         x1 = side,
+                    #         y1 = right - shape_height,
+                    #         layer="below",
+                    #         line=dict(
+                    #             color=PLOTLY_COLORS_2[color_index],
+                    #         )
+                    #     )
                     color_index += 1
                 else:
                     left, right = map(int, param.split("-"))
@@ -289,7 +290,7 @@ if __name__ == "__main__":
     #* "Top " for temperature - Remember the space after
     #* "AirChange" for air change
 
-    # parameters = ["-800", "900-1000", 1100] # Co2
+    parameters = ["-800", "900-1000", 1100] # Co2
     # parameters = ["-27", "-28"] # Top
     # parameters = ["-100", "10-20", 20, "20-30", 30] # RelHumid
     # parameters = ["-1", "1-2", 2, "2-3", 3, 0] # AirChange

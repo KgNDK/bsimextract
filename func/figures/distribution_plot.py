@@ -58,52 +58,46 @@ class DistributionPlot(tk.Frame):
 
         fig = go.Figure()
 
-        #* Parameters
-        # length_df = len(df)
+        #* Start parameters
         label_input = df.columns[5].split()[0]
         name = label_input
 
-        def sort_segments(x):
-            segment_length = len(x) // 5
-            partitioned = np.partition(x, segment_length * np.arange(1, 5))
-            sorted_segments = np.sort(partitioned.reshape(5, -1), axis=1)
-            return pd.Series(sorted_segments.flatten())
-
+        #* Custom settings based on input column names
         unit = "NoUnit"
+
         if label_input.lower() == "co2":
             label = "CO2"
             unit = "ppm"
             #* Converting data to int to avoid sorting algorithmic errors
             for column in df.columns[5:]:
                 df[column] = pd.to_numeric(df[column], errors='coerce').fillna(0).astype(int)
-            shape_height = 50
+
         elif label_input.lower() == "top":
             label = "Operativ temperatur"
             unit = "°C"
             #* Converting data to two decimals to avoid sorting algorithmic errors
             for column in df.columns[5:]:
                 df[column] = pd.to_numeric(df[column], errors='coerce').fillna(0).round(2)
-            shape_height = 0.6
+
         elif label_input.lower() == "relhumid":
             unit = "%"
             label = "Relativ luftfugtighed"
             #* Converting data to two decimals to avoid sorting algorithmic errors
             for column in df.columns[5:]:
                 df[column] = pd.to_numeric(df[column], errors='coerce').fillna(0).round(2)
-            shape_height = 2
+
         elif label_input.lower() == "airchange":
             unit = "h^-1"
             label = "Luftskifte"
             #* Converting data to two decimals to avoid sorting algorithmic errors
             for column in df.columns[5:]:
                 df[column] = pd.to_numeric(df[column], errors='coerce').fillna(0).round(2)
-            shape_height = 0.3
             
 
         #* Sorting data
         sorted_df = df[df.columns[5:]].apply(lambda x: x.sort_values(ignore_index=True, ascending=True)).reset_index(drop=True)
-
         
+        #* Adding shapes based on parameters input
         color_index = 0
 
         for param in parameters:
@@ -119,18 +113,6 @@ class DistributionPlot(tk.Frame):
                         color=PLOTLY_COLORS_2[color_index],
                     )
                 )
-                for side in (0, len(sorted_df)):
-                    fig.add_shape(
-                        type="line",
-                        x0 = side,
-                        y0 = param,
-                        x1 = side,
-                        y1 = param + shape_height,
-                        # layer="below",
-                        line=dict(
-                            color=PLOTLY_COLORS_2[color_index],
-                        )
-                    )
                 color_index += 1
             else:
                 if param.startswith("-"):
@@ -146,18 +128,6 @@ class DistributionPlot(tk.Frame):
                         color=PLOTLY_COLORS_2[color_index],
                         )
                     )
-                    for side in (0, len(sorted_df)):
-                        fig.add_shape(
-                            type="line",
-                            x0 = side,
-                            y0 = right,
-                            x1 = side,
-                            y1 = right - shape_height,
-                            layer="below",
-                            line=dict(
-                                color=PLOTLY_COLORS_2[color_index],
-                            )
-                        )
                     color_index += 1
                 else:
                     left, right = map(int, param.split("-"))
@@ -170,37 +140,15 @@ class DistributionPlot(tk.Frame):
                         opacity = 0.2
                     )
                     color_index += 1
-                        
-        print(sorted_df.columns)
-        # num=0
-        # for column in sorted_df.columns:
-        #     trace_name = " ".join(column.split(" ")[1:])
-        #     fig.add_trace(go.Scatter(
-        #         x=sorted_df.index,
-        #         y=sorted_df[column],
-        #         mode='lines',
-        #         name=trace_name,
-        #         # xaxis=f"x{num+3}",
-        #         xaxis="x",
-        #         line=dict(
-        #             color=PLOTLY_COLORS[num],
-        #         ),
-        #     ))
-        #     # fig.update_layout(
-        #     #     {f"xaxis{num+3}": {
-        #     #         "overlaying": "x",
-        #     #         "range": [0, len(sorted_df.index)],
-        #     #         "visible": False
-        #     #     }}
-        #     # )
-        #     num += 1
-
+        
+        #* Adding traces with data based on df input
         num = 0
         for column in sorted_df.columns:
             trace_name = " ".join(column.split(" ")[1:])
-            filtered_data = sorted_df[sorted_df[column] != 0]  # Filter out data points with value 0
+            filtered_data = sorted_df[sorted_df[column] != 0]
+            filtered_data = filtered_data.reset_index(drop=True)
             fig.add_trace(go.Scatter(
-                x=filtered_data.index,
+                x=filtered_data.index / len(filtered_data.index) * len(sorted_df.index),
                 y=filtered_data[column],
                 mode='lines',
                 name=trace_name,
@@ -211,15 +159,7 @@ class DistributionPlot(tk.Frame):
             ))
             num += 1
 
-        # for i in range(num):
-        #     fig.update_layout(
-        #         {f"xaxis{i+3}": {
-        #             "overlaying": "x",
-        #             "range": [0, len(sorted_df.index)],
-        #             "visible": False
-        #         }}
-        #     )
-
+        #* Adding secondary x axis that shows range from 0 to 100
         fig.add_trace(go.Scatter(
             x=[],
             y=[],
@@ -227,6 +167,7 @@ class DistributionPlot(tk.Frame):
             opacity=0,
         ))
 
+        #* Setting layout
         fig.update_layout(
             width = 1000,
             height = 500,
@@ -268,6 +209,7 @@ class DistributionPlot(tk.Frame):
             ),
         )                
 
+        #* Save the plot as a PNG
         if not os.path.exists("figures output"):
             os.mkdir("figures output")
         
