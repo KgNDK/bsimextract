@@ -71,25 +71,49 @@ df = discard_data(import_data(path_var), "RelHumid")
 parameters = ["-25", "25-60", 60] # RelHumid
 # parameters = [PAS] # AirChange
 
+name = ["Co2", "RelHumid", "Top ", "AirChange"]
+parameters = {
+    "Co2": [950, 1200],
+    "RelHumid": ["-25", "25-60", 60],
+    "Top ": [27, 28],
+    "AirChange": ["-2", "2-4", 4]
+}
+root = ctk.CTk()
+ctk.set_appearance_mode(COLOR_MODE)
 
+root.title("TEST: display_rh")
+root.geometry("800x300")
+
+for i in name:
+    current_parameters = parameters[i]
+    # print(parameters[i])
+    df = discard_data(import_data(path_var), i)
+    
+    ScatterPlot(root, df, Interval_unit = "d", parameters = current_parameters)
+    BarPlot(root, df, current_parameters, Interval = "Dage", Interval_unit = "d")
+    DistributionPlot(root, df, parameters=current_parameters)
+
+root.mainloop()
+    
+root.destroy()
 
 
 
 # print(df)
 
 
-if __name__ == "__main__":
-    root = ctk.CTk()
+# if __name__ == "__main__":
+#     root = ctk.CTk()
 
-    ctk.set_appearance_mode(COLOR_MODE)
+#     ctk.set_appearance_mode(COLOR_MODE)
 
-    root.title("TEST: display_rh")
-    root.geometry("800x300")
+#     root.title("TEST: display_rh")
+#     root.geometry("800x300")
 
-    ScatterPlot(root, df, Interval_unit = "d", parameters = parameters)
-    BarPlot(root, df, parameters, Interval = "Dage", Interval_unit = "d")
-    DistributionPlot(root, df, parameters=parameters)
+#     ScatterPlot(root, df, Interval_unit = "d", parameters = parameters)
+#     BarPlot(root, df, parameters, Interval = "Dage", Interval_unit = "d")
+#     DistributionPlot(root, df, parameters=parameters)
 
-    root.destroy()
+#     root.destroy()
 
-    root.mainloop()
+#     root.mainloop()

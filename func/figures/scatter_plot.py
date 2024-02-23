@@ -80,7 +80,6 @@ class ScatterPlot(tk.Frame):
                 ),
                 yaxis_showgrid=True,
             )
-            shape_height = 50
         elif label.lower() == "top":
             label = "Operativ temperatur"
             unit = "°C"
@@ -98,7 +97,7 @@ class ScatterPlot(tk.Frame):
                 ),
                 yaxis_showgrid=True,
             )
-            shape_height = 0.3
+
         elif label.lower() == "relhumid":
             unit = "%"
             label = "Relativ luftfugtighed"
@@ -116,7 +115,6 @@ class ScatterPlot(tk.Frame):
                 ),
                 yaxis_showgrid=True,
             )
-            shape_height = 2
         elif label.lower() == "airchange":
             unit = "h^-1"
             label = "Luftskifte"
@@ -133,10 +131,8 @@ class ScatterPlot(tk.Frame):
                 ),
                 yaxis_showgrid=True,
             )
-            shape_height = 0.3
         else:
             unit = ""
-            shape_height = 1
 
 
         color_index = 0
@@ -154,18 +150,6 @@ class ScatterPlot(tk.Frame):
                         color=PLOTLY_COLORS_2[color_index],
                     )
                 )
-                # for side in (0+0.2, len(df)-0.2):
-                #     fig.add_shape(
-                #         type="line",
-                #         x0 = side,
-                #         y0 = param,
-                #         x1 = side,
-                #         y1 = param + shape_height,
-                #         # layer="below",
-                #         line=dict(
-                #             color=PLOTLY_COLORS_2[color_index],
-                #         )
-                #     )
                 color_index += 1
             else:
                 if param.startswith("-"):
@@ -181,18 +165,6 @@ class ScatterPlot(tk.Frame):
                         color=PLOTLY_COLORS_2[color_index],
                         )
                     )
-                    # for side in (0, len(df)):
-                    #     fig.add_shape(
-                    #         type="line",
-                    #         x0 = side,
-                    #         y0 = right,
-                    #         x1 = side,
-                    #         y1 = right - shape_height,
-                    #         layer="below",
-                    #         line=dict(
-                    #             color=PLOTLY_COLORS_2[color_index],
-                    #         )
-                    #     )
                     color_index += 1
                 else:
                     left, right = map(int, param.split("-"))
@@ -215,7 +187,6 @@ class ScatterPlot(tk.Frame):
                         name=trace_name,
                         line=dict(
                             color=PLOTLY_COLORS[index],
-                            # width=1
                         ),
             ))
 
