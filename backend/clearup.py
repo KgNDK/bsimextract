@@ -24,7 +24,7 @@ sys.path = os.getcwd()
 
 from backend.time import timeit
 
-@timeit
+# @timeit
 def clear_figure_output():
     """
     Clears all the files in the 'figures output' folder.
@@ -40,3 +40,5 @@ def clear_figure_output():
         if os.path.isfile(file_path):
             # print(file_path)
             os.remove(file_path)
+
+    print("All files in 'figures output' folder have been removed.")

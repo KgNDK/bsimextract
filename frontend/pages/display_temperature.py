@@ -58,8 +58,8 @@ class display_temperature(ctk.CTkFrame):
         super().__init__(master = parent)
 
         # layout
-        self.rowconfigure((0, 1, 2), weight = 1, uniform="a")
-        self.columnconfigure((0, 1, 2), weight = 1)
+        self.rowconfigure((0, 1), weight = 1, uniform="a")
+        self.columnconfigure((0, 1), weight = 1, uniform="a")
 
         # font
         title_font = ctk.CTkFont(family=TITLE_FONT, size=TITLE_SIZE, weight=TITLE_WEIGHT)
@@ -75,10 +75,10 @@ class display_temperature(ctk.CTkFrame):
         dayprofile = temp_dayprofile_var.get()
 
         # label
-        ctk.CTkLabel(self, text = f"TablePlot{name}", font = title_font).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, rowspan = 3)
+        ctk.CTkLabel(self, text = f"NewPlot{name}?", font = title_font).grid(row = 1, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, rowspan = 3)
         ctk.CTkLabel(self, text = f"ScatterPlot{name}", font = title_font).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
-        ctk.CTkLabel(self, text = f"BarPlot{name}", font = title_font).grid(row = 1, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
-        ctk.CTkLabel(self, text = f"DistributionPlot{name}", font = title_font).grid(row = 2, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
+        ctk.CTkLabel(self, text = f"BarPlot{name}", font = title_font).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
+        ctk.CTkLabel(self, text = f"DistributionPlot{name}", font = title_font).grid(row = 1, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY, columnspan = 2)
 
         # auto plot variables
         auto_plot_Scatter = ctk.BooleanVar(value = True)
@@ -98,39 +98,40 @@ class display_temperature(ctk.CTkFrame):
             df = discard_data(import_data_dayprofile(path, dayprofile), "Top ")
 
             plots = [
-                ("ScatterPlot", 0, auto_plot_Scatter),
-                ("BarPlot", 1, auto_plot_Bar),
-                ("DistributionPlot", 2, auto_plot_Distribution)
+                ("ScatterPlot", 0, 1, auto_plot_Scatter),
+                ("BarPlot", 0, 0, auto_plot_Bar),
+                ("DistributionPlot", 1, 0, auto_plot_Distribution)
             ]
 
-            for plot_type, row, auto_plot_var in plots:
+            for plot_type, row, column, auto_plot_var in plots:
                 if os.path.isfile(f'figures output/{plot_type}{name.upper()}.png'):
                     img = tk.PhotoImage(file=f'figures output/{plot_type}{name.upper()}.png')
-                    ScrollableImage(self, image=img, scrollbarwidth=20).grid(row=row, column=1, sticky="nsew", columnspan=2, padx=STANDARD_PADX, pady=STANDARD_PADY)
+                    ScrollableImage(self, image=img, scrollbarwidth=20).grid(row=row, column=column, sticky="nsew", columnspan=1, padx=STANDARD_PADX, pady=STANDARD_PADY)
                     auto_plot_var.set(False)
-
-            if os.path.isfile(f'figures output/TablePlot{name.upper()}.png'):
-                img_TablePlot = tk.PhotoImage(file=f'figures output/TablePlot{name.upper()}.png')
-                ScrollableImage(self, image = img_TablePlot, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew", rowspan = 3, padx = STANDARD_PADX, pady = STANDARD_PADY)
-                auto_plot_Table.set(False)
             
             if auto_plot_Scatter.get() == True:
                 ScatterPlot(self, df, parameters)
                 img_ScatterPlot = tk.PhotoImage(file=f'figures output/ScatterPlot{name.upper()}.png')
-                ScrollableImage(self, image = img_ScatterPlot, scrollbarwidth=20).grid(row=0, column=1, sticky="nsew", columnspan = 2, padx = STANDARD_PADX, pady = STANDARD_PADY)
+                ScrollableImage(self, image = img_ScatterPlot, scrollbarwidth=20).grid(row=0, column=1, sticky="nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
                 auto_plot_Scatter.set(False)
 
             if auto_plot_Bar.get() == True:
                 BarPlot(self, df, parameters)
                 img_BarPlot = tk.PhotoImage(file=f'figures output/BarPlot{name.upper()}.png')
-                ScrollableImage(self, image = img_BarPlot, scrollbarwidth=20).grid(row=1, column=1, sticky="nsew", columnspan = 2, padx = STANDARD_PADX, pady = STANDARD_PADY)
+                ScrollableImage(self, image = img_BarPlot, scrollbarwidth=20).grid(row=0, column=0, sticky="nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
                 auto_plot_Bar.set(False)
-            
+
             if auto_plot_Distribution.get() == True:
                 DistributionPlot(self, df, parameters)
                 img_DistributionPlot = tk.PhotoImage(file=f'figures output/DistributionPlot{name.upper()}.png')
-                ScrollableImage(self, image = img_DistributionPlot, scrollbarwidth=20).grid(row=2, column=1, sticky="nsew", columnspan = 2, padx = STANDARD_PADX, pady = STANDARD_PADY)
+                ScrollableImage(self, image = img_DistributionPlot, scrollbarwidth=20).grid(row=1, column=0, sticky="nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
                 auto_plot_Distribution.set(False)
+
+            #* ExtraPlot
+            # if os.path.isfile(f'figures output/TablePlot{name.upper()}.png'):
+            #     img_TablePlot = tk.PhotoImage(file=f'figures output/TablePlot{name.upper()}.png')
+            #     ScrollableImage(self, image = img_TablePlot, scrollbarwidth=20).grid(row=1, column=1, sticky="nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+            #     auto_plot_Table.set(False)
 
         
 

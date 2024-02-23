@@ -52,9 +52,6 @@ class dayprofile(ctk.CTkFrame):
         
         self.combobox.configure(values = files)
 
-    # def update_combobox(self, text):
-    #     dayprofile = self.combobox.set(text)
-
 if __name__ == "__main__":
     root = ctk.CTk()
 

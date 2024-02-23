@@ -43,7 +43,7 @@ class import_file(ctk.CTkFrame):
         self.columnconfigure((0, 1, 2, 3), weight = 1)
 
         ctk.CTkLabel(self, text = "Choose BSim data file:", width = STANDARD_COLUMN_WIDTH_4*3, font = title_font).grid(row = 0, column = 0, columnspan = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
-        ctk.CTkButton(self, text = "Import Data", width = STANDARD_COLUMN_WIDTH_4, command = lambda: self.button_import_data(path_var, new_data_var), font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        ctk.CTkButton(self, text = "New Data", width = STANDARD_COLUMN_WIDTH_4, command = self.button_new_data, font = text_font).grid(row = 0, column = 3, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         self.entry_var = ctk.StringVar(self)
 
@@ -58,12 +58,15 @@ class import_file(ctk.CTkFrame):
         else:
             CTkMessagebox(message="File has no path!", title="Warning Message!", icon="warning")
 
-    def button_import_data(self, path_var, new_data_var):
-        if path_var.get() == "":
-            CTkMessagebox(message="You have not selected a file!\nPlease select a file with the button below.", title="Warning Message!", icon="warning")
-            return
-        new_data_var.set(True)
+    def button_new_data(self):
         clear_figure_output()
+
+    # def button_import_data(self, path_var, new_data_var):
+    #     if path_var.get() == "":
+    #         CTkMessagebox(message="You have not selected a file!\nPlease select a file with the button below.", title="Warning Message!", icon="warning")
+    #         return
+    #     new_data_var.set(True)
+    #     clear_figure_output()
         
 
     def browse_file(self):

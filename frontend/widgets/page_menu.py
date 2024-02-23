@@ -41,44 +41,49 @@ from frontend.pages.page_menu_airch import page_menu_airch
 class page_menu(ctk.CTkTabview):
     def __init__(self,
                  parent,
-                 co2_dayprofile_var,
-                 rh_dayprofile_var,
-                 temp_dayprofile_var,
-                 airch_dayprofile_var,
                  path_var,
-                 co2_maxco2_one_var,
-                 co2_maxco2_two_var,
-                 co2_maxco2_three_var,
-                 co2_formatcolor_one_var,
-                 co2_formatcolor_two_var,
-                 co2_formatcolor_three_var,
-                 airch_maxairch_one_var,
-                 airch_maxairch_two_var,
-                 airch_maxairch_three_var,
-                 airch_formatcolor_one_var,
-                 airch_formatcolor_two_var,
-                 airch_formatcolor_three_var,
-                 temp_mintemp_var,
-                 temp_maxtemp_100h_var,
-                 temp_maxtemp_25h_var,
-                 temp_formatcolor_mintemp_var,
-                 temp_formatcolor_maxtemp_100h_var,
-                 temp_formatcolor_maxtemp_25h_var,
-                 temp_between_max_summer_var,
-                 temp_between_min_summer_var,
-                 temp_between_max_trans_var,
-                 temp_between_min_trans_var,
-                 temp_between_max_winter_var,
-                 temp_between_min_winter_var,
-                 temp_formatcolor_between_var,
-                 rh_minrh_var,
-                 rh_lowmaxrh_var,
-                 rh_maxrh_var,
-                 rh_formatcolor_minrh_var,
-                 rh_formatcolor_lowmaxrh_var,
-                 rh_formatcolor_maxrh_var,
                  page_menu_var,
-                 new_data_var
+                 new_data_var, 
+
+                 co2_dayprofile_var_always, 
+                 co2_dayprofile_var_summer, 
+                 co2_dayprofile_var_transition, 
+                 co2_dayprofile_var_winter,
+
+                 rh_dayprofile_var_always,
+                 rh_dayprofile_var_summer,
+                 rh_dayprofile_var_transition,
+                 rh_dayprofile_var_winter,
+
+                 temp_dayprofile_var_always,
+                 temp_dayprofile_var_summer,
+                 temp_dayprofile_var_transition,
+                 temp_dayprofile_var_winter,
+
+                 airch_dayprofile_var_always,
+                 airch_dayprofile_var_summer,
+                 airch_dayprofile_var_transition,
+                 airch_dayprofile_var_winter,
+
+                 co2_parameter_var_always,
+                 co2_parameter_var_summer,
+                 co2_parameter_var_transition,
+                 co2_parameter_var_winter,
+
+                 rh_parameter_var_always,
+                 rh_parameter_var_summer,
+                 rh_parameter_var_transition,
+                 rh_parameter_var_winter,
+
+                 temp_parameter_var_always,
+                 temp_parameter_var_summer,
+                 temp_parameter_var_transition,
+                 temp_parameter_var_winter,
+
+                 airch_parameter_var_always,
+                 airch_parameter_var_summer,
+                 airch_parameter_var_transition,
+                 airch_parameter_var_winter,
                  
                  
                  
@@ -93,63 +98,72 @@ class page_menu(ctk.CTkTabview):
         self.add("AirChange")
 
         # widgets
-        page_menu_start(self.tab("Start"), co2_dayprofile_var,
-                                           rh_dayprofile_var,
-                                           temp_dayprofile_var,
-                                           airch_dayprofile_var,
-                                           path_var,
-                                           new_data_var
-                                           
-                                           
-                                           
-                                           )
-        page_menu_co2(self.tab("CO2"), co2_dayprofile_var,
-                                       co2_maxco2_one_var,
-                                       co2_maxco2_two_var,
-                                       co2_maxco2_three_var,
-                                       co2_formatcolor_one_var,
-                                       co2_formatcolor_two_var,
-                                       co2_formatcolor_three_var
-                                       
-                                       
-                                       )
-        page_menu_rh(self.tab("RelHumid"), rh_dayprofile_var,
-                                           rh_minrh_var,
-                                           rh_lowmaxrh_var,
-                                           rh_maxrh_var,
-                                           rh_formatcolor_minrh_var,
-                                           rh_formatcolor_lowmaxrh_var,
-                                           rh_formatcolor_maxrh_var
-                                           
-                                           
-                                           )
-        page_menu_temp(self.tab("Temperature"), temp_dayprofile_var,
-                                                temp_mintemp_var,
-                                                temp_maxtemp_100h_var,
-                                                temp_maxtemp_25h_var,
-                                                temp_formatcolor_mintemp_var,
-                                                temp_formatcolor_maxtemp_100h_var,
-                                                temp_formatcolor_maxtemp_25h_var,
-                                                temp_between_max_summer_var,
-                                                temp_between_min_summer_var,
-                                                temp_between_max_trans_var,
-                                                temp_between_min_trans_var,
-                                                temp_between_max_winter_var,
-                                                temp_between_min_winter_var,
-                                                temp_formatcolor_between_var
-                                                
-                                                
-                                                )
-        page_menu_airch(self.tab("AirChange"), airch_dayprofile_var,
-                                               airch_maxairch_one_var,
-                                               airch_maxairch_two_var,
-                                               airch_maxairch_three_var,
-                                               airch_formatcolor_one_var,
-                                               airch_formatcolor_two_var,
-                                               airch_formatcolor_three_var
-                                               
-                                               
-                                               )
+        page_menu_start(self.tab("Start"), 
+                        path_var,
+                        new_data_var, 
+
+                        co2_dayprofile_var_always,
+                        co2_dayprofile_var_summer, 
+                        co2_dayprofile_var_transition, 
+                        co2_dayprofile_var_winter,
+
+                        rh_dayprofile_var_always,
+                        rh_dayprofile_var_summer,
+                        rh_dayprofile_var_transition,
+                        rh_dayprofile_var_winter,
+
+                        temp_dayprofile_var_always,
+                        temp_dayprofile_var_summer,
+                        temp_dayprofile_var_transition,
+                        temp_dayprofile_var_winter,
+
+                        airch_dayprofile_var_always,
+                        airch_dayprofile_var_summer,
+                        airch_dayprofile_var_transition,
+                        airch_dayprofile_var_winter
+                        )
+        page_menu_co2(self.tab("CO2"),
+                      co2_dayprofile_var_always,
+                      co2_dayprofile_var_summer,
+                      co2_dayprofile_var_transition,
+                      co2_dayprofile_var_winter,
+                      co2_parameter_var_always,
+                      co2_parameter_var_summer,
+                      co2_parameter_var_transition,
+                      co2_parameter_var_winter
+                      )
+        
+        page_menu_rh(self.tab("RelHumid"),
+                     rh_dayprofile_var_always,
+                     rh_dayprofile_var_summer,
+                     rh_dayprofile_var_transition,
+                     rh_dayprofile_var_winter,
+                     rh_parameter_var_always,
+                     rh_parameter_var_summer,
+                     rh_parameter_var_transition, 
+                     rh_parameter_var_winter
+                     )
+        page_menu_temp(self.tab("Temperature"),
+                       temp_dayprofile_var_always,
+                       temp_dayprofile_var_summer,
+                       temp_dayprofile_var_transition,
+                       temp_dayprofile_var_winter,
+                       temp_parameter_var_always,
+                       temp_parameter_var_summer,
+                       temp_parameter_var_transition,
+                       temp_parameter_var_winter,
+                       )
+        
+        page_menu_airch(self.tab("AirChange"),
+                        airch_dayprofile_var_always,
+                        airch_dayprofile_var_summer,
+                        airch_dayprofile_var_transition,
+                        airch_dayprofile_var_winter,
+                        airch_parameter_var_always,
+                        airch_parameter_var_summer,
+                        airch_parameter_var_transition,
+                        airch_parameter_var_winter,
+                        )
 
     
 if __name__ == "__main__":  

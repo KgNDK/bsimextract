@@ -28,7 +28,31 @@ from frontend.widgets.import_file_widget import import_file_widget
 from frontend.widgets.dayprofile_all import dayprofile_all
 
 class page_menu_start(ctk.CTkFrame):
-    def __init__(self, parent, co2_dayprofile_var, rh_dayprofile_var, temp_dayprofile_var, airch_dayprofile_var, path_var, new_data_var):
+    def __init__(self, 
+                 parent, 
+                 path_var, 
+                 new_data_var,
+
+                 co2_dayprofile_var_always,
+                 co2_dayprofile_var_summer, 
+                 co2_dayprofile_var_transition, 
+                 co2_dayprofile_var_winter,
+
+                 rh_dayprofile_var_always,
+                 rh_dayprofile_var_summer,
+                 rh_dayprofile_var_transition,
+                 rh_dayprofile_var_winter,
+
+                 temp_dayprofile_var_always,
+                 temp_dayprofile_var_summer,
+                 temp_dayprofile_var_transition,
+                 temp_dayprofile_var_winter,
+
+                 airch_dayprofile_var_always,
+                 airch_dayprofile_var_summer,
+                 airch_dayprofile_var_transition,
+                 airch_dayprofile_var_winter
+                 ):
         super().__init__(master = parent, fg_color="transparent")
         self.pack(expand = True, fill = "both")
 
@@ -37,7 +61,10 @@ class page_menu_start(ctk.CTkFrame):
         import_file_widget(self, path_var, new_data_var).pack(expand = True, fill = "x")
 
         # widgets for start under this
-        dayprofile_all(self, co2_dayprofile_var, rh_dayprofile_var, temp_dayprofile_var, airch_dayprofile_var).pack(expand = True, fill = "x")
+        dayprofile_all(self, co2_dayprofile_var_always, co2_dayprofile_var_summer, co2_dayprofile_var_transition, co2_dayprofile_var_winter, title_parameter="CO2").pack(expand = True, fill = "x")
+        dayprofile_all(self, rh_dayprofile_var_always, rh_dayprofile_var_summer, rh_dayprofile_var_transition, rh_dayprofile_var_winter, title_parameter="RelHumid").pack(expand = True, fill = "x")
+        dayprofile_all(self, temp_dayprofile_var_always, temp_dayprofile_var_summer, temp_dayprofile_var_transition, temp_dayprofile_var_winter, title_parameter="Temperature").pack(expand = True, fill = "x")
+        dayprofile_all(self, airch_dayprofile_var_always, airch_dayprofile_var_summer, airch_dayprofile_var_transition, airch_dayprofile_var_winter, title_parameter="Airchange").pack(expand = True, fill = "x")
 
 if __name__ == "__main__":
     root = ctk.CTk()

@@ -29,28 +29,30 @@ sys.path = os.getcwd()
 from settings.settings import *
 from frontend.widgets.dayprofile_single import dayprofile_single
 from frontend.widgets.co2_format_widget import co2_format_widget
+from frontend.widgets.dayprofile_all import dayprofile_all
+from frontend.widgets.parameters import parameters
 
 class page_menu_co2(ctk.CTkFrame):
-    def __init__(self, parent, co2_dayprofile_var, co2_maxco2_one_var, co2_maxco2_two_var, co2_maxco2_three_var, co2_formatcolor_one_var, co2_formatcolor_two_var, co2_formatcolor_three_var):
+    def __init__(self,
+                 parent,
+                 co2_dayprofile_var_always,
+                 co2_dayprofile_var_summer, 
+                 co2_dayprofile_var_transition, 
+                 co2_dayprofile_var_winter,
+                 co2_parameter_var_always,
+                 co2_parameter_var_summer,
+                 co2_parameter_var_transition,
+                 co2_parameter_var_winter
+                 ):
         super().__init__(master = parent, fg_color="transparent", width = 200)
         self.pack(expand = True, fill = "both")
 
         # widgets for CO2 under this
-        dayprofile_single(self, "CO2", co2_dayprofile_var).pack(expand = True, fill = "x")
+        # dayprofile_single(self, "CO2", co2_dayprofile_var).pack(expand = True, fill = "x")
+        dayprofile_all(self, co2_dayprofile_var_always, co2_dayprofile_var_summer, co2_dayprofile_var_transition, co2_dayprofile_var_winter, title_parameter = "CO2").pack(expand = True, fill = "x")
 
-        # widgets for formatting CO2 data under this
-        co2_format_widget(self,
-                 co2_maxco2_one_var,
-                 co2_maxco2_two_var,
-                 co2_maxco2_three_var,
-                 co2_formatcolor_one_var,
-                 co2_formatcolor_two_var,
-                 co2_formatcolor_three_var,
-                 text_title = "CO2 hours above:",
-                 text_button = "Apply",
-                 text_max = "Max CO2:",
-                 text_color = "Formatting color:"
-                 ).pack(expand = True, fill = "x")
+        #* widgets for formatting CO2 data under this
+        parameters(self, co2_parameter_var_always, co2_parameter_var_summer, co2_parameter_var_transition, co2_parameter_var_winter, title_text = "CO2").pack(expand = True, fill = "x")
 
 if __name__ == "__main__":
     root = ctk.CTk()
