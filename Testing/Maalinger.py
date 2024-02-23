@@ -68,7 +68,7 @@ df = discard_data(import_data(path_var), "RelHumid")
 # parameters = []
 # parameters = [950, 1200] # Co2
 # parameters = [27, 28] # Top
-parameters = ["-25", "25-60", 60] # RelHumid
+# parameters = ["-25", "25-60", 60] # RelHumid
 # parameters = [PAS] # AirChange
 
 name = ["Co2", "RelHumid", "Top ", "AirChange"]

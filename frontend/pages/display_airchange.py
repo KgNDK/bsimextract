@@ -67,7 +67,7 @@ class display_airchange(ctk.CTkFrame):
 
         # parameters
         name = "AirChange"
-        parameters = ["-1", "1-2", "2-3", "3-4", "4-5", 5] # Needs to be changed GitHub #27
+        parameters = ["-2", "2-4", 4] # Needs to be changed GitHub #27
         path = path_var.get()
         dayprofile = airch_dayprofile_var.get()
 
@@ -112,7 +112,7 @@ class display_airchange(ctk.CTkFrame):
                 auto_plot_Table.set(False)
             
             if auto_plot_Scatter.get() == True:
-                ScatterPlot(self, df)
+                ScatterPlot(self, df, parameters)
                 img_ScatterPlot = tk.PhotoImage(file=f'figures output/ScatterPlot{name.upper()}.png')
                 ScrollableImage(self, image = img_ScatterPlot, scrollbarwidth=20).grid(row=0, column=1, sticky="nsew", columnspan = 2, padx = STANDARD_PADX, pady = STANDARD_PADY)
                 auto_plot_Scatter.set(False)
@@ -124,7 +124,7 @@ class display_airchange(ctk.CTkFrame):
                 auto_plot_Bar.set(False)
 
             if auto_plot_Distribution.get() == True:
-                DistributionPlot(self, df)
+                DistributionPlot(self, df, parameters)
                 img_DistributionPlot = tk.PhotoImage(file=f'figures output/DistributionPlot{name.upper()}.png')
                 ScrollableImage(self, image = img_DistributionPlot, scrollbarwidth=20).grid(row=2, column=1, sticky="nsew", columnspan = 2, padx = STANDARD_PADX, pady = STANDARD_PADY)
                 auto_plot_Distribution.set(False)

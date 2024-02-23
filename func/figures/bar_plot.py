@@ -58,11 +58,12 @@ class BarPlot(tk.Frame):
 
         fig = go.Figure()
 
-        #* Parameters
+        #* Start parameters
         length_df = len(df)
         label = df.columns[5].split()[0]
         name = label
 
+        #* Custom settings based on input column names
         unit = "NoUnit"
         if label.lower() == "co2":
             label = "CO2"
@@ -78,7 +79,7 @@ class BarPlot(tk.Frame):
             label = "Luftskifte"
         
 
-        #* secondary y axis auto scaling 
+        #* Secondary y axis auto scaling 
         ratio = round(1. / length_df, 5)
 
         fig.add_trace(go.Scatter(
@@ -88,9 +89,10 @@ class BarPlot(tk.Frame):
             opacity=0,
         ))
         
-        #* parameters
+        #* Parameters
         data = []
-
+        
+        #* Preparing data
         for column in df.columns[5:]:
             counts = []
             for param in parameters:
@@ -105,6 +107,8 @@ class BarPlot(tk.Frame):
                         counts.append(sum((df[column].astype(float) > left) & (df[column].astype(float) < right)))
             data.append(counts)
 
+
+        #* Adding traces with data based on df input
         column_names = [f"{Interval} under: {str(param)[1:]} {unit}" if str(param).startswith("-") else f"{Interval} mellem: {str(param)} {unit}" if '-' in str(param) else f"{Interval} over: {str(param)} {unit}" for param in parameters]
         df_counts = pd.DataFrame(data, columns=column_names, index=df.columns[5:])
 
@@ -127,11 +131,12 @@ class BarPlot(tk.Frame):
                 y=df_counts[param],
                 name=param,
                 text=df_counts[param],
-                marker_color=color_mapping[param]
+                marker_color=color_mapping[param],
+                texttemplate='%{y}',
+                textposition='outside',
             ))
 
-        
-
+        #* Setting layout
         fig.update_layout(
             barmode="group",
             height=500,
@@ -170,7 +175,8 @@ class BarPlot(tk.Frame):
                 showgrid = False
             )
         )                
-
+        
+        #* Making folder for figures if it doesn't exist
         if not os.path.exists("figures output"):
             os.mkdir("figures output")
         
@@ -179,7 +185,7 @@ class BarPlot(tk.Frame):
         img = Image.open(io.BytesIO(img_bytes))
         img.save(f'figures output/BarPlot{name.upper()}.png')
 
-
+        #* Test code
         # #! REMEMBER TO REMOVE
         # root.destroy()
         # #! REMEMBER TO REMOVE

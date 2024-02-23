@@ -209,7 +209,7 @@ class DistributionPlot(tk.Frame):
             ),
         )                
 
-        #* Save the plot as a PNG
+        #* Making folder for figures if it doesn't exist
         if not os.path.exists("figures output"):
             os.mkdir("figures output")
         
@@ -218,6 +218,7 @@ class DistributionPlot(tk.Frame):
         img = Image.open(io.BytesIO(img_bytes))
         img.save(f'figures output/DistributionPlot{name.upper()}.png')
 
+        #* Test code
         # #! REMEMBER TO REMOVE
         # root.destroy()
         # #! REMEMBER TO REMOVE
