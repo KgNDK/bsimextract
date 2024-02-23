@@ -55,6 +55,8 @@
         "scrollableimage",
         "scrollbarwidth",
         "setit",
+        "textposition",
+        "texttemplate",
         "textvariable",
         "tickfont",
         "tickmode",

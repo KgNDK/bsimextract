@@ -79,15 +79,7 @@ class BarPlot(tk.Frame):
             label = "Luftskifte"
         
 
-        #* Secondary y axis auto scaling 
-        ratio = round(1. / length_df, 5)
-
-        fig.add_trace(go.Scatter(
-            x=[],
-            y=[],
-            yaxis="y2",
-            opacity=0,
-        ))
+        
         
         #* Parameters
         data = []
@@ -136,6 +128,17 @@ class BarPlot(tk.Frame):
                 textposition='outside',
             ))
 
+        #* Secondary y axis auto scaling 
+        adjustment = df_counts.max().max()/10
+        ratio = round(1. / (length_df - adjustment), 5)
+
+        fig.add_trace(go.Scatter(
+            x=[],
+            y=[],
+            yaxis="y2",
+            opacity=0,
+        ))
+
         #* Setting layout
         fig.update_layout(
             barmode="group",
@@ -151,7 +154,7 @@ class BarPlot(tk.Frame):
             ),
             legend=dict(
                 x=0,
-                y=-0.2,
+                y=-0.1,
                 bgcolor="White",
                 orientation="h",
                 font=dict(
@@ -162,7 +165,7 @@ class BarPlot(tk.Frame):
             ),
             yaxis = dict(
                 title = f"{Interval} [{Interval_unit}]",
-                range = [0, round(df_counts.max().max()+50, -2)],
+                range = [0, round(df_counts.max().max() + adjustment, -2)],
                 showgrid=True,
                 showticklabels=True,
                 gridcolor="LightGrey",
