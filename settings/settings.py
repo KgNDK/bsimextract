@@ -49,8 +49,8 @@ COLORS = [
 #* Plotly colors
 PLOTLY_COLORS = [
     "#211a52",
-    "#54616e",
     "#594fbf",
+    "#54616e",
     "#bb5b17",
     "#007fa3",
     "#0e8563",
