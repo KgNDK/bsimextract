@@ -33,7 +33,7 @@ from backend.import_data import import_data
 
 
 class display_start(ctk.CTkFrame):
-    def __init__(self, parent, new_data_var, page_menu_var, path_var, dayprofile_var):
+    def __init__(self, parent):
         super().__init__(master = parent)
 
         # layout
@@ -48,18 +48,18 @@ class display_start(ctk.CTkFrame):
         ctk.CTkLabel(self, text = "Welcome to BSimExtract!\n\nThis program is designed to extract and analyze data from .txt files from BSim.\nIt provides a user-friendly interface for visualizing and manipulating the extracted data.\nWith BSimExtract, you can easily import .txt files, convert them to dataframes, and generate insightful plots and tables.\nGet ready to explore and analyze your data with ease!", font = title_font).grid(row = 0, column = 0, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         # table data
-        new_data_var.trace("w", lambda name, index, mode, var=new_data_var, path_var=path_var: add_table_plot(self, var, path_var))
+        # new_data_var.trace("w", lambda name, index, mode, var=new_data_var, path_var=path_var: add_table_plot(self, var, path_var))
        
         if os.path.isfile('figures output/TableStart.png'):
             img = tk.PhotoImage(file='figures output/TableStart.png')
             ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=1, column=0, sticky="nsew")
 
-        def add_table_plot(self, var, path_var):
-            path = path_var.get()
-            if var.get() == True:
-                TablePlot(self, import_data(path), size_y=70, size_x=30)
-                img = tk.PhotoImage(file='figures output/TableStart.png')
-                ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=1, column=0, sticky="nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        # def add_table_plot(self, var, path_var):
+        #     path = path_var.get()
+        #     if var.get() == True:
+        #         TablePlot(self, import_data(path), size_y=70, size_x=30)
+        #         img = tk.PhotoImage(file='figures output/TableStart.png')
+        #         ScrollableImage(self, image = img, scrollbarwidth=20).grid(row=1, column=0, sticky="nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
                 
                 

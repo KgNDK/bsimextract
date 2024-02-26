@@ -53,7 +53,7 @@ from backend.time import timeit
 from backend.sort_data import discard_data
 
 class BarPlot(tk.Frame):
-    def __init__(self, parent, df, parameters, Interval = "Timer", Interval_unit = "h"):
+    def __init__(self, parent, df, period, parameters, Interval = "Timer", Interval_unit = "h"):
         tk.Frame.__init__(self, parent)
 
         fig = go.Figure()
@@ -91,17 +91,19 @@ class BarPlot(tk.Frame):
                 if isinstance(param, int):
                     counts.append(sum(df[column].astype(float) > param))
                 else:
-                    if param.startswith("-"):
+                    if param.startswith("'-"):
+                        param = str(param).replace("'", "")
                         right = int(param[1:]) - 0.1
                         counts.append(sum(df[column].astype(float) < right))
                     else:
+                        param = str(param).replace("'", "")
                         left, right = map(int, param.split("-"))
                         counts.append(sum((df[column].astype(float) > left) & (df[column].astype(float) < right)))
             data.append(counts)
 
 
         #* Adding traces with data based on df input
-        column_names = [f"{Interval} under: {str(param)[1:]} {unit}" if str(param).startswith("-") else f"{Interval} mellem: {str(param)} {unit}" if '-' in str(param) else f"{Interval} over: {str(param)} {unit}" for param in parameters]
+        column_names = [f"{Interval} under: {str(param).replace("'", "")[1:]} {unit}" if str(param).replace("'", "").startswith("-") else f"{Interval} mellem: {str(param).replace("'", "")} {unit}" if '-' in str(param).replace("'", "") else f"{Interval} over: {str(param).replace("'", "")} {unit}" for param in parameters]
         df_counts = pd.DataFrame(data, columns=column_names, index=df.columns[5:])
 
         color_mapping = {param: color for param, color in zip(df_counts.columns, PLOTLY_COLORS)}
@@ -186,7 +188,7 @@ class BarPlot(tk.Frame):
         #* Save the plot as a PNG
         img_bytes = fig.to_image(format="png")
         img = Image.open(io.BytesIO(img_bytes))
-        img.save(f'figures output/BarPlot{name.upper()}.png')
+        img.save(f'figures output/BarPlot{name.upper()}{period}.png')
 
         #* Test code
         # #! REMEMBER TO REMOVE
@@ -200,6 +202,7 @@ if __name__ == "__main__":
     path_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/DATA/Bsimdata.txt")
     dayprofile_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract/dayprofiles/dayprofile_altid.txt")
     df = discard_data(import_data_dayprofile(path_var, dayprofile_var), "Top ")
+    period = "TEST"
 
     #? example of parameters
     # parameters = ["-500", "500-700", 700, "600-1000", 800] # Co2
@@ -214,6 +217,6 @@ if __name__ == "__main__":
     #* "Top " for temperature - Remember the space after
     #* "AirChange" for air change
 
-    BarPlot(root, df, parameters)#.pack()
+    BarPlot(root, df, period, parameters)#.pack()
 
     root.mainloop()

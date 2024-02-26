@@ -53,7 +53,7 @@ from backend.time import timeit
 from backend.sort_data import discard_data
 
 class DistributionPlot(tk.Frame):
-    def __init__(self, parent, df, parameters = []):
+    def __init__(self, parent, df, period, parameters = []):
         tk.Frame.__init__(self, parent)
 
         fig = go.Figure()
@@ -115,7 +115,8 @@ class DistributionPlot(tk.Frame):
                 )
                 color_index += 1
             else:
-                if param.startswith("-"):
+                if param.startswith("'-"):
+                    param = str(param).replace("'", "")
                     right = int(param[1:])
                     fig.add_shape(
                     type="line",
@@ -130,6 +131,7 @@ class DistributionPlot(tk.Frame):
                     )
                     color_index += 1
                 else:
+                    param = str(param).replace("'", "")
                     left, right = map(int, param.split("-"))
                     fig.add_hrect(
                         y0 = left,
@@ -216,7 +218,7 @@ class DistributionPlot(tk.Frame):
         #* Save the plot as a PNG
         img_bytes = fig.to_image(format="png")
         img = Image.open(io.BytesIO(img_bytes))
-        img.save(f'figures output/DistributionPlot{name.upper()}.png')
+        img.save(f'figures output/DistributionPlot{name.upper()}{period}.png')
 
         #* Test code
         # #! REMEMBER TO REMOVE

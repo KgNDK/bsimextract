@@ -61,7 +61,51 @@ def on_variable_change_int(name, index, mode, variable, starting_value = "", tex
             CTkMessagebox.CTkMessagebox(title = "Error", message = "Value must be a number!\nValue has been reset!\nPlease try again", icon = "warning")
             variable.set(starting_value)
 
-def on_page_menu_var_change(name, index, mode, variable, frame, dict, new_data_var, path_var, co2_dayprofile_var, rh_dayprofile_var, temp_dayprofile_var, airch_dayprofile_var, row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY): 
+def on_page_menu_var_change(name,
+                            index,
+                            mode,
+                            variable,
+                            frame,
+                            dict,
+                            new_data_var,
+                            path_var,
+                            co2_dayprofile_var_always,
+                            co2_dayprofile_var_summer,
+                            co2_dayprofile_var_transition,
+                            co2_dayprofile_var_winter,
+                            rh_dayprofile_var_always,
+                            rh_dayprofile_var_summer,
+                            rh_dayprofile_var_transition,
+                            rh_dayprofile_var_winter,
+                            temp_dayprofile_var_always,
+                            temp_dayprofile_var_summer,
+                            temp_dayprofile_var_transition,
+                            temp_dayprofile_var_winter,
+                            airch_dayprofile_var_always,
+                            airch_dayprofile_var_summer,
+                            airch_dayprofile_var_transition,
+                            airch_dayprofile_var_winter,
+                            co2_parameter_var_always,
+                            co2_parameter_var_summer,
+                            co2_parameter_var_transition,
+                            co2_parameter_var_winter,
+                            rh_parameter_var_always,
+                            rh_parameter_var_summer,
+                            rh_parameter_var_transition,
+                            rh_parameter_var_winter,
+                            temp_parameter_var_always,
+                            temp_parameter_var_summer,
+                            temp_parameter_var_transition,
+                            temp_parameter_var_winter,
+                            airch_parameter_var_always,
+                            airch_parameter_var_summer,
+                            airch_parameter_var_transition,
+                            airch_parameter_var_winter,
+                            row = 0,
+                            column = 1,
+                            sticky = "nsew",
+                            padx = STANDARD_PADX,
+                            pady = STANDARD_PADY): 
     """
     Function to handle a change in the page menu variable.
 
@@ -89,20 +133,59 @@ def on_page_menu_var_change(name, index, mode, variable, frame, dict, new_data_v
 
     value = f"display_{variable.get()}".lower()
     
-    send_var = None
+    send_day_var_always = None
+    send_day_var_summer = None
+    send_day_var_transition = None
+    send_day_var_winter = None
+    send_param_var_always = None
+    send_param_var_summer = None
+    send_param_var_transition = None
+    send_param_var_winter = None
+
     if str(variable.get()).lower() == "co2":
-        send_var = co2_dayprofile_var
+        send_day_var_always = co2_dayprofile_var_always
+        send_day_var_summer = co2_dayprofile_var_summer
+        send_day_var_transition = co2_dayprofile_var_transition
+        send_day_var_winter = co2_dayprofile_var_winter
+        send_param_var_always = co2_parameter_var_always
+        send_param_var_summer = co2_parameter_var_summer
+        send_param_var_transition = co2_parameter_var_transition
+        send_param_var_winter = co2_parameter_var_winter
     elif str(variable.get()).lower() == "relhumid":
-        send_var = rh_dayprofile_var
+        send_day_var_always = rh_dayprofile_var_always
+        send_day_var_summer = rh_dayprofile_var_summer
+        send_day_var_transition = rh_dayprofile_var_transition
+        send_day_var_winter = rh_dayprofile_var_winter
+        send_param_var_always = rh_parameter_var_always
+        send_param_var_summer = rh_parameter_var_summer
+        send_param_var_transition = rh_parameter_var_transition
+        send_param_var_winter = rh_parameter_var_winter
     elif str(variable.get()).lower() == "temperature":
-        send_var = temp_dayprofile_var
+        send_day_var_always = temp_dayprofile_var_always
+        send_day_var_summer = temp_dayprofile_var_summer
+        send_day_var_transition = temp_dayprofile_var_transition
+        send_day_var_winter = temp_dayprofile_var_winter
+        send_param_var_always = temp_parameter_var_always
+        send_param_var_summer = temp_parameter_var_summer
+        send_param_var_transition = temp_parameter_var_transition
+        send_param_var_winter = temp_parameter_var_winter
     elif str(variable.get()).lower() == "airchange":
-        send_var = airch_dayprofile_var
+        send_day_var_always = airch_dayprofile_var_always
+        send_day_var_summer = airch_dayprofile_var_summer
+        send_day_var_transition = airch_dayprofile_var_transition
+        send_day_var_winter = airch_dayprofile_var_winter
+        send_param_var_always = airch_parameter_var_always
+        send_param_var_summer = airch_parameter_var_summer
+        send_param_var_transition = airch_parameter_var_transition
+        send_param_var_winter = airch_parameter_var_winter
     else:
         pass
     
-    if value in dict:
-        dict[value](frame, new_data_var, variable, path_var, send_var).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)  
+
+    if str(variable.get()).lower() == "start":
+        dict[value](frame).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)
+    elif value in dict:
+        dict[value](frame, new_data_var, variable, path_var, send_day_var_always, send_day_var_summer, send_day_var_transition, send_day_var_winter, send_param_var_always, send_param_var_summer, send_param_var_transition, send_param_var_winter).grid(row=row, column=column, sticky=sticky, padx=padx, pady=pady)  
     else:
         print(f"Variable not found: {variable.get()}")
         CTkMessagebox.CTkMessagebox(title = "Error", message = "Variable not found", icon = "warning")

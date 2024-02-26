@@ -76,7 +76,7 @@ class app(ctk.CTk):
             "display_airchange": display_airchange
             }
         dayprofile_var = None
-        display_start(self, self.new_data_var, self.page_menu_var, self.path_var, dayprofile_var).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
+        display_start(self).grid(row = 0, column = 1, sticky = "nsew", padx = STANDARD_PADX, pady = STANDARD_PADY)
 
         self.page_menu_var.trace("w", lambda 
                                  name, 
@@ -90,10 +90,39 @@ class app(ctk.CTk):
                                                                                  function_dict, 
                                                                                  self.new_data_var, 
                                                                                  self.path_var, 
-                                                                                 self.co2_dayprofile_var_always, 
-                                                                                 self.rh_dayprofile_var_always, 
-                                                                                 self.temp_dayprofile_var_always, 
-                                                                                 self.airch_dayprofile_var_always))
+                                                                                 self.co2_dayprofile_var_always,
+                                                                                 self.co2_dayprofile_var_summer,
+                                                                                 self.co2_dayprofile_var_transition,
+                                                                                 self.co2_dayprofile_var_winter,
+                                                                                 self.rh_dayprofile_var_always,
+                                                                                 self.rh_dayprofile_var_summer,
+                                                                                 self.rh_dayprofile_var_transition,
+                                                                                 self.rh_dayprofile_var_winter,
+                                                                                 self.temp_dayprofile_var_always,
+                                                                                 self.temp_dayprofile_var_summer,
+                                                                                 self.temp_dayprofile_var_transition,
+                                                                                 self.temp_dayprofile_var_winter,
+                                                                                 self.airch_dayprofile_var_always,
+                                                                                 self.airch_dayprofile_var_summer,
+                                                                                 self.airch_dayprofile_var_transition,
+                                                                                 self.airch_dayprofile_var_winter,
+                                                                                 self.co2_parameter_var_always,
+                                                                                 self.co2_parameter_var_summer,
+                                                                                 self.co2_parameter_var_transition,
+                                                                                 self.co2_parameter_var_winter,
+                                                                                 self.rh_parameter_var_always,
+                                                                                 self.rh_parameter_var_summer,
+                                                                                 self.rh_parameter_var_transition,
+                                                                                 self.rh_parameter_var_winter,
+                                                                                 self.temp_parameter_var_always,
+                                                                                 self.temp_parameter_var_summer,
+                                                                                 self.temp_parameter_var_transition,
+                                                                                 self.temp_parameter_var_winter,
+                                                                                 self.airch_parameter_var_always,
+                                                                                 self.airch_parameter_var_summer,
+                                                                                 self.airch_parameter_var_transition,
+                                                                                 self.airch_parameter_var_winter
+                                                                                 ))
 
         # page menu
         page_menu(self,
