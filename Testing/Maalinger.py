@@ -58,9 +58,12 @@ from func.figures.distribution_plot import DistributionPlot
 
 
 
-path_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/DATA/Data til Mikkel 1.th..txt")
+# path_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/DATA/Data til Mikkel 1.th..txt")
+# path_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/DATA/Data til Mikkel til Jeppe.txt")
+path_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/DATA/Data til Mikkel DHW.txt")
+# path_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/DATA/Data til Mikkel DHW 1.th..txt")
 dayprofile_var = os.path.normpath("C:/Users/Mikkel H. Lauridsen/OneDrive - Aalborg Universitet/Programmer/03 BSimExtract/bsimextract/dayprofiles/dayprofile_altid.txt")
-df = discard_data(import_data(path_var), "RelHumid")
+df = discard_data(import_data(path_var), "DHW")
 # df = df.drop(634)
 
 # print(len(df.columns))
@@ -73,25 +76,39 @@ df = discard_data(import_data(path_var), "RelHumid")
 
 name = ["Co2", "RelHumid", "Top ", "AirChange"]
 parameters = {
-    "Co2": [950, 1200],
-    "RelHumid": ["-25", "25-60", 60],
-    "Top ": [27, 28],
-    "AirChange": ["-2", "2-4", 4]
+    "Co2": (950, 1200),
+    "RelHumid": ('-25', '25-60', 60),
+    "Top ": (27, 28),
+    # "AirChange": (-2, 2-4, 4)
 }
+period = "Always"
 root = ctk.CTk()
 ctk.set_appearance_mode(COLOR_MODE)
 
 root.title("TEST: display_rh")
 root.geometry("800x300")
 
-for i in name:
-    current_parameters = parameters[i]
-    # print(parameters[i])
-    df = discard_data(import_data(path_var), i)
+# for i in name:
+#     current_parameters = parameters[i]
+
+#     input = str(current_parameters).replace("(", "").replace(")", "").replace(" ", "").split(",")
+#     current_parameters = [int(x) if "-" not in x else x for x in input]
+
+#     # print(parameters[i])
+#     df = discard_data(import_data(path_var), i)
+
+#     print(current_parameters)
     
-    ScatterPlot(root, df, Interval_unit = "d", parameters = current_parameters)
-    BarPlot(root, df, current_parameters, Interval = "Dage", Interval_unit = "d")
-    DistributionPlot(root, df, parameters=current_parameters)
+#     ScatterPlot(root, df, period, current_parameters, Interval_unit = "d")
+#     BarPlot(root, df, period, current_parameters, Interval = "Dage", Interval_unit = "d")
+#     DistributionPlot(root, df, period, current_parameters)
+
+current_parameters = (0.056)
+input = str(current_parameters).replace("(", "").replace(")", "").replace(" ", "").split(",")
+current_parameters = [float(x) if x.replace(".", "", 1).replace("-", "", 1).isdigit() else x for x in input]
+ScatterPlot(root, df, period, current_parameters, Interval_unit = "d")
+BarPlot(root, df, period, current_parameters, Interval = "Dage", Interval_unit = "d")
+DistributionPlot(root, df, period, current_parameters)
 
 root.mainloop()
     

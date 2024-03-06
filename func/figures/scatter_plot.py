@@ -132,7 +132,7 @@ class ScatterPlot(tk.Frame):
                 yaxis_showgrid=True,
             )
         else:
-            unit = ""
+            unit = "m^3/d"
 
 
         color_index = 0
@@ -142,7 +142,7 @@ class ScatterPlot(tk.Frame):
 
         for param in parameters:
 
-            if isinstance(param, int):
+            if isinstance(param, (int, float)):
                 fig.add_shape(
                     type="line",
                     x0 = 0,
@@ -205,6 +205,7 @@ class ScatterPlot(tk.Frame):
             paper_bgcolor = PLOTLY_STANDARD_PAPER_BACKGROUND_COLOR,
             plot_bgcolor="white",
             autosize = PLOTLY_STANDARD_AUTOSIZE,
+            showlegend=True,
             xaxis = dict(
                 gridcolor='LightGrey',
                 range=[0, length_df],
