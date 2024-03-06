@@ -18,7 +18,7 @@ print(df)
 fig1 = go.Figure(
         layout=go.Layout(
             # title="Opvarmning vs. Forbrug",
-            yaxis_title="[kWh pr. år]",
+            yaxis_title="Energi [kWh pr. år]",
             barmode="group",
             height=300,
             width=1000,
@@ -104,7 +104,7 @@ fig1.add_trace(go.Scatter(
 
 
 fig1.update_layout(yaxis3=dict(
-    title="[%]",
+    title="Udnyttelses-faktor [%]",
     overlaying="y",
     side="right",
     range=[0,100], showgrid=False
@@ -141,6 +141,6 @@ fig2.update_layout(
     )
 )
 
-fig2.show()
+# fig2.show()
 
-fig2.write_image("elforbrug_pie.png", engine="kaleido")
+# fig2.write_image("elforbrug_pie.png", engine="kaleido")

@@ -126,6 +126,9 @@ class display_co2(ctk.CTkFrame):
                     if period.lower() == "always":
                         input = str(parameters_always).replace("(", "").replace(")", "").replace(" ", "").split(",")
                         parameters = [int(x) if "-" not in x else x for x in input]
+                        
+                        parameters = parameters[0]
+                        print(parameters)
                     elif period.lower() == "summer":
                         input = str(parameters_summer).replace("(", "").replace(")", "").replace(" ", "").split(",")
                         parameters = [int(x) if "-" not in x else x for x in input]

@@ -139,7 +139,7 @@ class ScatterPlot(tk.Frame):
 
         # parameters = parameters.replace("(", "").replace(")", "")
 
-
+        
         for param in parameters:
 
             if isinstance(param, (int, float)):
