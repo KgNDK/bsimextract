@@ -92,12 +92,16 @@ class BarPlot(tk.Frame):
             counts = []
             for param in parameters:
                 if isinstance(param, (int, float)):
+<<<<<<< HEAD
                     if startswith:
                         counts.append(sum(df[column].astype(float) >= param - 0.1))
                         startswith = False
                     else:
                         counts.append(sum(df[column].astype(float) >= param))
                         startswith = False
+=======
+                    counts.append(sum(df[column].astype(float) > param))
+>>>>>>> 2c02f2344084e5cec775b44b80c1ed48eed581e0
                 else:
                     if param.startswith("'-"):
                         param = str(param).replace("'", "")
