@@ -212,4 +212,4 @@ fig2.update_layout(barmode='stack', xaxis={'categoryorder':'total ascending'})
 
 fig2.show()
 
-# fig2.write_image("energiforbrug.png", engine="kaleido")
+fig2.write_image("energiforbrug.png", engine="kaleido")

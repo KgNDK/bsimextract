@@ -92,6 +92,9 @@ class DistributionPlot(tk.Frame):
             #* Converting data to two decimals to avoid sorting algorithmic errors
             for column in df.columns[5:]:
                 df[column] = pd.to_numeric(df[column], errors='coerce').fillna(0).round(2)
+        else:
+            label = label_input
+            unit = "m^3/d"
             
 
         #* Sorting data
@@ -101,7 +104,7 @@ class DistributionPlot(tk.Frame):
         color_index = 0
 
         for param in parameters:
-            if isinstance(param, int):
+            if isinstance(param, (int, float)):
                 fig.add_shape(
                     type="line",
                     x0 = 0,
@@ -179,6 +182,7 @@ class DistributionPlot(tk.Frame):
             autosize = PLOTLY_STANDARD_AUTOSIZE,
             font=dict(family="Calibri", size=20),
             autotypenumbers="convert types",
+            showlegend=True,
             xaxis = dict(
                 visible=False
                 

@@ -77,6 +77,8 @@ class BarPlot(tk.Frame):
         elif label.lower() == "airchange":
             unit = "h^-1"
             label = "Luftskifte"
+        else:
+            unit = "m^3/d"
         
 
         
@@ -88,7 +90,7 @@ class BarPlot(tk.Frame):
         for column in df.columns[5:]:
             counts = []
             for param in parameters:
-                if isinstance(param, int):
+                if isinstance(param, (int, float)):
                     counts.append(sum(df[column].astype(float) > param))
                 else:
                     if param.startswith("'-"):
@@ -132,7 +134,8 @@ class BarPlot(tk.Frame):
 
         #* Secondary y axis auto scaling 
         adjustment = df_counts.max().max()/10
-        ratio = round(1. / (length_df - adjustment), 5)
+        # ratio = round(1. / (length_df - adjustment), 5)
+        ratio = round(1. / (length_df), 5)
 
         fig.add_trace(go.Scatter(
             x=[],
@@ -150,6 +153,7 @@ class BarPlot(tk.Frame):
             margin=dict(b=5,t=10,l=5,r=10),
             paper_bgcolor="white",
             plot_bgcolor="white",
+            showlegend=True,
             font=dict(
                 family="Calibri",
                 size=20
@@ -176,7 +180,7 @@ class BarPlot(tk.Frame):
                 title = "Andel af total brugstid [%]",
                 overlaying = "y",
                 side = "right",
-                range = [0, df_counts.max().max()*ratio*100],
+                range = [0, (df_counts.max().max() + adjustment)*ratio*100],
                 showgrid = False
             )
         )                
