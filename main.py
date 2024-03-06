@@ -192,7 +192,7 @@ class app(ctk.CTk):
         self.new_data_var.trace("w", lambda name, index, mode, var=self.new_data_var: print(f"{name} has been changed to: {var.get()}"))
 
 
-        # #! display 
+        # #! display
         # self.display_height_var = ctk.IntVar(name = "display_height_var")
         # self.display_width_var = ctk.IntVar(name = "display_width_var")
 
