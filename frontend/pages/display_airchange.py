@@ -117,17 +117,25 @@ class display_airchange(ctk.CTkFrame):
                     df = discard_data(import_data_dayprofile(path, dayprofile), f"{name}")
                     period = key.split("_")[1].capitalize()
                     if period.lower() == "always":
+                        if parameters_always.endswith(",)"):
+                            parameters_always = parameters_always.replace(",)", ")")
                         input = str(parameters_always).replace("(", "").replace(")", "").replace(" ", "").split(",")
-                        parameters = [int(x) if "-" not in x else x for x in input]
+                        parameters = [int(x) if x and "-" not in x else x for x in input]
                     elif period.lower() == "summer":
+                        if parameters_summer.endswith(",)"):
+                            parameters_summer = parameters_summer.replace(",)", ")")
                         input = str(parameters_summer).replace("(", "").replace(")", "").replace(" ", "").split(",")
-                        parameters = [int(x) if "-" not in x else x for x in input]
+                        parameters = [int(x) if x and "-" not in x else x for x in input]
                     elif period.lower() == "transition":
+                        if parameters_transition.endswith(",)"):
+                            parameters_transition = parameters_transition.replace(",)", ")")
                         input = str(parameters_transition).replace("(", "").replace(")", "").replace(" ", "").split(",")
-                        parameters = [int(x) if "-" not in x else x for x in input]
+                        parameters = [int(x) if x and "-" not in x else x for x in input]
                     elif period.lower() == "winter":
+                        if parameters_winter.endswith(",)"):
+                            parameters_winter = parameters_winter.replace(",)", ")")
                         input = str(parameters_winter).replace("(", "").replace(")", "").replace(" ", "").split(",")
-                        parameters = [int(x) if "-" not in x else x for x in input]
+                        parameters = [int(x) if x and "-" not in x else x for x in input]
                     else:
                         parameters = ["-2", "2-4", 4]
 
